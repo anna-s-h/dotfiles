@@ -6,8 +6,8 @@
     font.name = "mesloLGS NF";
     font.size = 14;
     settings = {
-      foreground = "#${config.colorScheme.palette.base05}";
-      background = "#${config.colorScheme.palette.base00}";
+      #foreground = "#${config.colorScheme.palette.base05}";
+      #background = "#${config.colorScheme.palette.base00}";
       background_opacity = "0.90";
       #background_blur = "0"; #handled by de
     };
