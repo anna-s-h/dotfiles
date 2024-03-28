@@ -122,7 +122,6 @@
 
       exec-once = [
         "bash ~/dotfiles/startup.sh"
-        "[workspace special:passwords silent] keepassxc" #add a keyfile to this
         "[workspace special:term silent] $terminal" #add a keyfile to this
       ];
 
@@ -130,9 +129,9 @@
       #  "opacity 0.99, obsidian" #doesn't help. obsidian transparency is just broken.
       #];
 
-      #windowrulev2 = [ this was in the defaults but errors?
-      #  "suppressevent maximize, class:.*"
-      #];
+      windowrulev2 = [
+        "noinitialfocus, workspace special:passwords, class:(keepass)"
+      ];
 
       animations = {
           enabled = "yes";

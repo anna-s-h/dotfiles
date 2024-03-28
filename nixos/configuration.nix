@@ -2,6 +2,7 @@
   imports = [
     ./hardware-configuration.nix
     inputs.home-manager.nixosModules.default
+    inputs.sops-nix.nixosModules.sops
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes"];
@@ -12,6 +13,7 @@
     kitty
     git
     git-crypt
+    sops
     grim
     vlc
     keepassxc #needs config
@@ -124,6 +126,36 @@
     };
   };
 
+  users.users.keepass-start = {
+    home = "/var/lib/keepass-start";
+    createHome = true;
+    isSystemUser = true;
+    group = "keepass-start";
+  };
+  users.groups.keepass-start = {};
+  sops.secrets.keepass = {owner="keepass-start";};
+  systemd.user.services.keepass-start = {
+    description = "unlock keepass vault on startup";
+    serviceConfig.PassEnvironment = "DISPLAY";
+    script = ''
+      cat ${config.sops.secrets.keepass.path} | keepassxc --pw-stdin ~/SynologyDrive/Passwords.kdbx
+    '';
+    wantedBy = ["default.target"];
+    serviceConfig = {
+      User = "keepass-start";
+      WorkingDirectory = "/var/lib/keepass-start";
+    };
+  };
+
+
+  # sops secrets go into the nix store and can be rolled back, are encrypted with two keys, but can only be accessed by specific users.
+  # files in ~/dotfiles/private/ are encrypted with only one of the two keys, and are not put into the nix store, but can be accessed by all userspace programs.
+  sops.defaultSopsFile = ./secrets/secrets.yaml;
+  sops.defaultSopsFormat = "yaml";
+  sops.age.keyFile = "/home/solanum/Keys/age.txt";
+  #sops.secrets."path" = {owner="service";}; #to publish one to /run/secrets/path
+  #${config.sops.secrets."path".path} #to get path to secret for use in a service (remember to set the owner)
+
   xdg.portal.enable = true;
   xdg.portal.xdgOpenUsePortal = true;
   #xdg.portal.extraPortals = with pkgs; [
@@ -147,18 +179,20 @@
     NIXOS_OZONE_WL = "1"; # something to do with electron?
     WLR_NO_HARDWARE_CURSORS = "1";
     QT_STYLE_OVERRIDE="breeze";
+    SOPS_AGE_KEY_FILE="~/Keys/age.txt";
   };
 
   services.udev.packages = with pkgs; [
     antimicrox
   ];
 
+  sops.secrets.nas_credentials = {};
   fileSystems."/mnt/NAS/webscrape" = {
     device = "//192.168.8.183/Webscrape";
     fsType = "cifs";
     options = let
       automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=30s,nofail";
-    in ["${automount_opts},credentials=../private/secrets/smb.txt,uid=1000,gid=100"];
+    in ["${automount_opts},credentials=${config.sops.secrets.nas_credentials.path},uid=1000,gid=100"];
   };
 
   fileSystems."/mnt/NAS/media" = {
@@ -166,7 +200,7 @@
     fsType = "cifs";
     options = let
       automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=30s,nofail";
-    in ["${automount_opts},credentials=../private/secrets/smb.txt,uid=1000,gid=100"];
+    in ["${automount_opts},credentials=${config.sops.secrets.nas_credentials.path},uid=1000,gid=100"];
   };
 
   #fileSystems."/mnt/NAS/backups" = { #excluded because it is used rarely enough that a mount seems overkill
