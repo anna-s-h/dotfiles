@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 
-swww init &
+swww init &&
 swww img ~/dotfiles/wallpapers/quantum-moon.png &
 #nm-applet --indicator &
-waybar &
 dunst &
 kdeconnect-indicator &
 antimicrox --tray &

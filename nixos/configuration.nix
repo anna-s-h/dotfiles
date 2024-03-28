@@ -11,6 +11,7 @@
   #system basics
     kitty
     git
+    git-crypt
     grim
     vlc
     keepassxc #needs config
@@ -130,8 +131,7 @@
   #  xdg-desktop-portal-kde #probably comes with kde
   #];
 
-  # Enable the X11 windowing system.
-  # Do I really need this?
+  # NixOS has some confusing, unnecessary coupling with xserver
   services.xserver.enable = true;
   services.xserver.displayManager.sddm.enable = true;
 
@@ -158,7 +158,7 @@
     fsType = "cifs";
     options = let
       automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=30s,nofail";
-    in ["${automount_opts},credentials=/home/solanum/secrets/smb.txt,uid=1000,gid=100"];
+    in ["${automount_opts},credentials=../private/secrets/smb.txt,uid=1000,gid=100"];
   };
 
   fileSystems."/mnt/NAS/media" = {
@@ -166,7 +166,7 @@
     fsType = "cifs";
     options = let
       automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=30s,nofail";
-    in ["${automount_opts},credentials=/home/solanum/secrets/smb.txt,uid=1000,gid=100"];
+    in ["${automount_opts},credentials=../private/secrets/smb.txt,uid=1000,gid=100"];
   };
 
   #fileSystems."/mnt/NAS/backups" = { #excluded because it is used rarely enough that a mount seems overkill
