@@ -17,12 +17,14 @@
   };
   plugins.treesitter = {
     enable = true;
-    # probably missing settings
+    indent = true;
+    folding = true;
   };
   plugins.fugitive.enable = true;
   plugins.lsp = {
     enable = true;
     servers = {
+      nixd.enable = true;
       #rust-analyzer.enable = true;
     };
     #keybinds missing
