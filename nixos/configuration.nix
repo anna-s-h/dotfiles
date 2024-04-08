@@ -29,7 +29,7 @@
 
   sops.defaultSopsFile = ./secrets/secrets.yaml;
   sops.defaultSopsFormat = "yaml";
-  sops.age.keyFile = "/home/solanum/Keys/age.txt";
+  sops.age.keyFile = "/home/solanum/keys/age.txt";
 
   fileSystems."/mnt/big" = {
     device = "/dev/disk/by-uuid/fb1929c4-602f-4b52-83e9-e7b76fdffb4b";

@@ -99,7 +99,7 @@
     enable = true;
     config = {
       user.name = "anna-s-h";
-      core.sshCommand = "ssh -i ~/Keys/git-ssh";
+      core.sshCommand = "ssh -i ~/keys/git-ssh";
     };
   };
 
@@ -132,7 +132,7 @@
     NIXOS_OZONE_WL = "1"; # something to do with electron?
     WLR_NO_HARDWARE_CURSORS = "1";
     QT_STYLE_OVERRIDE="breeze";
-    SOPS_AGE_KEY_FILE="~/Keys/age.txt";
+    SOPS_AGE_KEY_FILE="~/keys/age.txt";
   };
   xdg.portal.enable = true;
   xdg.portal.xdgOpenUsePortal = true;
