@@ -3,12 +3,15 @@
     ./home-managed/firefox.nix
     ./home-managed/hyprland.nix
     ./home-managed/terminal.nix
+    inputs.nixvim.homeManagerModules.nixvim
   ];
 
   home.username = "solanum";
   home.homeDirectory = "/home/solanum";
 
   programs.eww.configDir = ./home-managed/eww;
+
+  programs.nixvim = import ./home-managed/nvim/nixvim.nix;
 
   ### None of this section works, for some reason
 

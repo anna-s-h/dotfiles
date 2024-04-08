@@ -5,6 +5,7 @@
     ./packages.nix
     ./nas.nix
     inputs.home-manager.nixosModules.default
+    #inputs.nixvim.homeManagerModules.nixvim
     inputs.sops-nix.nixosModules.sops
   ];
 
