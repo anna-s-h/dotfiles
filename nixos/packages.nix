@@ -74,7 +74,7 @@
     wl-clipboard # replace by clipboard manager of some kind?
     hyprlock #eww might replace this?
     eww
-    #hypridle #disabled for now for being buggy
+    hypridle #needs config(hybrid suspend)
     dunst #eww can replace this (eventually)
     swww #or wpaperd?
     rofi-wayland

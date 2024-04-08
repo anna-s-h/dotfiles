@@ -36,6 +36,8 @@
   };
 
   boot = {
+    #initrd.systemd.enable = true;
+    resumeDevice = "/dev/disk/by-uuid/95e4d071-afd4-4199-9cd5-e7f89ba77b80";
     loader.grub = {
       enable = true;
       device = "/dev/sda";

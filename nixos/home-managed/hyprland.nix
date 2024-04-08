@@ -1,126 +1,131 @@
 { config, pkgs, ... } : {
   wayland.windowManager.hyprland = {
     enable = true;
-
-    plugins = [
-
-    ];
-
-    #unfortunately binds must be done like this to use submaps as of current version.
-    extraConfig = ''
-
-    #Main binds
-      submap = reset
-      bind = $mainMod, space, exec, $menu
-      #desktop
-      bind = $mainMod, F, fullscreen,
-      bind = $mainMod, J, togglespecialworkspace, term
-      bind = $mainMod, K, killactive,
-      #help
-      #task manager
-      bind = $mainMod, E, exec, $fileManager
-      bind = $mainMod, T, exec, $terminal
-      #maximize
-      #hide
-      bind = $mainMod, Y, exec, [float] $calculator || hyprctl dispatch focuswindow title:Qalculate
-      #search
-      bind = $mainMod, V, togglefloating,
-      bind = $mainMod, M, exit, #replace with powermenu
-      bind = $mainMod, N, exec, obsidian
-      bind = $mainMod, Q, exec, hyprctl activewindow | grep pid | tr -d 'pid:' | xargs kill
-      #controller script toggle
-      bind = $mainMod, P, togglespecialworkspace, passwords
-      bind = $mainMod, W, togglespecialworkspace, magic
-      bind = $mainMod SHIFT, W, movetoworkspace, special:magic
-
-    #Take screenshots
-      bind = , Print, exec, grim - | wl-copy && wl-paste > $(xdg-user-dir PICTURES)/$(date +'%Y-%m-%d-%H%M%S.png')
-
-    #Move focus
-      bind = $mainMod, left, movefocus, l
-      bind = $mainMod, right, movefocus, r
-      bind = $mainMod, up, movefocus, u
-      bind = $mainMod, down, movefocus, d
-
-    #Move window with mainmod + shift + arrows
-      #
-      #
-      #
-      #
-
-    #Move/resize windows
-      bindm = $mainMod, mouse:272, movewindow
-      bindm = $mainMod, mouse:273, resizewindow
-
-    #Control audio volume
-      bindel=, XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
-      bindel=, XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
-
-    #Enter workspace mode
-      bind = $mainMod, S, submap, wsmap
-      submap = wsmap
-
-    #Eat stray inputs
-    #currently doesn't work?
-      bind = , catchall, exec, #nothing
-
-    #Switch workspaces
-      bind = , 1, workspace, 1
-      bind = , 2, workspace, 2
-      bind = , 3, workspace, 3
-      bind = , 4, workspace, 4
-      bind = , 5, workspace, 5
-      bind = , 6, workspace, 6
-      bind = , 7, workspace, 7
-      bind = , 8, workspace, 8
-      bind = , 9, workspace, 9
-      bind = , 0, workspace, 10
-
-    #Move active window to a workspace
-      bind = SHIFT, 1, movetoworkspace, 1
-      bind = SHIFT, 2, movetoworkspace, 2
-      bind = SHIFT, 3, movetoworkspace, 3
-      bind = SHIFT, 4, movetoworkspace, 4
-      bind = SHIFT, 5, movetoworkspace, 5
-      bind = SHIFT, 6, movetoworkspace, 6
-      bind = SHIFT, 7, movetoworkspace, 7
-      bind = SHIFT, 8, movetoworkspace, 8
-      bind = SHIFT, 9, movetoworkspace, 9
-      bind = SHIFT, 0, movetoworkspace, 10
-
-    #Scroll through existing workspaces
-      bind = , mouse_down, workspace, e+1
-      bind = , mouse_up, workspace, e-1
-
-    #Launch program and go to normal mode
-      bind = , space, exec, $menu
-      bind = , space, submap, reset
-
-    #Go back to normal mode
-      bind = , Return, submap, reset
-
-    #Why is this needed?
-      submap = reset
-    '';
+    plugins = [ ];
+    systemd.variables = ["--all"];
 
     settings = {
+      # See https://wiki.hyprland.org/Configuring/Keywords/ for more
+      "$moda" = "SUPER";
+      "$modb" = "SUPER_ALT";
 
       "$terminal" = "kitty";
-      "$fileManager" = "dolphin";
+      "$fileManager" = "thunar";
       "$menu" = "rofi -show drun -show-icons";
-      "$calculator" = "qalculate-qt";
+      "$calculator" = "[float] qalculate-qt || hyprctl dispatch focuswindow title:Qalculate"; #TODO doesn't work to focus window
+      "$search" = "";
+
+      #TODO consider groups
+
+      bind = [
+        #WS-IDs keys: 1 2 3 4 5 6 7 8 9 0 W S P J H
+        #B-less keys: L E C M N V T ?
+        #Unused keys: R Y U I O B < >
+        #Banned keys: Q A Z X
+
+        #Main binds
+        "$moda, space, exec, $menu"
+        "$modb, space, exec, $search"
+        #TODO antimicrox toggle
+        "$moda, D, exec, "#TODO desktop
+        "$modb, D, exec, "#TODO peek
+        "$moda, F, fullscreen, 0"
+        "$modb, F, fullscreen, 1"
+        "$moda, G, togglefloating"
+        "$modb, G, pin"
+        "$modb, J, exec, $terminal"
+        "$moda, K, killactive"
+        "$modb, K, exec, hyprctl activewindow | grep pid | tr -d 'pid:' | xargs kill" #TODO this is unreliable because activewindow could include pid in title
+        "$moda, L, exec, "#TODO help
+        "$moda, E, exec, $fileManager"
+        "$moda, C, exec, $calculator"
+        "$moda, M, exit"#TODO replace with menu
+        "$moda, N, exec, obsidian"
+        "$moda, V, exec, "#TODO clipboard
+        "$moda, T, exec, "#TODO time
+        "$moda, semicolon, exec, "#TODO perfreport
+        "$modb, semicolon, exec, "#TODO top
+        "$moda, question,  exec, "#TODO notifications
+
+        #Take screenshots
+        "     , Print, exec, grim - | wl-copy && wl-paste > $(xdg-user-dir PICTURES)/$(date +'%Y-%m-%d-%H%M%S.png')" #TODO one-window
+        "$moda, Print, exec, grim - | wl-copy && wl-paste > $(xdg-user-dir PICTURES)/$(date +'%Y-%m-%d-%H%M%S.png')" #TODO one-screen
+        "$modb, Print, exec, grim - | wl-copy && wl-paste > $(xdg-user-dir PICTURES)/$(date +'%Y-%m-%d-%H%M%S.png')"
+
+        #Move focus
+        "$moda, left,  movefocus, l"
+        "$moda, right, movefocus, r"
+        "$moda, up,    movefocus, u"
+        "$moda, down,  movefocus, d"
+
+        #History focus
+        #TODO
+
+        #Move window with mainmod + shift + arrows
+        #TODO
+
+        #Switch workspaces
+        "$moda, 1, workspace, 1"
+        "$moda, 2, workspace, 2"
+        "$moda, 3, workspace, 3"
+        "$moda, 4, workspace, 4"
+        "$moda, 5, workspace, 5"
+        "$moda, 6, workspace, 6"
+        "$moda, 7, workspace, 7"
+        "$moda, 8, workspace, 8"
+        "$moda, 9, workspace, 9"
+        "$moda, 0, workspace, 10"
+        "$moda, W, togglespecialworkspace, magic"
+        "$moda, S, workspace, school"
+        "$moda, P, togglespecialworkspace, passwords"
+        "$moda, J, togglespecialworkspace, term"
+        "$moda, H, movetoworkspacesilent, special:hidden"
+
+        #Move active window to a workspace
+        "$modb, 1, movetoworkspace, 1"
+        "$modb, 2, movetoworkspace, 2"
+        "$modb, 3, movetoworkspace, 3"
+        "$modb, 4, movetoworkspace, 4"
+        "$modb, 5, movetoworkspace, 5"
+        "$modb, 6, movetoworkspace, 6"
+        "$modb, 7, movetoworkspace, 7"
+        "$modb, 8, movetoworkspace, 8"
+        "$modb, 9, movetoworkspace, 9"
+        "$modb, 0, movetoworkspace, 10"
+        "$modb, W, movetoworkspace, special:magic"
+        "$modb, S, movetoworkspace, school"
+        "$modb, H, togglespecialworkspace, hidden"
+        "$modb, H, movetoworkspace, +0"
+
+        #Scroll through existing workspaces
+        "$moda, mouse_down, workspace, e+1"
+        "$moda, mouse_up,   workspace, e-1"
+      ];
+
+      bindm = [
+        #Move/resize windows
+        "$moda, mouse:272, movewindow"
+        "$moda, mouse:273, resizewindow"
+      ];
+
+      bindel = [
+        #Control audio volume
+        ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
+        ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+      ];
 
       misc = {
         focus_on_activate="true";
         key_press_enables_dpms="true";
       };
 
-      # See https://wiki.hyprland.org/Configuring/Keywords/ for more
-      "$mainMod" = "SUPER";
-
       exec-once = [
-        "bash ~/dotfiles/startup.sh"
-        "[workspace special:term silent] $terminal" #add a keyfile to this
+        "bash ~/dotfiles/startup.sh" #TODO remove entirely
+        "[workspace special:term silent] $terminal" #TODO make unkillable?
+        "[workspace special:hidden silent] kdeconnect-app"
+        "[workspace special:hidden silent] antimicrox"
+        "swww init && swww img ~/dotfiles/wallpapers/quantum-moon.png"
+        "hypridle"
       ];
 
       #windowrule = [

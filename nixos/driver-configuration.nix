@@ -15,8 +15,11 @@
   hardware.nvidia = {
     modesetting.enable = true; # Required!
     open = false;
+    powerManagement.enable = true;
     #package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
+
+  boot.kernelParams = [ "nvidia.NVreg_PreserveVideoMemoryAllocations=1" ];
 
   time.timeZone = "America/New_York";
   i18n.defaultLocale = "en_US.UTF-8";
