@@ -21,6 +21,9 @@
     }{ mode = "n";
         key = "<leader>Y";
         action = "\"+Y";
+    }{ mode = ["n" "v"];
+        key = "<leader>y";
+        action = "\"+y";
     }
 
 # format whole file
@@ -45,19 +48,19 @@
     }
 
 #finders
-#    { mode = "n";
-#        key = "<leader>ff";
-#        action = "vim.cmd.Telescope.find_files";
-#        lua = true;
-#    }{ mode = "n";
-#        key = "<leader>fg";
-#        action = "vim.cmd.Telescope.git_files";
-#        lua = true;
-#    }{ mode = "n";
-#        key = "<leader>fs";
-#        action = "function() vim.cmd.Telescope.grep_string";
-#        lua = true;
-#    }
+    { mode = "n";
+        key = "<leader>ff";
+        action = "require('telescope.builtin').find_files";
+        lua = true;
+    }{ mode = "n";
+        key = "<leader>fg";
+        action = "require('telescope.builtin').git_files";
+        lua = true;
+    }{ mode = "n"; # missing ripgrep
+        key = "<leader>fs";
+        action = "function() require('telescope.builtin').grep_string({search=vim.fn.input(\"Grep > \")}) end";
+        lua = true;
+    }
 
 # --move selection as lines
 # vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")

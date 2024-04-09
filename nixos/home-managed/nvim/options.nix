@@ -1,28 +1,28 @@
 {
-    config.opts = {
+  config.opts = {
 
-        number = true;
-        relativenumber = true;
+    number = true;
+    relativenumber = true;
 
-        tabstop = 4;
-        softtabstop = 4;
-        shiftwidth = 4;
-        expandtab = true;
+    tabstop = 4;
+    softtabstop = 4;
+    shiftwidth = 4;
+    expandtab = true;
 
-        smartindent = true;
-        wrap = false;
+    smartindent = true;
+    wrap = false;
 
-        #undodir = ''os.getenv("HOME") .. "/.vim/undodir"'' #fix to nix syn
-        #undofile = true;
+    undofile = true;
+    undodir = "/home/solanum/undo/"; #TODO make dynamic
 
-        incsearch = true;
+    incsearch = true;
 
-        termguicolors = true; #what?
+    termguicolors = true; #what?
 
-        scrolloff = 8;
-        signcolumn = "number";
+    scrolloff = 8;
+    signcolumn = "number";
 
-        updatetime = 500;
-    };
+    updatetime = 500;
+  };
 }
 

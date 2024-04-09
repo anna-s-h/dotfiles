@@ -1,42 +1,51 @@
 {
-  plugins.bufferline = {
-    enable = true;
-  };
-  plugins.undotree = {
-    enable = true;
-    #vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
-  };
-  plugins.telescope = {
-    enable = true;
-    #local builtin = require('telescope.builtin')
-    #vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
-    #vim.keymap.set('n', '<leader>fg', builtin.git_files, {})
-    #vim.keymap.set('n', '<leader>fs', function()
-    #    builtin.grep_string({search=vim.fn.input("Grep > ")})
-    #end)
-  };
-  plugins.treesitter = {
-    enable = true;
-    indent = true;
-    folding = true;
-  };
-  plugins.fugitive.enable = true;
-  plugins.lsp = {
-    enable = true;
-    servers = {
-      nixd.enable = true;
-      #rust-analyzer.enable = true;
+    plugins.bufferline = {
+        enable = true;
     };
-    #keybinds missing
-  };
-  #deprecated
-  #plugins.nvim-cmp = {
-  #  enable = true;
-  #  autoEnableSources = true;
-  #  sources = [
-  #    {name = "nvim_lsp";}
-  #    {name = "path";}
-  #    {name = "buffer";}
-  #  ];
-  #};
+    plugins.lualine = {
+        enable = true;
+    };
+    plugins.undotree = {
+        enable = true;
+    };
+    plugins.telescope = {
+        enable = true;
+    };
+    plugins.treesitter = {
+        enable = true;
+        indent = true;
+#folding = true;
+    };
+    plugins.fugitive.enable = true;
+    plugins.lsp = {
+        enable = true;
+        servers = {
+            nixd.enable = true;
+#rust-analyzer.enable = true;
+        };
+        keymaps = {
+            lspBuf = {
+                "gd" = "definition";
+                "gD" = "references";
+                "gt" = "type_definition";
+                "gi" = "implementation";
+                "K" = "hover";
+            };
+        };
+    };
+    plugins.luasnip = {
+        enable = true;
+    };
+    plugins.cmp = {
+        enable = true;
+        settings.mapping = {
+            #"<C-d>" = "cmp.mapping.scroll_docs(-4)";
+            #"<C-f>" = "cmp.mapping.scroll_docs(4)";
+            "<C-Space>" = "cmp.mapping.complete()";
+            #"<C-e>" = "cmp.mapping.close()";
+            "<C-j>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
+            "<C-k>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
+            "<C-l>" = "cmp.mapping.confirm({ select = true })";
+        };
+    };
 }
