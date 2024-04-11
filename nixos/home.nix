@@ -4,7 +4,8 @@
     ./home-managed/hyprland.nix
     ./home-managed/terminal.nix
     inputs.nixvim.homeManagerModules.nixvim
-    ./systemcolor/custom_mirage.nix
+    ./systemcolor/colors.nix
+    ./systemcolor/custom-mirage.nix
   ];
 
   home.username = "solanum";

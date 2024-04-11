@@ -1,18 +1,35 @@
 {config, pkgs, ...}:
 
 {
+  programs.rofi.terminal = "kitty";
   programs.kitty = {
     enable = true;
     font.name = "mesloLGS-Nerd-Font-Mono";
     font.size = 14;
     settings = {
-      #foreground = "#${config.colorScheme.palette.base05}";
-      #background = "#${config.colorScheme.palette.base00}";
+      foreground = "#${config.colors.common.foreground}";
+      background = "#${config.colors.common.background}";
+      selection_background = "#${config.colors.common.background-selection}"; 
       background_opacity = "0.90";
-      #background_blur = "0"; #handled by de
+      color0  = "#${config.colors.ansi.black}";
+      color1  = "#${config.colors.ansi.red}";
+      color2  = "#${config.colors.ansi.green}";
+      color3  = "#${config.colors.ansi.yellow}";
+      color4  = "#${config.colors.ansi.blue}";
+      color5  = "#${config.colors.ansi.magenta}";
+      color6  = "#${config.colors.ansi.cyan}";
+      color7  = "#${config.colors.ansi.white}";
+      color8  = "#${config.colors.ansi.black-bold}";
+      color9  = "#${config.colors.ansi.red-bold}";
+      color10 = "#${config.colors.ansi.green-bold}";
+      color11 = "#${config.colors.ansi.yellow-bold}";
+      color12 = "#${config.colors.ansi.blue-bold}";
+      color13 = "#${config.colors.ansi.magenta-bold}";
+      color14 = "#${config.colors.ansi.cyan-bold}";
+      color15 = "#${config.colors.ansi.white-bold}";
     };
   };
-
+  
   programs.zsh = {
     enable = true;
     enableCompletion = true;
