@@ -11,13 +11,12 @@
     keepassxc #needs config
     libsForQt5.dolphin #replace
     ark #replace?
-    #neovim-qt #needs config (as flake)
     ffmpegthumbs #idk if I need this
     libsForQt5.kdegraphics-thumbnailers #idk if I need this
     okular #needs config (should be last resort)
   #utilities
     libsForQt5.ksystemlog #skill issue
-    kate #needs removed
+    kate #needs removed; currently useful for theme testing
     obsidian
     kfind
     partition-manager
@@ -28,7 +27,7 @@
     #libsForQt5.plasma-browser-integration #not working
     #pavucontrol
     digikam
-    samba
+    samba #replace with something faster
     qalculate-qt
     btop
     xfce.thunar
@@ -114,6 +113,7 @@
       source-han-sans-japanese
       source-han-serif-japanese
       meslo-lgs-nf
+      nerdfonts
     ];
     fontconfig.defaultFonts = {
       emoji = [ "Noto Color Emoji" ];
@@ -132,7 +132,7 @@
     NIXOS_OZONE_WL = "1"; # something to do with electron?
     WLR_NO_HARDWARE_CURSORS = "1";
     QT_STYLE_OVERRIDE="breeze";
-    SOPS_AGE_KEY_FILE="~/keys/age.txt";
+    SOPS_AGE_KEY_FILE="/home/solanum/keys/age.txt"; # make dynamic
   };
   xdg.portal.enable = true;
   xdg.portal.xdgOpenUsePortal = true;

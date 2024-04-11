@@ -3,7 +3,7 @@
 {
   programs.kitty = {
     enable = true;
-    font.name = "mesloLGS NF";
+    font.name = "mesloLGS-Nerd-Font-Mono";
     font.size = 14;
     settings = {
       #foreground = "#${config.colorScheme.palette.base05}";

@@ -4,7 +4,8 @@
 # file explorer in editor
     {  mode = "n";
         key = "<leader>fe";
-        action = "vim.cmd.Ex";
+        #action = "vim.cmd.Ex";
+        action = "vim.cmd.NvimTreeToggle";
         lua = true;
     }
 

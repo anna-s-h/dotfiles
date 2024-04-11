@@ -1,26 +1,35 @@
 { config, pkgs, inputs, ... } : {
-    imports = [
-        ./home-managed/firefox.nix
-            ./home-managed/hyprland.nix
-            ./home-managed/terminal.nix
-            inputs.nixvim.homeManagerModules.nixvim
-    ];
+  imports = [
+    ./home-managed/firefox.nix
+    ./home-managed/hyprland.nix
+    ./home-managed/terminal.nix
+    inputs.nixvim.homeManagerModules.nixvim
+    ./systemcolor/custom_mirage.nix
+  ];
 
-    home.username = "solanum";
-    home.homeDirectory = "/home/solanum";
-    xdg.userDirs = {
-        enable = true;
-        desktop = "${config.home.homeDirectory}/desktop";
-        documents = "${config.home.homeDirectory}/documents";
-        download = "${config.home.homeDirectory}/downloads";
-        pictures = "${config.home.homeDirectory}/pictures";
-        videos = "${config.home.homeDirectory}/videos";
-        music = "${config.home.homeDirectory}/music";
+  home.username = "solanum";
+  home.homeDirectory = "/home/solanum";
+  xdg.userDirs = {
+    enable = true;
+    desktop = "${config.home.homeDirectory}/desktop";
+    documents = "${config.home.homeDirectory}/documents";
+    download = "${config.home.homeDirectory}/downloads";
+    pictures = "${config.home.homeDirectory}/pictures";
+    videos = "${config.home.homeDirectory}/videos";
+    music = "${config.home.homeDirectory}/music";
+  };
+
+  programs.eww.configDir = ./home-managed/eww;
+  programs.nixvim = import ./home-managed/nvim/nixvim.nix;
+
+  xdg.desktopEntries = {
+    nvim = {
+      name = "NeoVim";
+      exec = "nvim %f";
+      type = "Application";
+      terminal = true;
     };
-    
-    programs.eww.configDir = ./home-managed/eww;
-
-    programs.nixvim = import ./home-managed/nvim/nixvim.nix;
+  };
 
 ### None of this section works, for some reason
 
@@ -59,25 +68,25 @@
 #};
 
 
-    home.file = {
-        ".config/hypr/hypridle.conf".source = ./home-managed/hypridle.conf;
-    };
+  home.file = {
+    ".config/hypr/hypridle.conf".source = ./home-managed/hypridle.conf;
+  };
 
 # Investigate uses for this
 #home.sessionVariables = {
 # EDITOR = "emacs";
 #};
 
-    home.packages = [
+  home.packages = [
 # # You can also create simple shell scripts directly inside your
 # # configuration. For example, this adds a command 'my-hello' to your
 # # environment:
 # (pkgs.writeShellScriptBin "my-hello" ''
 #   echo "Hello, ${config.home.username}!"
 # '')
-    ];
+  ];
 
 # Don't touch
-    programs.home-manager.enable = true;
-    home.stateVersion = "23.11";
-                                }
+  programs.home-manager.enable = true;
+  home.stateVersion = "23.11";
+}

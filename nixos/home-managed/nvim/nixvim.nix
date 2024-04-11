@@ -12,10 +12,10 @@
       #disable_background = true;
       settings = {
         mirage = true;
-        overrides = {
-          "Normal" = { bg = "none"; };
-          "NormalFloat" = { bg = "none"; };
-        };
+        #overrides = {
+        #  "Normal" = { bg = "none"; };
+        #  "NormalFloat" = { bg = "none"; };
+        #};
       };
     };
   };

@@ -4,9 +4,9 @@
     number = true;
     relativenumber = true;
 
-    tabstop = 4;
-    softtabstop = 4;
-    shiftwidth = 4;
+    tabstop = 2;
+    softtabstop = 2;
+    shiftwidth = 2;
     expandtab = true;
 
     smartindent = true;
@@ -17,7 +17,7 @@
 
     incsearch = true;
 
-    termguicolors = true; #what?
+    termguicolors = true; #enable full colorspace
 
     scrolloff = 8;
     signcolumn = "number";
