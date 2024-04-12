@@ -10,7 +10,7 @@
       "$modb" = "SUPER_ALT";
 
       "$terminal" = "kitty";
-      "$fileManager" = "thunar";
+      "$fileManager" = "kitty lf"; #inelegant
       "$menu" = "rofi -show drun -show-icons";
       "$calculator" = "[float] qalculate-qt || hyprctl dispatch focuswindow title:Qalculate"; #TODO doesn't work to focus window
       "$search" = "";

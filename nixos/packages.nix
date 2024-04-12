@@ -9,19 +9,14 @@
     grim
     vlc
     keepassxc #needs config
-    libsForQt5.dolphin #replace
-    ark #replace?
-    ffmpegthumbs #idk if I need this
-    libsForQt5.kdegraphics-thumbnailers #idk if I need this
+    ark #replace with something integrated with lf
     okular #needs config (should be last resort)
   #utilities
-    libsForQt5.ksystemlog #skill issue
     kate #needs removed; currently useful for theme testing
     obsidian
     kfind
-    partition-manager
-    qbittorrent
-    antimicrox #needs config
+    #qbittorrent
+    antimicrox
     filelight
     libsForQt5.kdeconnect-kde
     #libsForQt5.plasma-browser-integration #not working
@@ -29,19 +24,14 @@
     digikam
     samba #replace with something faster
     qalculate-qt
-    btop
-    xfce.thunar
-    xfce.thunar-volman
-    xfce.thunar-archive-plugin
-    xfce.thunar-media-tags-plugin
+    btop #maybe a little too much
+    kfind
     discord
   #stuff to convert archived content
-    sqlitebrowser
     #cherrytree
     #polyglot
   #games
     steam
-    kfind
     dolphin-emu
     #yuzu #must package myself
     #citra-nightly #must package myself
@@ -57,7 +47,7 @@
     #tagainijisho
   #project editors
     libreoffice
-    gimp#-with-plugins
+    gimp#-with-plugins #also, can krita replace this?
     aseprite #needs config (link palettes, import history)
     krita
     inkscape-with-extensions
@@ -68,8 +58,6 @@
     ldtk
     birdfont
   #hyprland things
-    libsForQt5.polkit-kde-agent #doesn't work?????
-    lxqt.lxqt-policykit #to mount things with dolphin
     wl-clipboard # replace by clipboard manager of some kind?
     hyprlock #eww might replace this?
     eww
@@ -79,20 +67,16 @@
     rofi-wayland
     #some pop-from-top general system search
     #something to make unicode/emoji/altpage symbols
-  #themes
-    libsForQt5.breeze-qt5
-    libsForQt5.breeze-gtk
-    libsForQt5.breeze-grub
   ];
 
   services.udev.packages = with pkgs; [
     antimicrox
+    kdeconnect
   ];
 
   programs.zsh.enable = true;
-  programs.partition-manager.enable = true;
+  programs.partition-manager.enable = true; #replace with something better-integrated with lf?
   programs.kdeconnect.enable = true; #barely works
-  security.polkit.enable = true; #doesn't work?????
 
   programs.git = {
     enable = true;
@@ -127,18 +111,20 @@
     #nvidiaPatches = true;
     xwayland.enable = true;
   };
+
   #potential bugs' fixes
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1"; # something to do with electron?
     WLR_NO_HARDWARE_CURSORS = "1";
-    QT_STYLE_OVERRIDE="breeze";
-    SOPS_AGE_KEY_FILE="/home/solanum/keys/age.txt"; # make dynamic
+    SOPS_AGE_KEY_FILE="${config.home-manager.users."solanum".home.homeDirectory}/keys/age.txt";
+    OPENER = "handlr open";
   };
+
   xdg.portal.enable = true;
   xdg.portal.xdgOpenUsePortal = true;
-  #xdg.portal.extraPortals = with pkgs; [
+  xdg.portal.extraPortals = with pkgs; [
     #xdg-desktop-portal-hyprland
-  #  xdg-desktop-portal-kde #probably comes with kde
-  #];
+#termfilechooser (prob package myself)
+  ];
 
 }

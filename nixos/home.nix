@@ -3,6 +3,7 @@
     ./home-managed/firefox.nix
     ./home-managed/hyprland.nix
     ./home-managed/terminal.nix
+    ./home-managed/lf.nix
     inputs.nixvim.homeManagerModules.nixvim
     ./systemcolor/colors.nix
     ./systemcolor/custom-mirage.nix
@@ -73,10 +74,10 @@
     ".config/hypr/hypridle.conf".source = ./home-managed/hypridle.conf;
   };
 
-# Investigate uses for this
-#home.sessionVariables = {
-# EDITOR = "emacs";
-#};
+  #home.sessionVariables = {
+  # EDITOR = "emacs";
+  #  OPENER = "handlr";
+  #};
 
   home.packages = [
 # # You can also create simple shell scripts directly inside your

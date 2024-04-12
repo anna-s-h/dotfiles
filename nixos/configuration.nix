@@ -5,7 +5,6 @@
     ./packages.nix
     ./nas.nix
     inputs.home-manager.nixosModules.default
-    #inputs.nixvim.homeManagerModules.nixvim
     inputs.sops-nix.nixosModules.sops
   ];
 
@@ -29,7 +28,7 @@
 
   sops.defaultSopsFile = ./secrets/secrets.yaml;
   sops.defaultSopsFormat = "yaml";
-  sops.age.keyFile = "/home/solanum/keys/age.txt";
+  sops.age.keyFile = "${config.home-manager.users."solanum".home.homeDirectory}/keys/age.txt";
 
   fileSystems."/mnt/big" = {
     device = "/dev/disk/by-uuid/fb1929c4-602f-4b52-83e9-e7b76fdffb4b";
@@ -43,6 +42,14 @@
       enable = true;
       device = "/dev/sda";
       #useOSProber = true;
+      #this looks super crusty, probably due to bios
+      #theme = "${pkgs.fetchFromGitHub {
+      #  owner = "Coopydood";
+      #  repo = "HyperFluent-GRUB-Theme";
+      #  rev = "a034f285421bc612b10adcdc8b4c4b804b5f337d";
+      #  hash = "sha256-BGcjH90Ucy6EIHHLKDh9AhrfIQbKOa3b2zkymT5aBB4=";
+      #}}/nixos";
+      #gfxmodeEfi = "1920x1080";
     };
     #supportedFilesystems = [ "ntfs" ];
   };
