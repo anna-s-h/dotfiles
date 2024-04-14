@@ -1,15 +1,17 @@
 { config, lib, ... } : {
   config = {
     colors = {
-      accent = config.ansi.blue; # originally, yellow
+      accent = config.colors.ansi.blue; # originally, yellow
       common = {
+        background-gutter = "101521";
         background = "171B24";
         background-panel = "1F2430";
         background-selectedline = "242936";
         background-selection = "33415E";
-        background-gutter = "404755";
-        background-gutter-active = "5F687A";
+        #background-gutter = "404755";
+        #background-gutter-active = "5F687A";
         midtone = "707A8C";
+        #foreground-gutter = "383E4C";
         foreground-idle = "607080";
         foreground-accent = "8A9199";
         foreground = "CCCCC6";

@@ -3,7 +3,6 @@
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
   #system basics
-    kitty
     git-crypt
     sops
     grim
@@ -27,6 +26,7 @@
     btop #maybe a little too much
     kfind
     discord
+    xwaylandvideobridge #needed for discord jank
   #stuff to convert archived content
     #cherrytree
     #polyglot
@@ -64,7 +64,6 @@
     hypridle #needs config(hybrid suspend)
     dunst #eww can replace this (eventually)
     swww #or wpaperd?
-    rofi-wayland
     #some pop-from-top general system search
     #something to make unicode/emoji/altpage symbols
   ];
@@ -104,20 +103,15 @@
     };
   };
 
-  #hyprland
   programs.hyprland = {
     enable = true;
     package = inputs.hyprland.packages."${pkgs.system}".hyprland;
-    #nvidiaPatches = true;
     xwayland.enable = true;
   };
 
-  #potential bugs' fixes
   environment.sessionVariables = {
-    NIXOS_OZONE_WL = "1"; # something to do with electron?
-    WLR_NO_HARDWARE_CURSORS = "1";
-    SOPS_AGE_KEY_FILE="${config.home-manager.users."solanum".home.homeDirectory}/keys/age.txt";
-    OPENER = "handlr open";
+    NIXOS_OZONE_WL = "1"; # something to do with electron on wayland?
+    WLR_NO_HARDWARE_CURSORS = "1"; # hyprland doesn't support nvidia hw cursor
   };
 
   xdg.portal.enable = true;

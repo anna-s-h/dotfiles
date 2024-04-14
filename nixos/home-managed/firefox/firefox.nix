@@ -1,6 +1,12 @@
 {config, pkgs, inputs, ...}:
 
 {
+
+  home.file."firefox-userChrome" = {
+    target = ".mozilla/firefox/solanum/chrome/removeButtons.css";
+    source = ./removeButtons.css;
+  };
+
   programs.firefox = {
     enable = true;
     profiles.solanum = {
@@ -17,6 +23,17 @@
 
           icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
           definedAliases = [ "@np" ];
+        };
+        "Home Manager Options" = {
+          urls = [{
+            template = "https://home-manager-options.extranix.com/";
+            params = [
+              { name = "query"; value = "{searchTerms}"; }
+            ];
+          }];
+
+          icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+          definedAliases = [ "@hm" ];
         };
       };
       search.force = true;
@@ -74,7 +91,9 @@
         #tampermonkey
         ublock-origin
       ];
-
+      userChrome = ''
+        @import "removeButtons.css";
+      '';
     };
   };
 }

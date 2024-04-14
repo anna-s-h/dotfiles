@@ -1,9 +1,10 @@
 { config, pkgs, inputs, ... } : {
   imports = [
-    ./home-managed/firefox.nix
+    ./home-managed/firefox/firefox.nix
     ./home-managed/hyprland.nix
     ./home-managed/terminal.nix
     ./home-managed/lf.nix
+    ./home-managed/rofi.nix
     inputs.nixvim.homeManagerModules.nixvim
     ./systemcolor/colors.nix
     ./systemcolor/custom-mirage.nix
@@ -23,6 +24,12 @@
 
   programs.eww.configDir = ./home-managed/eww;
   programs.nixvim = import ./home-managed/nvim/nixvim.nix;
+  services.stalonetray = {
+    enable = true;
+    config = {
+      # window-type = "toolbar";
+    };
+  };
 
   xdg.desktopEntries = {
     nvim = {
@@ -74,10 +81,11 @@
     ".config/hypr/hypridle.conf".source = ./home-managed/hypridle.conf;
   };
 
-  #home.sessionVariables = {
-  # EDITOR = "emacs";
-  #  OPENER = "handlr";
-  #};
+  home.sessionVariables = {
+    EDITOR = "nvim";
+    SOPS_AGE_KEY_FILE="${config.home.homeDirectory}/keys/age.txt";
+    OPENER = "handlr open";
+  };
 
   home.packages = [
 # # You can also create simple shell scripts directly inside your

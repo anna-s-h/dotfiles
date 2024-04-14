@@ -136,6 +136,10 @@
         "noinitialfocus, workspace special:passwords, class:(keepass)"
       ];
 
+      layerrule = [
+        "blur,rofi"
+      ];
+
       animations = {
           enabled = "yes";
 
