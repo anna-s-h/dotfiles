@@ -1,3 +1,12 @@
+###############################################################################
+#                                                                             #
+# This theme is based upon ayu-vim by the ayu-theme organization.             #
+# It uses the Apache license 2.0, a copy of which has been provided.          #
+# Obviously, the format has been changed substantially,                       #
+# only keeping some of the colors.                                            #
+#                                                                             #
+###############################################################################
+
 { config, lib, ... } : {
   config = {
     colors = {

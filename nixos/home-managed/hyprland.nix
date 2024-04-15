@@ -10,7 +10,7 @@
       "$modb" = "SUPER_ALT";
 
       "$terminal" = "kitty";
-      "$fileManager" = "kitty lf"; #inelegant
+      "$fileManager" = "kitty lf"; #TODO inelegant
       "$menu" = "rofi -show drun -show-icons";
       "$calculator" = "[float] qalculate-qt || hyprctl dispatch focuswindow title:Qalculate"; #TODO doesn't work to focus window
       "$search" = "";
@@ -25,6 +25,7 @@
 
         #Main binds
         "$moda, space, exec, $menu"
+        "$moda, space, pass, rofi" #TODO should be more precise
         "$modb, space, exec, $search"
         #TODO antimicrox toggle
         "$moda, D, exec, "#TODO desktop

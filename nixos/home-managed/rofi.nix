@@ -95,6 +95,13 @@
       };
 
     };
-#plugins = []
+    extraConfig = let inherit (config.lib.formats.rasi) mkLiteral; in {
+      #drun-show-actions = mkLiteral "true";
+      modi = "drun,run,window";
+      kb-cancel = "Alt+space";
+      kb-mode-next = "Super+space";
+    };
+    plugins = with pkgs; [
+    ];
   };
 }
