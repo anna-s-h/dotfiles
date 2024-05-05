@@ -1,7 +1,7 @@
 {config, pkgs, ...}:
 
 {
-  programs.rofi.terminal = "kitty";
+  programs.rofi.terminal = "kitty -o confirm_os_window_close=0";
   programs.kitty = {
     enable = true;
     font.name = "mesloLGS-Nerd-Font-Mono";

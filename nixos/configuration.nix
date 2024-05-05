@@ -68,14 +68,14 @@
 
   #doesn't work
   #also should be modularized
-  #users.users.keepass-start = {
-  #  home = "/var/lib/keepass-start";
-  #  createHome = true;
-  #  isSystemUser = true;
-  #  group = "keepass-start";
-  #};
-  #users.groups.keepass-start = {};
-  #sops.secrets.keepass = {owner="keepass-start";};
+  users.users.keepass-start = {
+    home = "/var/lib/keepass-start";
+    createHome = true;
+    isSystemUser = true;
+    group = "keepass-start";
+  };
+  users.groups.keepass-start = {};
+  sops.secrets.keepass = {owner="keepass-start";};
   #systemd.user.services.keepass-start = {
   #  description = "unlock keepass vault on startup";
   #  serviceConfig.PassEnvironment = "DISPLAY";

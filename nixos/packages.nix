@@ -11,7 +11,6 @@
     ark #replace with something integrated with lf
     okular #needs config (should be last resort)
   #utilities
-    kate #needs removed; currently useful for theme testing
     obsidian
     kfind
     #qbittorrent
@@ -27,6 +26,8 @@
     kfind
     discord
     xwaylandvideobridge #needed for discord jank
+    ripgrep
+    ganttproject-bin
   #stuff to convert archived content
     #cherrytree
     #polyglot
@@ -58,14 +59,9 @@
     ldtk
     birdfont
   #hyprland things
-    wl-clipboard # replace by clipboard manager of some kind?
-    hyprlock #eww might replace this?
-    eww
+    wl-clipboard
     hypridle #needs config(hybrid suspend)
-    dunst #eww can replace this (eventually)
-    swww #or wpaperd?
-    #some pop-from-top general system search
-    #something to make unicode/emoji/altpage symbols
+    #swww #or wpaperd?
   ];
 
   services.udev.packages = with pkgs; [
@@ -83,6 +79,13 @@
       user.name = "anna-s-h";
       core.sshCommand = "ssh -i ~/keys/git-ssh";
     };
+  };
+
+  programs.nh = {
+    enable = true;
+    #clean.enable = true;
+    #clean.extraArgs = "--keep-since 4d --keep 3";
+    flake = "/home/solanum/dotfiles/nixos";
   };
 
   fonts = {

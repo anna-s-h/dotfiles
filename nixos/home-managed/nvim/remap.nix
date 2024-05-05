@@ -1,6 +1,6 @@
 {
-    globals.mapleader = " ";
-    keymaps = [
+  globals.mapleader = " ";
+  keymaps = [
 # file explorer in editor
     {  mode = "n";
         key = "<leader>fe";
@@ -10,13 +10,19 @@
     }
 
 # go to normal mode from insert
-    {  mode = ["i" "v"];
+    {  mode = ["n" "i" "v" "o"];
         key = "<M-Space>";
         action = "<Esc>";
     }
 
+    {  mode = ["n"];
+        key = "<M-Space>";
+        action = "vim.cmd.nohlsearch";
+        lua = true;
+    }
+
 # use system clipboard
-    { mode = "n";
+    {  mode = "n";
         key = "<leader>p";
         action = "\"+p";
     }{ mode = "n";
@@ -77,5 +83,5 @@
 # vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 # --switch project
 # vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
-    ];
+  ];
 }

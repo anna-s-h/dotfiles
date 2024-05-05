@@ -1,4 +1,4 @@
-{ ... } : {
+{ pkgs, ... } : {
   imports = [
     ./plugins.nix
     ./remap.nix

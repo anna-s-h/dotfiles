@@ -6,9 +6,22 @@
     ./home-managed/lf.nix
     ./home-managed/rofi.nix
     inputs.nixvim.homeManagerModules.nixvim
+    inputs.ags.homeManagerModules.default 
     ./systemcolor/colors.nix
     ./systemcolor/custom-mirage.nix
   ];
+
+  programs.ags = {
+    enable = true;
+    configDir = ./home-managed/ags;
+
+    # additional packages to add to gjs's runtime
+    #extraPackages = with pkgs; [
+    #  gtksourceview
+    #  webkitgtk
+    #  accountsservice
+    #];
+  };
 
   home.username = "solanum";
   home.homeDirectory = "/home/solanum";
@@ -48,34 +61,55 @@
 #  style.name = "breeze";
 #};
 
-#qt = {
-#  enable = true;
-#  platformTheme = "gnome";
-#  style = {
+  qt = {
+    enable = true;
+    platformTheme = "gtk";
+#    style = {
+#      name = "Breeze-Dark";
+#      package = pkgs.libsForQt5.breeze-qt5;
+#    };
+  };
+
+#  home.pointerCursor = {
+#    gtk.enable = true;
+#    package = pkgs.libsForQt5.breeze-gtk;
 #    name = "Breeze-Dark";
-#    package = pkgs.libsForQt5.breeze-qt5;
+#    size = 16;
 #  };
-#};
 
-#home.pointerCursor = {
-#  gtk.enable = true;
-#  package = pkgs.libsForQt5.breeze-gtk;
-#  name = "Breeze-Dark";
-#  size = 16;
-#};
+#  home.sessionVariables = {
+#    GTK_THEME = "Breeze";
+#  };
 
-#home.sessionVariables = {
-#  GTK_THEME = "Breeze";
-#};
+  gtk = {
+    enable = true;
 
-#gtk = {
-#  enable = true;
+    theme = {
+      name = "Catppuccin-Mocha-Standard-Blue-Dark";
+      package = pkgs.catppuccin-gtk.override {
+        size = "standard";
+        accents = ["blue"];
+        variant = "mocha";
+        tweaks = ["normal"];
+      };
+    };
+
+    iconTheme = {
+      name = "Adwaita";
+      package = pkgs.gnome.adwaita-icon-theme;
+    };
+
 #  theme = {
 #    name = "Breeze-Dark";
 #    package = pkgs.libsForQt5.breeze-gtk;
 #  };
-#};
+  };
 
+  xdg.configFile = {
+    "gtk-4.0/assets".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/assets";
+    "gtk-4.0/gtk.css".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/gtk.css";
+    "gtk-4.0/gtk-dark.css".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/gtk-dark.css";
+  };
 
   home.file = {
     ".config/hypr/hypridle.conf".source = ./home-managed/hypridle.conf;

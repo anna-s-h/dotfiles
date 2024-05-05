@@ -10,10 +10,12 @@
       "$modb" = "SUPER_ALT";
 
       "$terminal" = "kitty";
-      "$fileManager" = "kitty lf"; #TODO inelegant
+      "$fileManager" = "kitty -o confirm_os_window_close=0 lf"; #TODO inelegant
       "$menu" = "rofi -show drun -show-icons";
       "$calculator" = "[float] qalculate-qt || hyprctl dispatch focuswindow title:Qalculate"; #TODO doesn't work to focus window
-      "$search" = "";
+      "$search" = "ags -r 'change_menu();'";
+      "$clock" = "ags -t 'clock'";
+      "$forcekill" = "hyprctl activewindow | grep pid | tr -d 'pid:' | xargs kill";
 
       #TODO consider groups
 
@@ -25,33 +27,32 @@
 
         #Main binds
         "$moda, space, exec, $menu"
-        "$moda, space, pass, rofi" #TODO should be more precise
         "$modb, space, exec, $search"
         #TODO antimicrox toggle
         "$moda, D, exec, "#TODO desktop
         "$modb, D, exec, "#TODO peek
-        "$moda, F, fullscreen, 0"
-        "$modb, F, fullscreen, 1"
+        "$moda, F, fullscreen, 1"
+        "$modb, F, fullscreen, 0"
         "$moda, G, togglefloating"
         "$modb, G, pin"
         "$modb, J, exec, $terminal"
         "$moda, K, killactive"
-        "$modb, K, exec, hyprctl activewindow | grep pid | tr -d 'pid:' | xargs kill" #TODO this is unreliable because activewindow could include pid in title
+        "$modb, K, exec, $forcekill" #TODO this is unreliable because activewindow could include pid in title
         "$moda, L, exec, "#TODO help
         "$moda, E, exec, $fileManager"
         "$moda, C, exec, $calculator"
         "$moda, M, exit"#TODO replace with menu
         "$moda, N, exec, obsidian"
         "$moda, V, exec, "#TODO clipboard
-        "$moda, T, exec, "#TODO time
+        "$moda, T, exec, $clock"
         "$moda, semicolon, exec, "#TODO perfreport
         "$modb, semicolon, exec, "#TODO top
         "$moda, question,  exec, "#TODO notifications
 
         #Take screenshots
-        "     , Print, exec, grim - | wl-copy && wl-paste > $(xdg-user-dir PICTURES)/$(date +'%Y-%m-%d-%H%M%S.png')" #TODO one-window
-        "$moda, Print, exec, grim - | wl-copy && wl-paste > $(xdg-user-dir PICTURES)/$(date +'%Y-%m-%d-%H%M%S.png')" #TODO one-screen
-        "$modb, Print, exec, grim - | wl-copy && wl-paste > $(xdg-user-dir PICTURES)/$(date +'%Y-%m-%d-%H%M%S.png')"
+        "     , Print, exec, grim - | wl-copy && wl-paste > ${config.xdg.userDirs.pictures}/$(date +'%Y-%m-%d-%H%M%S.png')" #TODO one-window
+        "$moda, Print, exec, grim - | wl-copy && wl-paste > ${config.xdg.userDirs.pictures}/$(date +'%Y-%m-%d-%H%M%S.png')" #TODO one-screen
+        "$modb, Print, exec, grim - | wl-copy && wl-paste > ${config.xdg.userDirs.pictures}/$(date +'%Y-%m-%d-%H%M%S.png')"
 
         #Move focus
         "$moda, left,  movefocus, l"
@@ -125,7 +126,7 @@
         "[workspace special:term silent] $terminal" #TODO make unkillable?
         "[workspace special:hidden silent] kdeconnect-app"
         "[workspace special:hidden silent] antimicrox"
-        "swww init && swww img ~/dotfiles/wallpapers/quantum-moon.png"
+        #"swww init && swww img ~/dotfiles/wallpapers/quantum-moon.png"
         "hypridle"
       ];
 
@@ -154,6 +155,8 @@
           animation = [
             "windows, 1, 7, overshot"
             "windowsOut, 1, 7, default, popin 80%"
+            "layers, 1, 7, overshot, slide"
+            "layersOut, 1, 7, default, popin 80%"
             "border, 1, 10, default"
            #"borderangle, 1, 8, default"
             "borderangle, 1, 100, linear, loop"
@@ -173,6 +176,10 @@
       #  "XCURSOR_SIZE,24"
       #  "QT_QPA_PLATFORMTHEME,qt5ct"
       #];
+
+      dwindle = {
+        smart_split = "true";
+      };
 
       general = { #defaults
           # See https://wiki.hyprland.org/Configuring/Variables/ for more
@@ -203,10 +210,11 @@
               special = true; #might be doubling up?
           };
 
-          drop_shadow = "yes";
-          shadow_range = "4";
-          shadow_render_power = "3";
-          "col.shadow" = "rgba(1a1a1aee)";
+          drop_shadow = true;
+          #shadow_range = "10";
+          #shadow_render_power = "1";
+          #"col.shadow" = "rgba(1a1a1aee)";
+          #"col.shadow_inactive" = "rgba(00000000)";
       };
     };
   };

@@ -1,8 +1,9 @@
 { config, pkgs, inputs, ... } : {
 
-  # NixOS has some confusing, unnecessary coupling with xserver
-  services.xserver.enable = true;
-  services.xserver.displayManager.sddm.enable = true;
+  services.displayManager.sddm = {
+    enable = true;
+    wayland.enable = true;
+  };
 
   hardware.opengl = {
     enable = true;
@@ -10,6 +11,8 @@
     driSupport32Bit = true;
   };
 
+  #nixos fixed it on their end but I still can't get rid of this...
+  services.xserver.enable = true;
   services.xserver.videoDrivers = ["nvidia"];
 
   hardware.nvidia = {
@@ -51,7 +54,7 @@
     #media-session.enable = true;
   };
 
-  networking.hostName = "Solanum";
+  networking.hostName = "solanum";
   networking.networkmanager.enable = true;
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

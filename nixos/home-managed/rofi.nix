@@ -100,6 +100,7 @@
       modi = "drun,run,window";
       kb-cancel = "Alt+space";
       kb-mode-next = "Super+space";
+      scroll-method = mkLiteral "1";
     };
     plugins = with pkgs; [
     ];
