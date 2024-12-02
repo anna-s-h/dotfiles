@@ -24,8 +24,12 @@
     };
     treesitter = {
       enable = true;
-      indent = true;
-#folding = true;
+      settings = {
+        indent = {
+          enable = true;
+        };
+        #folding = true;
+      };
     };
     fugitive.enable = true;
     lsp = {
@@ -35,8 +39,11 @@
         cssls.enable = true;
         tsserver.enable = true;
         jsonls.enable = true;
-        gdscript.enable = true;
-#rust-analyzer.enable = true;
+        #gdscript.enable = true;
+        rust-analyzer = {
+          enable = true;
+          installCargo = false;
+        };
       };
       keymaps = {
         lspBuf = {
@@ -62,6 +69,12 @@
         "<C-k>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
         "<C-l>" = "cmp.mapping.confirm({ select = true })";
       };
+      settings.sources = [
+        { name = "nvim_lsp"; }
+        { name = "luasnip"; }
+        { name = "path"; }
+        { name = "buffer"; }
+      ];
     };
     nvim-tree = {
       enable = true;

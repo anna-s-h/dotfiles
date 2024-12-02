@@ -10,11 +10,22 @@
 
 
   nix.settings.experimental-features = [ "nix-command" "flakes"];
+  
+  nix.extraOptions = ''
+    extra-substituters = https://nixpkgs-python.cachix.org https://devenv.cachix.org;
+    extra-trusted-public-keys = nixpkgs-python.cachix.org-1:hxjI7pFxTyuTHn2NkvWCrAUcNZLNS3ZAvfYNuYifcEU= devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw=;
+  '';
 
   users.users.solanum = {
     isNormalUser = true;
     description = "solanum";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      config.services.kubo.group
+      "input"
+      "uinput"
+    ];
     packages = with pkgs; [ ];
     shell = pkgs.zsh;
   };
@@ -24,14 +35,30 @@
     users = {
       "solanum" = import ./home.nix;
     };
+    backupFileExtension = "hm-backup";
   };
 
   sops.defaultSopsFile = ./secrets/secrets.yaml;
   sops.defaultSopsFormat = "yaml";
   sops.age.keyFile = "${config.home-manager.users."solanum".home.homeDirectory}/keys/age.txt";
 
+  fileSystems."/mnt/new_a" = {
+    device = "/dev/disk/by-uuid/85cb773b-1d04-459d-b388-79cbde5b1c1e";
+    fsType = "ext4";
+  };
+
+  fileSystems."/mnt/new_b" = {
+    device = "/dev/disk/by-uuid/a250e1ca-d960-4237-8e67-131602645440";
+    fsType = "ext4";
+  };
+
   fileSystems."/mnt/big" = {
     device = "/dev/disk/by-uuid/fb1929c4-602f-4b52-83e9-e7b76fdffb4b";
+    fsType = "ext4";
+  };
+
+  fileSystems."/mnt/games" = {
+    device = "/dev/disk/by-uuid/e670de52-7c00-4a77-a76d-119685b9848c";
     fsType = "ext4";
   };
 

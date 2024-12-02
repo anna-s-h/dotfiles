@@ -13,6 +13,7 @@
   #utilities
     obsidian
     kfind
+    kanata
     #qbittorrent
     antimicrox
     filelight
@@ -24,22 +25,25 @@
     qalculate-qt
     btop #maybe a little too much
     kfind
-    discord
+    vesktop
     xwaylandvideobridge #needed for discord jank
     ripgrep
     ganttproject-bin
+    wireguard-tools
   #stuff to convert archived content
     #cherrytree
     #polyglot
   #games
-    steam
+    protonup-qt
+    lutris #needs config
+    r2modman
     dolphin-emu
     #yuzu #must package myself
     #citra-nightly #must package myself
     #cemu #is broken right now
     desmume
-    lutris #needs config
     prismlauncher #move instances somewhere sensible
+    glfw-wayland-minecraft
     waydroid
     retroarch
     libretro.tic80
@@ -47,17 +51,32 @@
     #tachidesk
     #tagainijisho
   #project editors
+    cachix
+    devenv
     libreoffice
     gimp#-with-plugins #also, can krita replace this?
     aseprite #needs config (link palettes, import history)
     krita
     inkscape-with-extensions
     blender #config?
+    blockbench
     obs-studio
     shotcut
     godot_4
     ldtk
     birdfont
+    cargo
+    kicad
+    vscodium
+    (symlinkJoin {
+    name = "idea-community";
+    paths = [ jetbrains.idea-community ];
+    buildInputs = [ makeWrapper ];
+    postBuild = ''
+      wrapProgram $out/bin/idea-community \
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [libpulseaudio libGL glfw openal stdenv.cc.cc.lib]}"
+    '';
+  })
   #hyprland things
     wl-clipboard
     hypridle #needs config(hybrid suspend)
@@ -69,9 +88,89 @@
     kdeconnect
   ];
 
+  services.kubo = {
+    enable = true;
+  };
+
+  #  hardware.uinput.enable = true;
+  services.kanata = {
+    enable = true;
+    keyboards = {
+      main = {
+        devices = [];
+        extraDefCfg = "process-unmapped-keys yes";
+        config = ''
+          (defsrc
+            grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+            tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+            caps a    s    d    f    g    h    j    k    l    ;    '    ret
+            lsft z    x    c    v    b    n    m    ,    .    /    rsft
+            lctl lmet lalt           spc            ralt rmet rctl
+          )
+
+          (defalias
+            ;; tap: backtick (grave), hold: toggle layer-switching layer while held
+            grl (tap-hold 200 200 grv (layer-toggle layers))
+
+            ;; layer-switch changes the base layer.
+            qwr (layer-switch qwerty)
+            cmk (layer-switch colemakdh)
+            gam (layer-switch games)
+
+            ;; tap for escape, hold for control
+            cap (tap-hold-press 200 200 esc lctl)
+
+            ;; modkey stickiness
+            sft (one-shot 500 lsft)
+            ctl (one-shot 500 lctl)
+            met (one-shot 500 lmet)
+            alt (one-shot 500 lalt)
+          )
+
+          (deflayer qwerty
+            @grl 1    2    3    4    5    6    7    8    9    0    -    =    bspc
+            tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+            @cap a    s    d    f    g    h    j    k    l    ;    '    ret
+            @sft z    x    c    v    b    n    m    ,    .    /    rsft
+            @ctl @met @alt           spc            ralt rmet rctl
+          )
+
+          (deflayer games
+            @grl 1    2    3    4    5    6    7    8    9    0    -    =    bspc
+            tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+            @cap a    s    d    f    g    h    j    k    l    ;    '    ret
+            lsft z    x    c    v    b    n    m    ,    .    /    rsft
+            lctl lmet lalt           spc            ralt rmet rctl
+          )
+
+          (deflayer colemakdh
+            @grl 1    2    3    4    5    6    7    8    9    0    -    =    bspc
+            tab  q    w    f    p    b    j    l    u    y    ;    [    ]    \
+            @cap a    r    s    t    g    m    n    e    i    o    '    ret
+            @sft x    c    d    v    z    k    h    ,    .    /    rsft
+            @ctl @met @alt           spc            ralt rmet rctl
+          )
+
+          (deflayer layers
+            _    @qwr @cmk @gam    _    _    _    _    _    _    _    _    _    _
+            _    _    _    _    _    _    _    _    _    _    _    _    _    _
+            _    _    _    _    _    _    _    _    _    _    _    _    _
+            _    _    _    _    _    _    _    _    _    _    _    _
+            _    _    _              _              _    _    _
+          )
+        '';
+      };
+    };
+  };
+
+  virtualisation.docker.rootless = {
+    enable = true;
+    setSocketVariable = true;
+  };
+
   programs.zsh.enable = true;
-  programs.partition-manager.enable = true; #replace with something better-integrated with lf?
   programs.kdeconnect.enable = true; #barely works
+  programs.steam.enable = true;
 
   programs.git = {
     enable = true;
@@ -91,18 +190,22 @@
   fonts = {
     packages = with pkgs; [
       noto-fonts
-      noto-fonts-cjk
+      noto-fonts-cjk-sans
       noto-fonts-emoji
       font-awesome
       source-han-sans
       open-sans
       source-han-sans-japanese
       source-han-serif-japanese
-      meslo-lgs-nf
-      nerdfonts
+      #nerdfonts
+      (nerdfonts.override{fonts=[
+        "Meslo"
+      ];})
     ];
     fontconfig.defaultFonts = {
       emoji = [ "Noto Color Emoji" ];
+      monospace = [ "mesloLGS-Nerd-Font-Mono" ];
+      #add japanese fallbacks
     };
   };
 
@@ -121,6 +224,7 @@
   xdg.portal.xdgOpenUsePortal = true;
   xdg.portal.extraPortals = with pkgs; [
     #xdg-desktop-portal-hyprland
+    xdg-desktop-portal-gtk
 #termfilechooser (prob package myself)
   ];
 

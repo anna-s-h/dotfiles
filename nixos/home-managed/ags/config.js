@@ -7,7 +7,7 @@ const audio = await Service.import("audio")
 const systemtray = await Service.import("systemtray")
 
 const date = Variable("", {
-  poll: [100, 'date "+%H:%M:%S %b %e."'],
+  poll: [100, 'date "+%a %r %b %e"'],
 })
 
 const clock = Widget.Window({

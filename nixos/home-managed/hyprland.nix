@@ -9,52 +9,101 @@
       "$moda" = "SUPER";
       "$modb" = "SUPER_ALT";
 
-      "$terminal" = "kitty";
-      "$fileManager" = "kitty -o confirm_os_window_close=0 lf"; #TODO inelegant
-      "$menu" = "rofi -show drun -show-icons";
-      "$calculator" = "[float] qalculate-qt || hyprctl dispatch focuswindow title:Qalculate"; #TODO doesn't work to focus window
+      "$runner" = "rofi -show drun -show-icons";
       "$search" = "ags -r 'change_menu();'";
+      "$calculator" = "[float] qalculate-qt || hyprctl dispatch focuswindow title:Qalculate"; #TODO doesn't work to focus window
+      "$clipboard" = "ags -t 'clipboard'";
+      "$fileManager" = "kitty -o confirm_os_window_close=0 lf"; #TODO inelegant
+      "$menu" = "ags -r 'change_menu('main');'";
+      #tasks
+      "$tasks" = "[float] kitty -o confirm_os_window_close=0 btop";
+      "$notes" = "obsidian";
+      "$notifications" = "ags -t 'notifications'";
       "$clock" = "ags -t 'clock'";
+      "$calendar" = "[float] kitty -o confirm_os_window_close=0 cal";
+      #TODO this is unreliable because activewindow could include pid in title
       "$forcekill" = "hyprctl activewindow | grep pid | tr -d 'pid:' | xargs kill";
-
-      #TODO consider groups
+      "$controllerbinds" = ""; #TODO ???
+      "$terminal" = "kitty";
 
       bind = [
-        #WS-IDs keys: 1 2 3 4 5 6 7 8 9 0 W S P J H
-        #B-less keys: L E C M N V T ?
-        #Unused keys: R Y U I O B < >
-        #Banned keys: Q A Z X
-
         #Main binds
-        "$moda, space, exec, $menu"
+        "$moda, space, exec, $runner"
         "$modb, space, exec, $search"
-        #TODO antimicrox toggle
-        "$moda, D, exec, "#TODO desktop
-        "$modb, D, exec, "#TODO peek
+        "$moda, B, exec, "
+        "$modb, B, exec, "
+        "$modb, C, exec, $calculator"
+        "$modb, C, exec, $clipboard"
+        "$moda, D, exec, "
+        "$modb, D, exec, "
+        "$moda, E, exec, $fileManager"
+        "$modb, E, exec, "
         "$moda, F, fullscreen, 1"
         "$modb, F, fullscreen, 0"
         "$moda, G, togglefloating"
         "$modb, G, pin"
-        "$modb, J, exec, $terminal"
-        "$moda, K, killactive"
-        "$modb, K, exec, $forcekill" #TODO this is unreliable because activewindow could include pid in title
-        "$moda, L, exec, "#TODO help
-        "$moda, E, exec, $fileManager"
-        "$moda, C, exec, $calculator"
-        "$moda, M, exit"#TODO replace with menu
-        "$moda, N, exec, obsidian"
-        "$moda, V, exec, "#TODO clipboard
+        "$moda, I, exec, "
+        "$modb, I, exec, "
+        "$moda, M, exec, $menu"
+        "$modb, M, exec, $tasks"
+        "$moda, N, exec, $notes"
+        "$modb, N, exec, $notifications"
+        "$moda, O, exec, "
+        "$modb, O, exec, "
+        "$moda, P, togglespecialworkspace, passwords"
+        "$modb, P, exec, "
+        "$moda, R, exec, "
+        "$modb, R, exec, "
+        "$moda, S, togglespecialworkspace, magic"
+        "$modb, S, movetoworkspace, special:magic"
         "$moda, T, exec, $clock"
-        "$moda, semicolon, exec, "#TODO perfreport
-        "$modb, semicolon, exec, "#TODO top
-        "$moda, question,  exec, "#TODO notifications
-
-        #Take screenshots
+        "$modb, T, exec, $calendar"
+        "$moda, U, exec, "
+        "$modb, U, exec, "
+        "$moda, V, exec, "
+        "$modb, V, exec, "
+        "$moda, W, killactive"
+        "$modb, W, exec, $forcekill" 
+        "$moda, Y, exec, $controllerbinds"
+        "$modb, Y, exec, "
+        "$moda, comma, exec, "
+        "$modb, comma, exec, "
+        "$moda, period, exec, "
+        "$modb, period, exec, "
+        "$moda, slash, exec, "#help
+        "$modb, slash, exec, "#help
+        "$moda, semicolon, togglespecialworkspace, term"
+        "$modb, semicolon, exec, $terminal"
+        "$moda, 1, workspace, 1"
+        "$modb, 1, movetoworkspace, 1"
+        "$moda, 2, workspace, 2"
+        "$modb, 2, movetoworkspace, 2"
+        "$moda, 3, workspace, 3"
+        "$modb, 3, movetoworkspace, 3"
+        "$moda, 4, workspace, 4"
+        "$modb, 4, movetoworkspace, 4"
+        "$moda, 5, workspace, 5"
+        "$modb, 5, movetoworkspace, 5"
+        "$moda, 6, workspace, 6"
+        "$modb, 6, movetoworkspace, 6"
+        "$moda, 7, workspace, 7"
+        "$modb, 7, movetoworkspace, 7"
+        "$moda, 8, workspace, 8"
+        "$modb, 8, movetoworkspace, 8"
+        "$moda, 9, workspace, 9"
+        "$modb, 9, movetoworkspace, 9"
+        "$moda, 0, movetoworkspacesilent, special:hidden"
+        "$modb, 0, togglespecialworkspace, hidden"
+        "$modb, 0, movetoworkspace, +0"
         "     , Print, exec, grim - | wl-copy && wl-paste > ${config.xdg.userDirs.pictures}/$(date +'%Y-%m-%d-%H%M%S.png')" #TODO one-window
         "$moda, Print, exec, grim - | wl-copy && wl-paste > ${config.xdg.userDirs.pictures}/$(date +'%Y-%m-%d-%H%M%S.png')" #TODO one-screen
         "$modb, Print, exec, grim - | wl-copy && wl-paste > ${config.xdg.userDirs.pictures}/$(date +'%Y-%m-%d-%H%M%S.png')"
 
         #Move focus
+        "$moda, h, movefocus, l"
+        "$moda, l, movefocus, r"
+        "$moda, k, movefocus, u"
+        "$moda, j, movefocus, d"
         "$moda, left,  movefocus, l"
         "$moda, right, movefocus, r"
         "$moda, up,    movefocus, u"
@@ -66,42 +115,6 @@
         #Move window with mainmod + shift + arrows
         #TODO
 
-        #Switch workspaces
-        "$moda, 1, workspace, 1"
-        "$moda, 2, workspace, 2"
-        "$moda, 3, workspace, 3"
-        "$moda, 4, workspace, 4"
-        "$moda, 5, workspace, 5"
-        "$moda, 6, workspace, 6"
-        "$moda, 7, workspace, 7"
-        "$moda, 8, workspace, 8"
-        "$moda, 9, workspace, 9"
-        "$moda, 0, workspace, 10"
-        "$moda, W, togglespecialworkspace, magic"
-        "$moda, S, workspace, school"
-        "$moda, P, togglespecialworkspace, passwords"
-        "$moda, J, togglespecialworkspace, term"
-        "$moda, H, movetoworkspacesilent, special:hidden"
-
-        #Move active window to a workspace
-        "$modb, 1, movetoworkspace, 1"
-        "$modb, 2, movetoworkspace, 2"
-        "$modb, 3, movetoworkspace, 3"
-        "$modb, 4, movetoworkspace, 4"
-        "$modb, 5, movetoworkspace, 5"
-        "$modb, 6, movetoworkspace, 6"
-        "$modb, 7, movetoworkspace, 7"
-        "$modb, 8, movetoworkspace, 8"
-        "$modb, 9, movetoworkspace, 9"
-        "$modb, 0, movetoworkspace, 10"
-        "$modb, W, movetoworkspace, special:magic"
-        "$modb, S, movetoworkspace, school"
-        "$modb, H, togglespecialworkspace, hidden"
-        "$modb, H, movetoworkspace, +0"
-
-        #Scroll through existing workspaces
-        "$moda, mouse_down, workspace, e+1"
-        "$moda, mouse_up,   workspace, e-1"
       ];
 
       bindm = [

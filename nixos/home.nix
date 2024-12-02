@@ -63,7 +63,7 @@
 
   qt = {
     enable = true;
-    platformTheme = "gtk";
+    platformTheme.name = "gtk"; #is this complete?
 #    style = {
 #      name = "Breeze-Dark";
 #      package = pkgs.libsForQt5.breeze-qt5;
@@ -85,7 +85,7 @@
     enable = true;
 
     theme = {
-      name = "Catppuccin-Mocha-Standard-Blue-Dark";
+      name = "catppuccin-mocha-blue-standard+normal";
       package = pkgs.catppuccin-gtk.override {
         size = "standard";
         accents = ["blue"];
@@ -96,7 +96,7 @@
 
     iconTheme = {
       name = "Adwaita";
-      package = pkgs.gnome.adwaita-icon-theme;
+      package = pkgs.adwaita-icon-theme;
     };
 
 #  theme = {
