@@ -17,7 +17,7 @@
     #qbittorrent
     antimicrox
     filelight
-    libsForQt5.kdeconnect-kde
+    #plasma5Packages.kdeconnect-kde
     #libsForQt5.plasma-browser-integration #not working
     #pavucontrol
     digikam
@@ -85,7 +85,7 @@
 
   services.udev.packages = with pkgs; [
     antimicrox
-    kdeconnect
+    plasma5Packages.kdeconnect-kde
   ];
 
   services.kubo = {
@@ -198,9 +198,10 @@
       source-han-sans-japanese
       source-han-serif-japanese
       #nerdfonts
-      (nerdfonts.override{fonts=[
-        "Meslo"
-      ];})
+      #(nerdfonts.override{fonts=[
+      #  "Meslo"
+      #];})
+      nerd-fonts.meslo-lg
     ];
     fontconfig.defaultFonts = {
       emoji = [ "Noto Color Emoji" ];

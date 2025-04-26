@@ -27,7 +27,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    ags.url = "github:Aylur/ags";
+    #ags.url = "github:Aylur/ags";
+    solanoid.path = "path:home-managed/astal";
   };
 
   outputs = { self, nixpkgs, ... }@inputs:

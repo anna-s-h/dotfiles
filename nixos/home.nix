@@ -6,14 +6,14 @@
     ./home-managed/lf.nix
     ./home-managed/rofi.nix
     inputs.nixvim.homeManagerModules.nixvim
-    inputs.ags.homeManagerModules.default 
+    #inputs.ags.homeManagerModules.default 
     ./systemcolor/colors.nix
     ./systemcolor/custom-mirage.nix
   ];
 
-  programs.ags = {
-    enable = true;
-    configDir = ./home-managed/ags;
+  #programs.ags = {
+  #  enable = true;
+  #  configDir = ./home-managed/ags;
 
     # additional packages to add to gjs's runtime
     #extraPackages = with pkgs; [
@@ -21,7 +21,7 @@
     #  webkitgtk
     #  accountsservice
     #];
-  };
+  #};
 
   home.username = "solanum";
   home.homeDirectory = "/home/solanum";
