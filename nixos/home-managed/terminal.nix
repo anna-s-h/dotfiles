@@ -49,6 +49,7 @@
         fgrep="fgrep --colour=auto";
         mount="mount |column -t";
         top="btop";
+        lf="cd \"$(command lf -print-last-dir \"$@\")\"";
 
         # do not delete / or prompt if deleting more than 3 files at a time #
         #alias rm="rm -I --preserve-root"

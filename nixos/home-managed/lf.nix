@@ -2,7 +2,7 @@
   programs.lf = {
     enable = true;
     
-    #xdg.configFile."lf/icons".source = ./icons;
+    xdg.configFile."lf/icons".source = ./icons;
 
     commands = {
       dragon-out = ''%${pkgs.xdragon}/bin/xdragon -a -x "$fx"'';
@@ -27,7 +27,7 @@
       #"\\'" = "mark-load";
       "<enter>" = "open";
       
-      do = "dragon-out";
+      Do = "dragon-out";
       
       "g~" = "cd";
       gh = "cd";
@@ -43,7 +43,7 @@
       preview = true;
       hidden = true;
       drawbox = true;
-      #icons = true;
+      icons = true;
       ignorecase = true;
     };
 

@@ -5,16 +5,18 @@
     };
     lualine = {
       enable = true;
-      sections = {
-        lualine_a = ["mode"];
-        lualine_b = ["branch" "diff" "diagnostics"];
-        lualine_c = ["filename"];
-        lualine_x = ["filetype" "encoding"];
-        lualine_y = ["searchcount"];
-        lualine_z = ["location"];
+      settings = {
+        sections = {
+          lualine_a = ["mode"];
+          lualine_b = ["branch" "diff" "diagnostics"];
+          lualine_c = ["filename"];
+          lualine_x = ["filetype" "encoding"];
+          lualine_y = ["searchcount"];
+          lualine_z = ["location"];
+        };
+        globalstatus = true;
+        extensions = ["nvim-tree"];
       };
-      globalstatus = true;
-      extensions = ["nvim-tree"];
     };
     undotree = {
       enable = true;
@@ -32,15 +34,16 @@
       };
     };
     fugitive.enable = true;
+    web-devicons.enable = true;
     lsp = {
       enable = true;
       servers = {
         nixd.enable = true;
         cssls.enable = true;
-        tsserver.enable = true;
+        ts_ls.enable = true;
         jsonls.enable = true;
         #gdscript.enable = true;
-        rust-analyzer = {
+        rust_analyzer = {
           enable = true;
           installCargo = false;
         };
@@ -94,16 +97,16 @@
     };
     hardtime = {
       enable = false;
-      disableMouse = false;
+      settings.disableMouse = false;
     };
     nvim-ufo = {
       enable = true;
-      providerSelector = ''
+      settings.provider_selector = ''
         function(bufnr, filetype, buftype) return { 'lsp', 'indent' } end
       '';
     };
     dap.enable = true;
-    surround.enable = true;
+    vim-surround.enable = true;
     #quickfix? bqf? trouble?
   };
   extraPlugins = [pkgs.vimPlugins."statuscol-nvim"];
@@ -121,5 +124,5 @@
         { text = { builtin.foldfunc }, click = 'v:lua.ScFa' },
       },
     })
-  '';
+    '';
 }

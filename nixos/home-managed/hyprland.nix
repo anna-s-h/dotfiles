@@ -147,8 +147,17 @@
       #  "opacity 0.99, obsidian" #doesn't help. obsidian transparency is just broken.
       #];
 
+      #workspace = [
+      #  "w[tv1], gapsout:0, gapsin:0"
+      #  "f[1], gapsout:0, gapsin:0"
+      #];
+
       windowrulev2 = [
         "noinitialfocus, workspace special:passwords, class:(keepass)"
+        #"bordersize 0, floating:0, onworkspace:w[tv1]"
+        #"rounding 0, floating:0, onworkspace:w[tv1]"
+        #"bordersize 0, floating:0, onworkspace:f[1]"
+        #"rounding 0, floating:0, onworkspace:f[1]"
       ];
 
       layerrule = [
@@ -195,39 +204,42 @@
       };
 
       general = { #defaults
-          # See https://wiki.hyprland.org/Configuring/Variables/ for more
+        # See https://wiki.hyprland.org/Configuring/Variables/ for more
 
-          gaps_in = "4";
-          gaps_out = "8";
-          border_size = "2";
-          "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
-          "col.inactive_border" = "rgba(595959aa)";
-          #"col.active_border" = "rgba(${config.colorScheme.colors.base0C}ee) rgba(${config.colorScheme.colors.base0D}ee) 45deg";
-          #"col.inactive_border" = "rgba(${config.colorScheme.colors.base03}aa)";
+        gaps_in = "4";
+        gaps_out = "8";
+        border_size = "2";
+        "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
+        "col.inactive_border" = "rgba(595959aa)";
+        #"col.active_border" = "rgba(${config.colorScheme.colors.base0C}ee) rgba(${config.colorScheme.colors.base0D}ee) 45deg";
+        #"col.inactive_border" = "rgba(${config.colorScheme.colors.base03}aa)";
 
-          layout = "dwindle";
+        layout = "dwindle";
 
-          # Please see https://wiki.hyprland.org/Configuring/Tearing/ before you turn this on
-          allow_tearing = "false";
+        # Please see https://wiki.hyprland.org/Configuring/Tearing/ before you turn this on
+        allow_tearing = "false";
       };
 
       decoration = { # defaults
-          # See https://wiki.hyprland.org/Configuring/Variables/ for more
+        # See https://wiki.hyprland.org/Configuring/Variables/ for more
 
-          rounding = "4";
+        rounding = "4";
 
-          blur = {
-              enabled = "true";
-              size = "3";
-              passes = "1";
-              special = true; #might be doubling up?
-          };
+        blur = {
+          enabled = "true";
+          size = "3";
+          passes = "1";
+          special = true; #might be doubling up?
+        };
 
-          drop_shadow = true;
-          #shadow_range = "10";
-          #shadow_render_power = "1";
-          #"col.shadow" = "rgba(1a1a1aee)";
-          #"col.shadow_inactive" = "rgba(00000000)";
+        shadow = {
+          enabled = "true";
+          range = "12";
+          render_power = "2";
+          ignore_window = "true";
+          color = "0xee001a1a";
+          color_inactive = "0x00000000";
+        };
       };
     };
   };
