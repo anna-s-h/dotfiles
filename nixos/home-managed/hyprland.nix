@@ -10,16 +10,16 @@
       "$modb" = "SUPER_ALT";
 
       "$runner" = "rofi -show drun -show-icons";
-      "$search" = "ags -r 'change_menu();'";
+      "$search" = "astal menu";
       "$calculator" = "[float] qalculate-qt || hyprctl dispatch focuswindow title:Qalculate"; #TODO doesn't work to focus window
-      "$clipboard" = "ags -t 'clipboard'";
-      "$fileManager" = "kitty -o confirm_os_window_close=0 lf"; #TODO inelegant
-      "$menu" = "ags -r 'change_menu('main');'";
+      "$clipboard" = "astal toggle clipboard";
+      "$fileManager" = "kitty -o confirm_os_window_close=0 yazi"; #TODO inelegant
+      "$menu" = "astal menu main";
       #tasks
       "$tasks" = "[float] kitty -o confirm_os_window_close=0 btop";
       "$notes" = "obsidian";
-      "$notifications" = "ags -t 'notifications'";
-      "$clock" = "ags -t 'clock'";
+      "$notifications" = "astal toggle notifications";
+      "$clock" = "astal toggle clock";
       "$calendar" = "[float] kitty -o confirm_os_window_close=0 cal";
       #TODO this is unreliable because activewindow could include pid in title
       "$forcekill" = "hyprctl activewindow | grep pid | tr -d 'pid:' | xargs kill";
@@ -95,9 +95,14 @@
         "$moda, 0, movetoworkspacesilent, special:hidden"
         "$modb, 0, togglespecialworkspace, hidden"
         "$modb, 0, movetoworkspace, +0"
-        "     , Print, exec, grim - | wl-copy && wl-paste > ${config.xdg.userDirs.pictures}/$(date +'%Y-%m-%d-%H%M%S.png')" #TODO one-window
-        "$moda, Print, exec, grim - | wl-copy && wl-paste > ${config.xdg.userDirs.pictures}/$(date +'%Y-%m-%d-%H%M%S.png')" #TODO one-screen
-        "$modb, Print, exec, grim - | wl-copy && wl-paste > ${config.xdg.userDirs.pictures}/$(date +'%Y-%m-%d-%H%M%S.png')"
+        # TODO: fix these
+        #"     , Print, exec, grim - $(hyprctl monitors | awk '/at:/ { split($2, pos, \",\") x = pos[1] y = pos[2] } /size:/ { split($2, size, \",\") w = size[1] h = size[2] } END { print w \",\" h \" \" x \"x\" y }') | wl-copy && wl-paste > ${config.xdg.userDirs.pictures}/$(date +'%Y-%m-%d-%H%M%S.png')"
+        #"$moda, Print, exec, grim -o $(hyprctl monitors | awk '/Monitor /{mon=$2} /focused: yes/{print mon}') | wl-copy && wl-paste > ${config.xdg.userDirs.pictures}/$(date +'%Y-%m-%d-%H%M%S.png')"
+        #"$modb, Print, exec, grim - | wl-copy && wl-paste > ${config.xdg.userDirs.pictures}/$(date +'%Y-%m-%d-%H%M%S.png')"
+        "     , Print, exec, grim - | wl-copy && wl-paste > ${config.xdg.userDirs.pictures}/$(date +'%Y-%m-%d-%H%M%S.png')"
+        #"     , Print, exec, ${config.home.file."screenshot.sh".source} window"
+        #"$moda, Print, exec, ${config.home.file."screenshot.sh".source} monitor"
+        #"$modb, Print, exec, ${config.home.file."screenshot.sh".source} full"
 
         #Move focus
         "$moda, h, movefocus, l"
@@ -141,6 +146,7 @@
         "[workspace special:hidden silent] antimicrox"
         #"swww init && swww img ~/dotfiles/wallpapers/quantum-moon.png"
         "hypridle"
+        "solanoid"
       ];
 
       #windowrule = [

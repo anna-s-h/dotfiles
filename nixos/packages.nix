@@ -8,15 +8,16 @@
     grim
     vlc
     keepassxc #needs config
-    ark #replace with something integrated with lf
-    okular #needs config (should be last resort)
+    kdePackages.ark #replace with something integrated with lf
+    kdePackages.okular #needs config (should be last resort)
+    inputs.astal.packages.${system}.default
+    inputs.solanoid.packages.${system}.default
   #utilities
     obsidian
-    kfind
     kanata
     #qbittorrent
     antimicrox
-    filelight
+    kdePackages.filelight
     #plasma5Packages.kdeconnect-kde
     #libsForQt5.plasma-browser-integration #not working
     #pavucontrol
@@ -24,9 +25,9 @@
     samba #replace with something faster
     qalculate-qt
     btop #maybe a little too much
-    kfind
+    kdePackages.kfind
     vesktop
-    xwaylandvideobridge #needed for discord jank
+    kdePackages.xwaylandvideobridge #needed for discord jank
     ripgrep
     ganttproject-bin
     wireguard-tools
@@ -40,8 +41,8 @@
     dolphin-emu
     #yuzu #must package myself
     #citra-nightly #must package myself
-    #cemu #is broken right now
-    desmume
+    cemu #is broken right now
+    # desmume #why do all the emulators break all the time 
     prismlauncher #move instances somewhere sensible
     glfw-wayland-minecraft
     waydroid
@@ -53,6 +54,7 @@
   #project editors
     cachix
     devenv
+    material-maker 
     libreoffice
     gimp#-with-plugins #also, can krita replace this?
     aseprite #needs config (link palettes, import history)
@@ -61,27 +63,32 @@
     blender #config?
     blockbench
     obs-studio
-    shotcut
+    # shotcut
     godot_4
     ldtk
     birdfont
     cargo
-    kicad
+    #kicad
     vscodium
-    (symlinkJoin {
-    name = "idea-community";
-    paths = [ jetbrains.idea-community ];
-    buildInputs = [ makeWrapper ];
-    postBuild = ''
-      wrapProgram $out/bin/idea-community \
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [libpulseaudio libGL glfw openal stdenv.cc.cc.lib]}"
-    '';
-  })
+    jetbrains.idea-community
+    #(symlinkJoin {
+    #  name = "idea-community";
+    #  paths = [ jetbrains.idea-community ];
+    #  buildInputs = [ makeWrapper ];
+    #  postBuild = ''
+    #    wrapProgram $out/bin/idea-community \
+    #    --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [libpulseaudio libGL glfw openal stdenv.cc.cc.lib]}"
+    #  '';
+    #})
   #hyprland things
     wl-clipboard
     hypridle #needs config(hybrid suspend)
     #swww #or wpaperd?
+    #inputs.astal
   ];
+
+  programs.adb.enable = true;
+  users.users.solanum.extraGroups = ["adbusers"];
 
   services.udev.packages = with pkgs; [
     antimicrox
@@ -197,11 +204,11 @@
       open-sans
       source-han-sans-japanese
       source-han-serif-japanese
-      #nerdfonts
-      #(nerdfonts.override{fonts=[
-      #  "Meslo"
-      #];})
-      nerd-fonts.meslo-lg
+      nerdfonts
+      (nerdfonts.override{fonts=[
+        "Meslo"
+      ];})
+      #nerd-fonts.meslo-lg
     ];
     fontconfig.defaultFonts = {
       emoji = [ "Noto Color Emoji" ];

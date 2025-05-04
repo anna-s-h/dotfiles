@@ -4,6 +4,7 @@
     ./home-managed/hyprland.nix
     ./home-managed/terminal.nix
     ./home-managed/lf.nix
+    ./home-managed/yazi.nix
     ./home-managed/rofi.nix
     inputs.nixvim.homeManagerModules.nixvim
     #inputs.ags.homeManagerModules.default 

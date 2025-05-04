@@ -1,0 +1,72 @@
+.empty {
+  padding: 1em;
+}
+
+.icon {
+  min-width: 0px;
+  min-height: 0px;
+  margin-right: 10px;
+  margin-bottom:5px;
+  font-size: 58px;
+}
+
+.icon box {
+  min-width: 68px;
+  min-height: 68px;
+  border-radius: 7px;
+}
+
+.box {
+  min-width: 350px;
+  border-radius: 11px;
+  padding: 1em;
+  margin: .5em;
+  border: 2px solid #78FCD0;
+  background-color: #171B24;
+}
+
+.box critical {
+  border: 1px solid lightcoral;
+}
+
+.clock-large {
+  font-size: 58px;
+  margin-top: -10px;
+  font-weight: bold;
+}
+
+.clock-small {
+  font-size: 18px;
+  color: #607080;
+}
+
+.title {
+  color: #CCCCC6;
+  font-size: 1.4em;
+}
+
+.body {
+  color: #607080;
+}
+
+.timer block {
+  background-color: white;
+  font-size:1px;
+}
+
+.timer block.empty {
+  background-color: #607080;
+}
+
+.actions button {
+  margin: 0 .4em;
+  margin-top: .8em;
+}
+
+.actions button:first-child {
+  margin-left: 0;
+}
+
+.actions button:last-child {
+  margin-right: 0;
+}

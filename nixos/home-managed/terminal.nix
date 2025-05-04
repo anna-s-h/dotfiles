@@ -4,7 +4,7 @@
   programs.rofi.terminal = "kitty -o confirm_os_window_close=0";
   programs.kitty = {
     enable = true;
-    font.name = "mesloLGS-Nerd-Font-Mono";
+    font.name = "mesloLGS-Nerd-Font";
     font.size = 14;
     settings = {
       foreground = "#${config.colors.common.foreground}";
@@ -27,6 +27,7 @@
       color13 = "#${config.colors.ansi.magenta-bold}";
       color14 = "#${config.colors.ansi.cyan-bold}";
       color15 = "#${config.colors.ansi.white-bold}";
+      symbol_map = "U+1000-U+ffee MesloLGS Nerd Font";
     };
   };
   
@@ -49,7 +50,7 @@
         fgrep="fgrep --colour=auto";
         mount="mount |column -t";
         top="btop";
-        lf="cd \"$(command lf -print-last-dir \"$@\")\"";
+        lfcd="cd \"$(command lf -print-last-dir \"$@\")\"";
 
         # do not delete / or prompt if deleting more than 3 files at a time #
         #alias rm="rm -I --preserve-root"

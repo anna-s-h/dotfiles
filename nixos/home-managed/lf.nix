@@ -1,42 +1,39 @@
 { config, pkgs, inputs, ... } : {
+  xdg.configFile."lf/icons".source = ./icons;
   programs.lf = {
     enable = true;
     
-    xdg.configFile."lf/icons".source = ./icons;
-
     commands = {
       dragon-out = ''%${pkgs.xdragon}/bin/xdragon -a -x "$fx"'';
       editor-open = ''$$EDITOR $f'';
       open = ''%${pkgs.handlr}/bin/handlr open "$f"'';
-      mkdir = ''
-      ''${{
-        printf "Directory Name: "
-        read DIR
-        mkdir $DIR
-      }}
-      '';
+      #mkdir = ''
+      #''${{
+      #  printf "Directory Name: "
+      #  read DIR
+      #  mkdir $DIR
+      #}}
+      #'';
     };
 
     keybindings = {
 
       #"\\\"" = "";
       #o = "";
-      c = "mkdir";
+      #c = "mkdir";
       "." = "set hidden!";
       #"`" = "mark-load";
       #"\\'" = "mark-load";
-      "<enter>" = "open";
+      #"<enter>" = "open";
       
       Do = "dragon-out";
       
-      "g~" = "cd";
-      gh = "cd";
+      #"g~" = "cd";
+      #gh = "cd";
       "g/" = "/";
 
-      ee = "editor-open";
+      #ee = "editor-open";
       #V = ''$${pkgs.bat}/bin/bat --paging=always --theme=gruvbox "$f"'';
-
-      # ...
     };
 
     settings = {
