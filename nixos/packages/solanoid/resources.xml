@@ -1,0 +1,5 @@
+<gresources>
+  <gresource prefix="/com/solanoid">
+    <file>style.css</file>
+  </gresource>
+</gresources>

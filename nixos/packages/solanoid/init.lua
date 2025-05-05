@@ -61,7 +61,7 @@ local function toggle_visibility(name)
 end
 
 App:start {
-  css = "style.css",
+  css = [[@styleCss@]],
   main = function()
 		for _, mon in pairs(App.monitors) do
 			NotificationPopups(mon)

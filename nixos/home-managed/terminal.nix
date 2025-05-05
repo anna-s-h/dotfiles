@@ -27,10 +27,10 @@
       color13 = "#${config.colors.ansi.magenta-bold}";
       color14 = "#${config.colors.ansi.cyan-bold}";
       color15 = "#${config.colors.ansi.white-bold}";
-      symbol_map = "U+1000-U+ffee MesloLGS Nerd Font";
+      #symbol_map = "U+1000-U+ffee MesloLGS Nerd Font";
     };
   };
-  
+
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -42,24 +42,16 @@
     history.path="$HOME/.zsh/history";
 
     shellAliases = {
-        ls="ls --color=auto";
-        ll="ls -la";
-        lsd="ls -d .* --color=auto";
-        grep="grep --colour=auto";
-        egrep="egrep --colour=auto";
-        fgrep="fgrep --colour=auto";
-        mount="mount |column -t";
-        top="btop";
-        lfcd="cd \"$(command lf -print-last-dir \"$@\")\"";
-
-        # do not delete / or prompt if deleting more than 3 files at a time #
-        #alias rm="rm -I --preserve-root"
-
-        # confirmation #
-        #alias mv="mv -i"
-        #alias cp="cp -i"
-        #alias ln="ln -i"
+      grep="grep --colour=auto";
+      egrep="egrep --colour=auto";
+      fgrep="fgrep --colour=auto";
+      mount="mount |column -t";
+      top="btop";
+      gs="git status";
+      #lfcd="cd \"$(command lf -print-last-dir \"$@\")\"";
     };
+
+    initExtra = "source ${./functions.zsh}";
 
     plugins = [
       {
