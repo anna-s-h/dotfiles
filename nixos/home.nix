@@ -3,7 +3,6 @@
     ./home-managed/firefox/firefox.nix
     ./home-managed/hyprland.nix
     ./home-managed/terminal.nix
-    ./home-managed/lf.nix
     ./home-managed/yazi.nix
     ./home-managed/rofi.nix
     inputs.nixvim.homeManagerModules.nixvim
@@ -123,12 +122,33 @@
   };
 
   home.packages = [
-# # You can also create simple shell scripts directly inside your
-# # configuration. For example, this adds a command 'my-hello' to your
-# # environment:
-# (pkgs.writeShellScriptBin "my-hello" ''
-#   echo "Hello, ${config.home.username}!"
-# '')
+    (pkgs.writeShellScriptBin "screenshot" ''
+      #!/bin/zsh
+      set -eu
+      mode="''${1:-full}"
+      filename="''${XDG_PICTURES_DIR:-$HOME/Pictures}/$(date +'%Y-%m-%d-%H%M%S').png"
+      case "$mode" in
+        full)
+          grim "$filename" && wl-copy < "$filename"
+          ;;
+        monitor)
+          mon=$(hyprctl monitors | awk '/Monitor /{mon=$2} /focused: yes/{print mon}')
+          grim -o "$mon" "$filename" && wl-copy < "$filename"
+          ;;
+        window)
+          geom=$(hyprctl activewindow | awk '
+            /at:/   { split($2,a,","); x=a[1]; y=a[2] }
+            /size:/ { split($2,s,","); w=s[1]; h=s[2] }
+            END     { print x "," y " " w "x" h }
+          ')
+          grim -g "$geom" "$filename" && wl-copy < "$filename"
+          ;;
+        *)
+          echo "Usage: screenshot [full|monitor|window]" >&2
+          exit 1
+          ;;
+      esac
+    '')
   ];
 
 # Don't touch

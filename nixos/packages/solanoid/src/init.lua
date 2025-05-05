@@ -61,7 +61,7 @@ local function toggle_visibility(name)
 end
 
 App:start {
-  css = [[@styleCss@]],
+  css = "/home/solanum/.config/solanoid/style.css", --TODO: de-jank
   main = function()
 		for _, mon in pairs(App.monitors) do
 			NotificationPopups(mon)

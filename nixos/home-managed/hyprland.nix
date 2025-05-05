@@ -99,10 +99,10 @@
         #"     , Print, exec, grim - $(hyprctl monitors | awk '/at:/ { split($2, pos, \",\") x = pos[1] y = pos[2] } /size:/ { split($2, size, \",\") w = size[1] h = size[2] } END { print w \",\" h \" \" x \"x\" y }') | wl-copy && wl-paste > ${config.xdg.userDirs.pictures}/$(date +'%Y-%m-%d-%H%M%S.png')"
         #"$moda, Print, exec, grim -o $(hyprctl monitors | awk '/Monitor /{mon=$2} /focused: yes/{print mon}') | wl-copy && wl-paste > ${config.xdg.userDirs.pictures}/$(date +'%Y-%m-%d-%H%M%S.png')"
         #"$modb, Print, exec, grim - | wl-copy && wl-paste > ${config.xdg.userDirs.pictures}/$(date +'%Y-%m-%d-%H%M%S.png')"
-        "     , Print, exec, grim - | wl-copy && wl-paste > ${config.xdg.userDirs.pictures}/$(date +'%Y-%m-%d-%H%M%S.png')"
-        #"     , Print, exec, ${config.home.file."screenshot.sh".source} window"
-        #"$moda, Print, exec, ${config.home.file."screenshot.sh".source} monitor"
-        #"$modb, Print, exec, ${config.home.file."screenshot.sh".source} full"
+        #"     , Print, exec, grim - | wl-copy && wl-paste > ${config.xdg.userDirs.pictures}/$(date +'%Y-%m-%d-%H%M%S.png')"
+        "     , Print, exec, screenshot window"
+        "$moda, Print, exec, screenshot monitor"
+        "$modb, Print, exec, screenshot full"
 
         #Move focus
         "$moda, h, movefocus, l"

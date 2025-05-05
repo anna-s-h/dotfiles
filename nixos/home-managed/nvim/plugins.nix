@@ -44,6 +44,7 @@
         jsonls.enable = true;
         #gdscript.enable = true;
         rust_analyzer = {
+          installRustc = false;
           enable = true;
           installCargo = false;
         };
@@ -79,18 +80,21 @@
         { name = "buffer"; }
       ];
     };
-    nvim-tree = {
+    #nvim-tree = {
+    #  enable = true;
+    #  view.side = "right";
+    #  hijackCursor = true;
+    #  actions.openFile.quitOnOpen = true;
+    #  actions.windowPicker.enable = true;
+    #  modified.enable = true;
+    #  tab.sync.close = true;
+    #  tab.sync.open = true;
+    #  renderer = {
+    #    icons.gitPlacement = "after";
+    #  };
+    #};
+    yazi = {
       enable = true;
-      view.side = "right";
-      hijackCursor = true;
-      actions.openFile.quitOnOpen = true;
-      actions.windowPicker.enable = true;
-      modified.enable = true;
-      tab.sync.close = true;
-      tab.sync.open = true;
-      renderer = {
-        icons.gitPlacement = "after";
-      };
     };
     transparent = {
       enable = true;
