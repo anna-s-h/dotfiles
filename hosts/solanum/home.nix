@@ -1,8 +1,12 @@
 { config, pkgs, inputs, ... } : {
   imports = [
     ../../modules/homeManager/default.nix
+    ../../modules/nixos/systemcolor/colors.nix
+    ../../modules/nixos/systemcolor/custom-mirage.nix
     inputs.nixvim.homeManagerModules.nixvim
   ];
+
+
 
   home.username = "solanum";
   home.homeDirectory = "/home/solanum";

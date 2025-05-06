@@ -6,7 +6,7 @@
     theme = let inherit (config.lib.formats.rasi) mkLiteral; in {
       "*" = {
         background-color = mkLiteral "transparent";
-      #foreground-color = mkLiteral "#${config.colors.common.foreground}";
+        foreground-color = mkLiteral "#${config.colors.common.foreground}";
         text-color = mkLiteral "@foreground-color";
         width = 512;
         #border-color = mkLiteral "#${config.colors.ansi.red-bold}";
@@ -15,8 +15,8 @@
 
       "window" = {
         padding = mkLiteral "3 0";
-      #background-color = mkLiteral "#${config.colors.common.background}E5";
-      #border-color = mkLiteral "#${config.colors.accent}";
+        background-color = mkLiteral "#${config.colors.common.background}E5";
+        border-color = mkLiteral "#${config.colors.accent}";
         border = mkLiteral "2";
         border-radius = mkLiteral "4";
         width = mkLiteral "50%";
@@ -30,45 +30,45 @@
       "prompt" = {
         #spacing = mkLiteral "0";
         padding = mkLiteral "0 0 0 4";
-      #background-color = mkLiteral "#${config.colors.ansi.green}";
-      #text-color = mkLiteral "#${config.colors.ansi.black}";
+        background-color = mkLiteral "#${config.colors.ansi.green}";
+        text-color = mkLiteral "#${config.colors.ansi.black}";
       };
 
       "textbox-l" = {
         expand = mkLiteral "false";
         width = mkLiteral "1ch";
         str = "";
-      #text-color = mkLiteral "#${config.colors.ansi.green}";
+        text-color = mkLiteral "#${config.colors.ansi.green}";
       };
 
       "entry" = {
         padding = mkLiteral "0 2";
-      #text-color = mkLiteral "#${config.colors.common.foreground}";
+        text-color = mkLiteral "#${config.colors.common.foreground}";
       };
       
       "textbox-r" = {
         expand = mkLiteral "false";
         width = mkLiteral "1ch";
         str = "";
-      #text-color = mkLiteral "#${config.colors.ansi.magenta}";
+        text-color = mkLiteral "#${config.colors.ansi.magenta}";
       };
 
       "num-filtered-rows" = {
-      #background-color = mkLiteral "#${config.colors.ansi.magenta}";
-      #text-color = mkLiteral "#${config.colors.ansi.black}";
+        background-color = mkLiteral "#${config.colors.ansi.magenta}";
+        text-color = mkLiteral "#${config.colors.ansi.black}";
       };
 
       "textbox-slash" = {
         expand = mkLiteral "false";
         width = mkLiteral "1ch";
         str = "/";
-      #background-color = mkLiteral "#${config.colors.ansi.magenta}";
-      #text-color = mkLiteral "#${config.colors.ansi.black}";
+        background-color = mkLiteral "#${config.colors.ansi.magenta}";
+        text-color = mkLiteral "#${config.colors.ansi.black}";
       };
 
       "num-rows" = {
-      #background-color = mkLiteral "#${config.colors.ansi.magenta}";
-      #text-color = mkLiteral "#${config.colors.ansi.black}";
+        background-color = mkLiteral "#${config.colors.ansi.magenta}";
+        text-color = mkLiteral "#${config.colors.ansi.black}";
         padding = mkLiteral "0 4 0 0";
       };
 
@@ -79,14 +79,14 @@
       "scrollbar" = {
         width = mkLiteral "4";
         border = mkLiteral "0";
-      #background-color = mkLiteral "#${config.colors.common.background-gutter}";
-      #handle-color = mkLiteral "#${config.colors.common.midtone}";
+        background-color = mkLiteral "#${config.colors.common.background-gutter}";
+        handle-color = mkLiteral "#${config.colors.common.midtone}";
         handle-width = mkLiteral "8";
         padding = mkLiteral "0";
       };
 
       "element.selected.normal" = {
-      # background-color = mkLiteral "#${config.colors.common.background-selectedline}";
+        background-color = mkLiteral "#${config.colors.common.background-selectedline}";
       };
 
       "element-icon" = {

@@ -5,6 +5,7 @@
     ./system-packages.nix
     ./nas.nix
     ../../modules/nixos/default.nix
+    ../../modules/nixos/systemcolor/custom-mirage.nix
     inputs.home-manager.nixosModules.default
     inputs.sops-nix.nixosModules.sops
   ];

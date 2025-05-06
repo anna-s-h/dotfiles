@@ -9,24 +9,24 @@
       };
       colors = {
         alpha = 0.90;
-        #foreground = "${config.colors.common.foreground}";
-        #background = "${config.colors.common.background}";
-        #regular0  = "${config.colors.ansi.black}";
-        #regular1  = "${config.colors.ansi.red}";
-        #regular2  = "${config.colors.ansi.green}";
-        #regular3  = "${config.colors.ansi.yellow}";
-        #regular4  = "${config.colors.ansi.blue}";
-        #regular5  = "${config.colors.ansi.magenta}";
-        #regular6  = "${config.colors.ansi.cyan}";
-        #regular7  = "${config.colors.ansi.white}";
-        #bright0  = "${config.colors.ansi.black-bold}";
-        #bright1  = "${config.colors.ansi.red-bold}";
-        #bright2 = "${config.colors.ansi.green-bold}";
-        #bright3 = "${config.colors.ansi.yellow-bold}";
-        #bright4 = "${config.colors.ansi.blue-bold}";
-        #bright5 = "${config.colors.ansi.magenta-bold}";
-        #bright6 = "${config.colors.ansi.cyan-bold}";
-        #bright7 = "${config.colors.ansi.white-bold}";
+        foreground = "${config.colors.common.foreground}";
+        background = "${config.colors.common.background}";
+        regular0  = "${config.colors.ansi.black}";
+        regular1  = "${config.colors.ansi.red}";
+        regular2  = "${config.colors.ansi.green}";
+        regular3  = "${config.colors.ansi.yellow}";
+        regular4  = "${config.colors.ansi.blue}";
+        regular5  = "${config.colors.ansi.magenta}";
+        regular6  = "${config.colors.ansi.cyan}";
+        regular7  = "${config.colors.ansi.white}";
+        bright0  = "${config.colors.ansi.black-bold}";
+        bright1  = "${config.colors.ansi.red-bold}";
+        bright2 = "${config.colors.ansi.green-bold}";
+        bright3 = "${config.colors.ansi.yellow-bold}";
+        bright4 = "${config.colors.ansi.blue-bold}";
+        bright5 = "${config.colors.ansi.magenta-bold}";
+        bright6 = "${config.colors.ansi.cyan-bold}";
+        bright7 = "${config.colors.ansi.white-bold}";
       };
     };
   };
@@ -58,7 +58,7 @@
       }
       {
         name = "powerlevel10k-config";
-        src  = ./p10k.zsh;
+        src  = ./.;
         file = "p10k.zsh";
       }
     ];
