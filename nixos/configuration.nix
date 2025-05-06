@@ -41,21 +41,19 @@
   sops.defaultSopsFormat = "yaml";
   sops.age.keyFile = "${config.home-manager.users."solanum".home.homeDirectory}/keys/age.txt";
 
+  #should be modularized
   fileSystems."/mnt/new_a" = {
     device = "/dev/disk/by-uuid/85cb773b-1d04-459d-b388-79cbde5b1c1e";
     fsType = "ext4";
   };
-
   fileSystems."/mnt/new_b" = {
     device = "/dev/disk/by-uuid/a250e1ca-d960-4237-8e67-131602645440";
     fsType = "ext4";
   };
-
   fileSystems."/mnt/big" = {
     device = "/dev/disk/by-uuid/fb1929c4-602f-4b52-83e9-e7b76fdffb4b";
     fsType = "ext4";
   };
-
   fileSystems."/mnt/games" = {
     device = "/dev/disk/by-uuid/e670de52-7c00-4a77-a76d-119685b9848c";
     fsType = "ext4";
@@ -79,18 +77,6 @@
     };
     #supportedFilesystems = [ "ntfs" ];
   };
-
-  #needs researched
-  #system.autoUpgrade = {
-  #  enable = true;
-  #  flake = inputs.self.outPath;
-  #  flags = [
-  #    "--update-input"
-  #    "nixpkgs"
-  #    "-L"
-  #  ];
-  #  dates = "9:00"
-  #}
 
   #doesn't work
   #also should be modularized

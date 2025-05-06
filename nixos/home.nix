@@ -6,22 +6,9 @@
     ./home-managed/yazi.nix
     ./home-managed/rofi.nix
     inputs.nixvim.homeManagerModules.nixvim
-    #inputs.ags.homeManagerModules.default 
     ./systemcolor/colors.nix
     ./systemcolor/custom-mirage.nix
   ];
-
-  #programs.ags = {
-  #  enable = true;
-  #  configDir = ./home-managed/ags;
-
-    # additional packages to add to gjs's runtime
-    #extraPackages = with pkgs; [
-    #  gtksourceview
-    #  webkitgtk
-    #  accountsservice
-    #];
-  #};
 
   home.username = "solanum";
   home.homeDirectory = "/home/solanum";
@@ -35,8 +22,10 @@
     music = "${config.home.homeDirectory}/music";
   };
 
-  programs.eww.configDir = ./home-managed/eww;
+  #TODO make this more normal somehow?
   programs.nixvim = import ./home-managed/nvim/nixvim.nix;
+
+  #TODO remove
   services.stalonetray = {
     enable = true;
     config = {
@@ -44,6 +33,7 @@
     };
   };
 
+  #TODO remove unwanted entries; add entries for other things I might want
   xdg.desktopEntries = {
     nvim = {
       name = "NeoVim";
@@ -53,37 +43,13 @@
     };
   };
 
-### None of this section works, for some reason
-
-#qt = {
-#  enable = true;
-#  platformTheme = "kde";
-#  style.name = "breeze";
-#};
-
+  #TODO cursor theme; test themes everywhere
   qt = {
     enable = true;
     platformTheme.name = "gtk"; #is this complete?
-#    style = {
-#      name = "Breeze-Dark";
-#      package = pkgs.libsForQt5.breeze-qt5;
-#    };
   };
-
-#  home.pointerCursor = {
-#    gtk.enable = true;
-#    package = pkgs.libsForQt5.breeze-gtk;
-#    name = "Breeze-Dark";
-#    size = 16;
-#  };
-
-#  home.sessionVariables = {
-#    GTK_THEME = "Breeze";
-#  };
-
   gtk = {
     enable = true;
-
     theme = {
       name = "catppuccin-mocha-blue-standard+normal";
       package = pkgs.catppuccin-gtk.override {
@@ -93,18 +59,11 @@
         tweaks = ["normal"];
       };
     };
-
     iconTheme = {
       name = "Adwaita";
       package = pkgs.adwaita-icon-theme;
     };
-
-#  theme = {
-#    name = "Breeze-Dark";
-#    package = pkgs.libsForQt5.breeze-gtk;
-#  };
   };
-
   xdg.configFile = {
     "gtk-4.0/assets".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/assets";
     "gtk-4.0/gtk.css".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/gtk.css";

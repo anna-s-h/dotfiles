@@ -1,33 +1,33 @@
 {config, pkgs, ...}:
 
 {
-  programs.rofi.terminal = "kitty -o confirm_os_window_close=0";
-  programs.kitty = {
+  programs.foot = {
     enable = true;
-    font.name = "mesloLGS-Nerd-Font";
-    font.size = 14;
     settings = {
-      foreground = "#${config.colors.common.foreground}";
-      background = "#${config.colors.common.background}";
-      selection_background = "#${config.colors.common.background-selection}"; 
-      background_opacity = "0.90";
-      color0  = "#${config.colors.ansi.black}";
-      color1  = "#${config.colors.ansi.red}";
-      color2  = "#${config.colors.ansi.green}";
-      color3  = "#${config.colors.ansi.yellow}";
-      color4  = "#${config.colors.ansi.blue}";
-      color5  = "#${config.colors.ansi.magenta}";
-      color6  = "#${config.colors.ansi.cyan}";
-      color7  = "#${config.colors.ansi.white}";
-      color8  = "#${config.colors.ansi.black-bold}";
-      color9  = "#${config.colors.ansi.red-bold}";
-      color10 = "#${config.colors.ansi.green-bold}";
-      color11 = "#${config.colors.ansi.yellow-bold}";
-      color12 = "#${config.colors.ansi.blue-bold}";
-      color13 = "#${config.colors.ansi.magenta-bold}";
-      color14 = "#${config.colors.ansi.cyan-bold}";
-      color15 = "#${config.colors.ansi.white-bold}";
-      #symbol_map = "U+1000-U+ffee MesloLGS Nerd Font";
+      main = {
+        font = "MesloLGS Nerd Font:size=14";
+      };
+      colors = {
+        alpha = 0.90;
+        foreground = "${config.colors.common.foreground}";
+        background = "${config.colors.common.background}";
+        regular0  = "${config.colors.ansi.black}";
+        regular1  = "${config.colors.ansi.red}";
+        regular2  = "${config.colors.ansi.green}";
+        regular3  = "${config.colors.ansi.yellow}";
+        regular4  = "${config.colors.ansi.blue}";
+        regular5  = "${config.colors.ansi.magenta}";
+        regular6  = "${config.colors.ansi.cyan}";
+        regular7  = "${config.colors.ansi.white}";
+        bright0  = "${config.colors.ansi.black-bold}";
+        bright1  = "${config.colors.ansi.red-bold}";
+        bright2 = "${config.colors.ansi.green-bold}";
+        bright3 = "${config.colors.ansi.yellow-bold}";
+        bright4 = "${config.colors.ansi.blue-bold}";
+        bright5 = "${config.colors.ansi.magenta-bold}";
+        bright6 = "${config.colors.ansi.cyan-bold}";
+        bright7 = "${config.colors.ansi.white-bold}";
+      };
     };
   };
 
@@ -48,10 +48,7 @@
       mount="mount |column -t";
       top="btop";
       gs="git status";
-      #lfcd="cd \"$(command lf -print-last-dir \"$@\")\"";
     };
-
-    initExtra = "source ${./functions.zsh}";
 
     plugins = [
       {

@@ -9,22 +9,22 @@
       "$moda" = "SUPER";
       "$modb" = "SUPER_ALT";
 
+      "$terminal" = "foot";
       "$runner" = "rofi -show drun -show-icons";
       "$search" = "astal menu";
       "$calculator" = "[float] qalculate-qt || hyprctl dispatch focuswindow title:Qalculate"; #TODO doesn't work to focus window
       "$clipboard" = "astal toggle clipboard";
-      "$fileManager" = "kitty -o confirm_os_window_close=0 yazi"; #TODO inelegant
+      "$fileManager" = "$terminal yazi";
       "$menu" = "astal menu main";
       #tasks
-      "$tasks" = "[float] kitty -o confirm_os_window_close=0 btop";
+      "$tasks" = "[float] $terminal btop";
       "$notes" = "obsidian";
       "$notifications" = "astal toggle notifications";
       "$clock" = "astal toggle clock";
-      "$calendar" = "[float] kitty -o confirm_os_window_close=0 cal";
+      "$calendar" = "[float] $terminal cal";
       #TODO this is unreliable because activewindow could include pid in title
       "$forcekill" = "hyprctl activewindow | grep pid | tr -d 'pid:' | xargs kill";
       "$controllerbinds" = ""; #TODO ???
-      "$terminal" = "kitty";
 
       bind = [
         #Main binds
