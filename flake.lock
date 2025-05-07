@@ -630,11 +630,11 @@
         ]
       },
       "locked": {
-        "path": "modules/pkgs/solanoid",
+        "path": "pkgs/solanoid",
         "type": "path"
       },
       "original": {
-        "path": "modules/pkgs/solanoid",
+        "path": "pkgs/solanoid",
         "type": "path"
       },
       "parent": []

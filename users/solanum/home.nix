@@ -1,12 +1,8 @@
 { config, pkgs, inputs, ... } : {
   imports = [
     ../../modules/homeManager/default.nix
-    ../../modules/nixos/systemcolor/colors.nix
     ../../modules/nixos/systemcolor/custom-mirage.nix
-    inputs.nixvim.homeManagerModules.nixvim
   ];
-
-
 
   home.username = "solanum";
   home.homeDirectory = "/home/solanum";
@@ -18,14 +14,6 @@
     pictures = "${config.home.homeDirectory}/pictures";
     videos = "${config.home.homeDirectory}/videos";
     music = "${config.home.homeDirectory}/music";
-  };
-
-  #TODO remove
-  services.stalonetray = {
-    enable = true;
-    config = {
-      # window-type = "toolbar";
-    };
   };
 
   #TODO remove unwanted entries; add entries for other things I might want
@@ -71,7 +59,14 @@
     OPENER = "handlr open";
   };
 
-  home.packages = [
+  home.packages = with pkgs; [
+  #desktop shell
+    inputs.astal.packages.${system}.default
+    inputs.solanoid.packages.${system}.default
+    wl-clipboard
+    hypridle #TODO module should install it; needs config(hybrid suspend)
+    keepassxc #TODO config
+    antimicrox #TODO replace
     (pkgs.writeShellScriptBin "screenshot" ''
       #!/bin/zsh
       set -eu
@@ -99,6 +94,57 @@
           ;;
       esac
     '')
+  #project editors: should be moved to devenvs
+    cachix
+    devenv
+    material-maker 
+    libreoffice
+    gimp#-with-plugins #also, can krita replace this?
+    aseprite #needs config (link palettes, import history)
+    krita
+    inkscape-with-extensions
+    blender #config?
+    blockbench
+    obs-studio
+    # shotcut
+    godot_4
+    ldtk
+    birdfont
+    cargo
+    #kicad
+    vscodium
+    jetbrains.idea-community
+    #(symlinkJoin {
+    #  name = "idea-community";
+    #  paths = [ jetbrains.idea-community ];
+    #  buildInputs = [ makeWrapper ];
+    #  postBuild = ''
+    #    wrapProgram $out/bin/idea-community \
+    #    --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [libpulseaudio libGL glfw openal stdenv.cc.cc.lib]}"
+    #  '';
+    #})
+  #games
+    protonup-qt
+    lutris #needs config
+    r2modman
+    dolphin-emu
+    #yuzu #must package myself
+    #citra-nightly #must package myself
+    cemu #is broken right now
+    # desmume #why do all the emulators break all the time 
+    prismlauncher #move instances somewhere sensible
+    glfw-wayland-minecraft
+    waydroid
+    retroarch
+    libretro.tic80
+  #desktop apps
+    obsidian
+    qbittorrent
+    kdePackages.filelight
+    digikam
+    qalculate-qt
+    btop #TODO configure; maybe a little too much
+    vesktop
   ];
 
 # Don't touch

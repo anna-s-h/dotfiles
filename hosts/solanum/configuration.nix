@@ -2,42 +2,38 @@
   imports = [
     ./hardware-configuration.nix
     ./driver-configuration.nix
-    ./system-packages.nix
     ./nas.nix
     ../../modules/nixos/default.nix
     ../../modules/nixos/systemcolor/custom-mirage.nix
+    ../../users/solanum/configuration.nix
     inputs.home-manager.nixosModules.default
     inputs.sops-nix.nixosModules.sops
   ];
 
-  solkeymap.enable = true;
-
   nix.settings.experimental-features = [ "nix-command" "flakes"];
-  
-  users.users.solanum = {
-    isNormalUser = true;
-    description = "solanum";
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-      config.services.kubo.group
-      "input"
-      "uinput"
-    ];
-    shell = pkgs.zsh;
+  nixpkgs.config.allowUnfree = true;
+
+  programs.nh = {
+    enable = true;
+    #clean.enable = true;
+    #clean.extraArgs = "--keep-since 4d --keep 3";
+    flake = "/home/solanum/dotfiles";
   };
 
-  home-manager = {
-    extraSpecialArgs = {inherit inputs;};
-    users = {
-      "solanum" = import ./home.nix;
-    };
-    backupFileExtension = "hm-backup";
-  };
+  environment.systemPackages = with pkgs; [
+    git-crypt
+    sops
+    grim
+    vlc
+    samba
+    ripgrep
+    wireguard-tools #TODO do I need this?
+  ];
+
+  solkeymap.enable = true;
 
   sops.defaultSopsFile = ../../secrets/secrets.yaml;
   sops.defaultSopsFormat = "yaml";
-  sops.age.keyFile = "${config.home-manager.users."solanum".home.homeDirectory}/keys/age.txt";
 
   fileSystems."/mnt/new_a" = {
     device = "/dev/disk/by-uuid/85cb773b-1d04-459d-b388-79cbde5b1c1e";
@@ -74,29 +70,6 @@
     };
     #supportedFilesystems = [ "ntfs" ];
   };
-
-  #doesn't work
-  #also should be modularized
-  users.users.keepass-start = {
-    home = "/var/lib/keepass-start";
-    createHome = true;
-    isSystemUser = true;
-    group = "keepass-start";
-  };
-  users.groups.keepass-start = {};
-  sops.secrets.keepass = {owner="keepass-start";};
-  #systemd.user.services.keepass-start = {
-  #  description = "unlock keepass vault on startup";
-  #  serviceConfig.PassEnvironment = "DISPLAY";
-  #  script = ''
-  #    cat ${config.sops.secrets.keepass.path} | keepassxc --pw-stdin ~/SynologyDrive/Passwords.kdbx
-  #  '';
-  #  wantedBy = ["default.target"];
-  #  serviceConfig = {
-  #    User = "keepass-start";
-  #    WorkingDirectory = "/var/lib/keepass-start";
-  #  };
-  #};
 
   # Don't touch
   system.stateVersion = "23.11";

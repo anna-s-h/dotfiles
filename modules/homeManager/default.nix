@@ -1,4 +1,4 @@
-{ ... } : {
+{ inputs, ... } : {
   imports = [
     ./rofi.nix
     ./yazi.nix
@@ -7,5 +7,7 @@
     ./hyprland/hyprland.nix
     ./terminal/terminal.nix
     ./hypridle/hypridle.nix
+    ../nixos/systemcolor/colors.nix
+    inputs.nixvim.homeManagerModules.nixvim
   ];
 }

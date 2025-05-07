@@ -32,7 +32,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     solanoid = {
-      url = "path:modules/pkgs/solanoid";
+      url = "path:pkgs/solanoid";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.astal.follows = "astal";
     };
