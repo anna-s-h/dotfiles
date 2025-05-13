@@ -2,12 +2,10 @@
   imports = [
     ./hardware-configuration.nix
     ./driver-configuration.nix
-    ./nas.nix
     ../../modules/nixos/default.nix
     ../../modules/nixos/systemcolor/custom-mirage.nix
     ../../users/solanum/configuration.nix
     inputs.home-manager.nixosModules.default
-    inputs.sops-nix.nixosModules.sops
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes"];
@@ -21,19 +19,11 @@
   };
 
   environment.systemPackages = with pkgs; [
-    git-crypt
-    sops
-    grim
-    vlc
-    samba
-    ripgrep
+    samba #TODO replace with something faster?
     wireguard-tools #TODO do I need this?
   ];
 
-  solkeymap.enable = true;
-
-  sops.defaultSopsFile = ../../secrets/secrets.yaml;
-  sops.defaultSopsFormat = "yaml";
+  solkeymap.enable = true; #TODO can I move this to user?
 
   fileSystems."/mnt/new_a" = {
     device = "/dev/disk/by-uuid/85cb773b-1d04-459d-b388-79cbde5b1c1e";
@@ -53,7 +43,6 @@
   };
 
   boot = {
-    #initrd.systemd.enable = true;
     resumeDevice = "/dev/disk/by-uuid/95e4d071-afd4-4199-9cd5-e7f89ba77b80";
     loader.grub = {
       enable = true;
@@ -68,7 +57,6 @@
       #}}/nixos";
       #gfxmodeEfi = "1920x1080";
     };
-    #supportedFilesystems = [ "ntfs" ];
   };
 
   # Don't touch

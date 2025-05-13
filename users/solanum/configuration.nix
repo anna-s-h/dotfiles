@@ -20,7 +20,6 @@
     backupFileExtension = "hm-backup";
     useGlobalPkgs = true;
   };
-  sops.age.keyFile = "${config.home-manager.users."solanum".home.homeDirectory}/keys/age.txt";
 
   programs = {
     hyprland = {
@@ -34,8 +33,9 @@
     git = {
       enable = true;
       config = {
-        user.name = "anna-s-h";
+        #TODO username and email?
         core.sshCommand = "ssh -i ~/keys/git-ssh";
+        init.defaultBranch = "main";
       };
     };
   };

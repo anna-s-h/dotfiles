@@ -10,6 +10,12 @@
       inputs.hyprland.follows = "hyprland";
     };
 
+    rose-pine-hyprcursor = { # TODO: use the one I am developing
+      url = "github:ndom91/rose-pine-hyprcursor";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.hyprlang.follows = "hyprland/hyprlang";
+    };
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -19,8 +25,6 @@
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    sops-nix.url = "github:Mic92/sops-nix";
 
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";

@@ -104,7 +104,7 @@ return function(props)
 	return Widget.EventBox({
 		--class_name = string.format("box.%s", string.lower(n.urgency)),
 		setup = props.setup,
-		on_hover_lost = props.on_hover_lost,
+		--on_hover_lost = props.on_hover_lost,
 		Widget.Box({
 		  class_name = string.format("box %s", string.lower(n.urgency)),
       --class_name = "box",

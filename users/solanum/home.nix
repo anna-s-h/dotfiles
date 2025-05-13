@@ -55,8 +55,7 @@
 
   home.sessionVariables = {
     EDITOR = "nvim";
-    SOPS_AGE_KEY_FILE="${config.home.homeDirectory}/keys/age.txt";
-    OPENER = "handlr open";
+    #OPENER = "handlr open";
   };
 
   home.packages = with pkgs; [
@@ -64,9 +63,11 @@
     inputs.astal.packages.${system}.default
     inputs.solanoid.packages.${system}.default
     wl-clipboard
+    grim
     hypridle #TODO module should install it; needs config(hybrid suspend)
     keepassxc #TODO config
     antimicrox #TODO replace
+    inputs.rose-pine-hyprcursor.packages.${pkgs.system}.default # TODO replace
     (pkgs.writeShellScriptBin "screenshot" ''
       #!/bin/zsh
       set -eu
@@ -94,7 +95,9 @@
           ;;
       esac
     '')
-  #project editors: should be moved to devenvs
+  # Tools; TODO project editors should be moved to devenvs
+    vlc
+    ripgrep
     cachix
     devenv
     material-maker 
@@ -145,6 +148,8 @@
     qalculate-qt
     btop #TODO configure; maybe a little too much
     vesktop
+  #Trying out
+    spotdl
   ];
 
 # Don't touch

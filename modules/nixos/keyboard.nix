@@ -1,9 +1,9 @@
-{ lib, config, pkgs, inputs, ... } : {
+{ lib, config, ... } : {
   options = {
-    solkeymap.enable = lib.mkEnableOption "adds keyboard remappings originally intended for solanum";
+    modules.keymap.enable = lib.mkEnableOption "adds keyboard remappings designed for solanum";
   };
 
-  config = lib.mkIf config.solkeymap.enable {
+  config = lib.mkIf config.modules.keymap.enable {
     #TODO make antimicrox replacement; use xmodmap to change character outputs?
     services.kanata = {
       enable = true;
