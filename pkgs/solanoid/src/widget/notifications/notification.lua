@@ -51,15 +51,15 @@ return function(props)
   end)
 
   local seperator = function()
-    if n.expire_timeout > 0 then
+    --if n.expire_timeout > 0 then
       return Widget.LevelBar({
         class_name = "timer",
         value = barFraction(),
         vexpand = false,
       })
-    else
-			return Gtk.Separator({ visible = true })
-    end
+    --else
+			--return Gtk.Separator({ visible = true })
+    --end
   end
 
 	local content = Widget.Box({

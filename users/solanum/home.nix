@@ -1,8 +1,10 @@
 { config, pkgs, inputs, ... } : {
   imports = [
     ../../modules/homeManager/default.nix
-    ../../modules/nixos/systemcolor/custom-mirage.nix
   ];
+
+  modules.terminal.enable = true;
+  colors = import ../../modules/homeManager/systemcolor/custom-mirage.nix {inherit config;};
 
   home.username = "solanum";
   home.homeDirectory = "/home/solanum";
@@ -58,15 +60,201 @@
     #OPENER = "handlr open";
   };
 
+  programs.password-store = {
+    enable = true;
+    settings = {
+      PASSWORD_STORE_DIR = "$XDG_DATA_HOME/dotfiles/private/passwords";
+      PASSWORD_STORE_CLIP_TIME = "60";
+    };
+  };
+
+  programs.vesktop = {
+    enable = true;
+  };
+
+  # TODO move these to a music module
+  programs.beets = {
+    enable = true;
+    settings = {
+      plugins = "fetchart chroma missing edit duplicates fromfilename ftintitle";
+      directory = "~/music/maintained";
+    };
+    #mpdIntegration? rewrite?
+  };
+  services.mpd = {
+    enable = true;
+    musicDirectory = "~/music/maintained/";
+    extraConfig = ''
+      audio_output {
+        type            "pipewire"
+        name            "PipeWire Sound Server"
+      }
+    '';
+  };
+  services.mpd-mpris.enable = true;
+  programs.rmpc = {
+    enable = true;
+    config = ''
+      #![enable(implicit_some)]
+      #![enable(unwrap_newtypes)]
+      #![enable(unwrap_variant_newtypes)]
+      (
+        address: "127.0.0.1:6600",
+        password: None,
+        theme: None,
+        cache_dir: None,
+        on_song_change: None,
+        volume_step: 5,
+        max_fps: 30,
+        scrolloff: 0,
+        wrap_navigation: false,
+        enable_mouse: true,
+        status_update_interval_ms: 1000,
+        select_current_song_on_change: false,
+        album_art: (
+          method: Auto,
+          max_size_px: (width: 1200, height: 1200),
+          disabled_protocols: ["http://", "https://"],
+          vertical_align: Center,
+          horizontal_align: Center,
+        ),
+        keybinds: (
+          global: {
+            ":":       CommandMode,
+            ",":       VolumeDown,
+            "s":       Stop,
+            ".":       VolumeUp,
+            "<Tab>":   NextTab,
+            "<S-Tab>": PreviousTab,
+            "1":       SwitchToTab("Queue"),
+            "2":       SwitchToTab("Directories"),
+            "3":       SwitchToTab("Artists"),
+            "4":       SwitchToTab("Album Artists"),
+            "5":       SwitchToTab("Albums"),
+            "6":       SwitchToTab("Playlists"),
+            "7":       SwitchToTab("Search"),
+            "q":       Quit,
+            ">":       NextTrack,
+            "p":       TogglePause,
+            "<":       PreviousTrack,
+            "f":       SeekForward,
+            "z":       ToggleRepeat,
+            "x":       ToggleRandom,
+            "c":       ToggleConsume,
+            "v":       ToggleSingle,
+            "b":       SeekBack,
+            "~":       ShowHelp,
+            "I":       ShowCurrentSongInfo,
+            "O":       ShowOutputs,
+            "P":       ShowDecoders,
+          },
+          navigation: {
+            "k":         Up,
+            "j":         Down,
+            "h":         Left,
+            "l":         Right,
+            "<Up>":      Up,
+            "<Down>":    Down,
+            "<Left>":    Left,
+            "<Right>":   Right,
+            "<C-k>":     PaneUp,
+            "<C-j>":     PaneDown,
+            "<C-h>":     PaneLeft,
+            "<C-l>":     PaneRight,
+            "<C-u>":     UpHalf,
+            "N":         PreviousResult,
+            "a":         Add,
+            "A":         AddAll,
+            "r":         Rename,
+            "n":         NextResult,
+            "g":         Top,
+            "<Space>":   Select,
+            "<C-Space>": InvertSelection,
+            "G":         Bottom,
+            "<CR>":      Confirm,
+            "i":         FocusInput,
+            "J":         MoveDown,
+            "<C-d>":     DownHalf,
+            "/":         EnterSearch,
+            "<C-c>":     Close,
+            "<Esc>":     Close,
+            "K":         MoveUp,
+            "D":         Delete,
+          },
+          queue: {
+            "D":       DeleteAll,
+            "<CR>":    Play,
+            "<C-s>":   Save,
+            "a":       AddToPlaylist,
+            "d":       Delete,
+            "i":       ShowInfo,
+            "C":       JumpToCurrent,
+          },
+        ),
+        search: (
+          case_sensitive: false,
+          mode: Contains,
+          tags: [
+            (value: "any",         label: "Any Tag"),
+            (value: "artist",      label: "Artist"),
+            (value: "album",       label: "Album"),
+            (value: "albumartist", label: "Album Artist"),
+            (value: "title",       label: "Title"),
+            (value: "filename",    label: "Filename"),
+            (value: "genre",       label: "Genre"),
+          ],
+        ),
+        artists: (
+          album_display_mode: SplitByDate,
+          album_sort_by: Date,
+        ),
+        tabs: [
+          (
+            name: "Queue",
+            pane: Split(
+              direction: Horizontal,
+              panes: [(size: "40%", pane: Pane(AlbumArt)), (size: "60%", pane: Pane(Queue))],
+            ),
+          ),
+          (
+            name: "Directories",
+            pane: Pane(Directories),
+          ),
+          (
+            name: "Artists",
+            pane: Pane(Artists),
+          ),
+          (
+            name: "Album Artists",
+            pane: Pane(AlbumArtists),
+          ),
+          (
+            name: "Albums",
+            pane: Pane(Albums),
+          ),
+          (
+            name: "Playlists",
+            pane: Pane(Playlists),
+          ),
+          (
+            name: "Search",
+            pane: Pane(Search),
+          ),
+        ],
+      )
+    '';
+  };
+
   home.packages = with pkgs; [
   #desktop shell
-    inputs.astal.packages.${system}.default
-    inputs.solanoid.packages.${system}.default
+    #inputs.astal.packages.${system}.default
+    #inputs.solanoid.packages.${system}.default
+    #quickshell
     wl-clipboard
     grim
-    hypridle #TODO module should install it; needs config(hybrid suspend)
-    keepassxc #TODO config
+    keepassxc #TODO replace
     antimicrox #TODO replace
+    playerctl
     inputs.rose-pine-hyprcursor.packages.${pkgs.system}.default # TODO replace
     (pkgs.writeShellScriptBin "screenshot" ''
       #!/bin/zsh
@@ -95,14 +283,17 @@
           ;;
       esac
     '')
-  # Tools; TODO project editors should be moved to devenvs
-    vlc
+  # Tools 
+    btop #TODO configure; maybe a little too much
+    mpv #TODO test
+    spotdl
     ripgrep
     cachix
     devenv
+  # project editors; TODO many should be moved to devenvs
     material-maker 
     libreoffice
-    gimp#-with-plugins #also, can krita replace this?
+    gimp3#-with-plugins #also, can krita replace this?
     aseprite #needs config (link palettes, import history)
     krita
     inkscape-with-extensions
@@ -113,7 +304,6 @@
     godot_4
     ldtk
     birdfont
-    cargo
     #kicad
     vscodium
     jetbrains.idea-community
@@ -140,16 +330,14 @@
     waydroid
     retroarch
     libretro.tic80
+    satisfactorymodmanager
   #desktop apps
+    vlc
     obsidian
     qbittorrent
     kdePackages.filelight
     digikam
     qalculate-qt
-    btop #TODO configure; maybe a little too much
-    vesktop
-  #Trying out
-    spotdl
   ];
 
 # Don't touch

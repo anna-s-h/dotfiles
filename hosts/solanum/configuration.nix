@@ -1,12 +1,14 @@
 { config, pkgs, inputs, ... } : {
   imports = [
+    inputs.home-manager.nixosModules.default
     ./hardware-configuration.nix
     ./driver-configuration.nix
-    ../../modules/nixos/default.nix
-    ../../modules/nixos/systemcolor/custom-mirage.nix
-    ../../users/solanum/configuration.nix
-    inputs.home-manager.nixosModules.default
+    ./nas.nix
+    ../../modules/nixos/keyboard.nix #TODO can I move this to user?
+    ../../users/default.nix
   ];
+
+  user.solanum.enable = true;
 
   nix.settings.experimental-features = [ "nix-command" "flakes"];
   nixpkgs.config.allowUnfree = true;
@@ -20,10 +22,9 @@
 
   environment.systemPackages = with pkgs; [
     samba #TODO replace with something faster?
-    wireguard-tools #TODO do I need this?
   ];
 
-  solkeymap.enable = true; #TODO can I move this to user?
+  modules.keymap.enable = true; #TODO can I move this to user?
 
   fileSystems."/mnt/new_a" = {
     device = "/dev/disk/by-uuid/85cb773b-1d04-459d-b388-79cbde5b1c1e";

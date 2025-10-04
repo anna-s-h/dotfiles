@@ -30,6 +30,10 @@
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+  
+    #yazi-plugins = {
+    #  url = "github:yazi-rs/plugins";
+    #};
 
     astal = {
       url = "github:aylur/astal";

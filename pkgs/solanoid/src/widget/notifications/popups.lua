@@ -16,11 +16,13 @@ local function NotificationMap()
 			Notification({
 				notification = notifd:get_notification(id),
 				setup = function()
-          local timeout_ms = notifd:get_notification(id).expire_timeout
-					if timeout_ms == -1 then notifd:get_notification(id).expire_timeout=5000
+          local timeout_ms = notifd:get_notification(id).expire_timeout or 10000
+          if timeout_ms < 1 then timeout_ms = 10000 end
+          notifd:get_notification(id).expire_timeout = timeout_ms
           timeout(notifd:get_notification(id).expire_timeout, function()
+					  --NotificationMap.delete(id)
             notif_map.delete(id)
-					end)
+				  end)
 				end,
 			})
 		)

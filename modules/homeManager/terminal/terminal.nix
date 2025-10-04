@@ -87,7 +87,7 @@
         fgrep="fgrep --colour=auto";
         mount="mount |column -t";
         top="btop";
-        gs="git status";
+        gs="git fetch; git status";
       };
 
       plugins = [
@@ -109,5 +109,11 @@
       enable = true;
       enableZshIntegration = true;
     };
+
+    programs.direnv = {
+      enable = true;
+      enableZshIntegration = true;
+    };
+
   };
 }

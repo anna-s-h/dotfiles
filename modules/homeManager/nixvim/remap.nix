@@ -16,8 +16,9 @@
       action = "<Esc>";
     }
 
+    # clear search from normal
     {  mode = ["n"];
-      key = "<M-Space>";
+      key = "<Esc>";
       action = "vim.cmd.nohlsearch";
       lua = true;
     }

@@ -1,4 +1,4 @@
-{ pkgs, ... } : let
+{ inputs, pkgs, ... } : let
   yazi-plugins = pkgs.fetchFromGitHub {
     owner = "yazi-rs";
     repo = "plugins";
@@ -19,10 +19,14 @@ in {
     };
 
     plugins = {
+      #toggle-pane = "${inputs.yazi-plugins}/toggle-pane.yazi";
       toggle-pane = "${yazi-plugins}/toggle-pane.yazi";
     };
 
     initLua = ''
+      require("session"):setup {
+	      sync_yanked = true,
+      }
     '';
 
     keymap = {

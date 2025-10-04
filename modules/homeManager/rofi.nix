@@ -1,6 +1,7 @@
 { config, pkgs, inputs, ... } : {
   config.programs.rofi = {
     enable = true;
+    pass.enable = true;
     package = pkgs.rofi-wayland;
     font = "mesloLGS Nerd Font Mono 14";
     theme = let inherit (config.lib.formats.rasi) mkLiteral; in {
@@ -98,8 +99,8 @@
     extraConfig = let inherit (config.lib.formats.rasi) mkLiteral; in {
       #drun-show-actions = mkLiteral "true";
       modi = "drun,run,window";
-      kb-cancel = "Alt+space";
-      kb-mode-next = "Super+space";
+      #kb-cancel = "Alt+space"; broken
+      #kb-mode-next = "Super+space"; broken
       scroll-method = mkLiteral "1";
     };
     plugins = with pkgs; [

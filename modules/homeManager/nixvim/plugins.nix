@@ -1,8 +1,10 @@
 { pkgs, ... } : {
   plugins = {
+
     bufferline = {
       enable = true;
     };
+
     lualine = {
       enable = true;
       settings = {
@@ -18,23 +20,32 @@
         extensions = ["nvim-tree"];
       };
     };
+
     undotree = {
       enable = true;
     };
+
     telescope = {
       enable = true;
     };
+
     treesitter = {
       enable = true;
       settings = {
+        highlight = {
+          enable = true;
+        };
         indent = {
           enable = true;
         };
         #folding = true;
       };
     };
+
     fugitive.enable = true;
+
     web-devicons.enable = true;
+
     lsp = {
       enable = true;
       servers = {
@@ -43,11 +54,15 @@
         ts_ls.enable = true;
         jsonls.enable = true;
         #gdscript.enable = true;
-        rust_analyzer = {
-          installRustc = false;
-          enable = true;
-          installCargo = false;
-        };
+        #rust_analyzer = {
+        #  enable = true;
+        #  installRustc = false;
+        #  installCargo = false;
+        #  extraOptions = {
+        #    check.command = "cargo check";
+        #    CARGO_TARGET_DIR = "/tmp/rust-analyzer";
+        #  };
+        #};
       };
       keymaps = {
         lspBuf = {
@@ -59,9 +74,37 @@
         };
       };
     };
+     
+    #rustaceanvim = {
+    #  enable = true;
+    #  settings = {
+    #    server = {
+    #      default_settings = {
+    #        rust-analyzer = {
+    #          installCargo = false;
+    #          installRustc = false;
+    #          cargo = {
+    #            allFeatures = true;
+    #          };
+    #          check = {
+    #            command = "cargo check";
+    #          };
+    #          inlayHints = {
+    #            lifetimeElisionHints = {
+    #              enable = "always";
+    #            };
+    #          };
+    #        };
+    #      };
+    #      standalone = false;
+    #    };
+    #  };
+    #};
+
     luasnip = {
       enable = true;
     };
+
     cmp = {
       enable = true;
       settings.mapping = {
@@ -80,6 +123,7 @@
         { name = "buffer"; }
       ];
     };
+
     #nvim-tree = {
     #  enable = true;
     #  view.side = "right";
@@ -93,25 +137,33 @@
     #    icons.gitPlacement = "after";
     #  };
     #};
+
     yazi = {
       enable = true;
     };
+
     transparent = {
       enable = true;
     };
+
     hardtime = {
       enable = false;
       settings.disableMouse = false;
     };
+
     nvim-ufo = {
       enable = true;
       settings.provider_selector = ''
         function(bufnr, filetype, buftype) return { 'lsp', 'indent' } end
       '';
     };
+
     dap.enable = true;
+
     vim-surround.enable = true;
+
     #quickfix? bqf? trouble?
+
   };
   extraPlugins = [pkgs.vimPlugins."statuscol-nvim"];
   extraConfigLua = ''

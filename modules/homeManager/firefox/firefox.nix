@@ -9,8 +9,31 @@
 
   programs.firefox = {
     enable = true;
+    profiles.LWEnv = {
+      id = 1;
+      name = "lightweight";
+      isDefault = false;
+      extensions.packages = with inputs.firefox-addons.packages."x86_64-linux"; [
+        auto-tab-discard
+        darkreader
+        decentraleyes
+        firefox-translations
+        indie-wiki-buddy
+        keepassxc-browser
+        noscript
+        #open in vlc media player
+        plasma-integration
+        #popup blocker strict
+        sponsorblock
+        tab-session-manager
+        #tampermonkey
+        ublock-origin
+      ];
+      userChrome = ''
+        @import "removeButtons.css";
+      '';
+    };
     profiles.solanum = {
-
       search.engines = {
         "Nix Packages" = {
           urls = [{

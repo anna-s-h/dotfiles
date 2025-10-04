@@ -1,4 +1,5 @@
-{ config, pkgs, ... } : {
+{ inputs, config, pkgs, ... } : {
+
   wayland.windowManager.hyprland = {
     enable = true;
     plugins = [ ];
@@ -16,23 +17,22 @@
       "$clipboard" = "astal toggle clipboard";
       "$fileManager" = "$terminal yazi";
       "$menu" = "astal menu main";
-      #tasks
       "$tasks" = "[float] $terminal btop";
       "$notes" = "obsidian";
       "$notifications" = "astal toggle notifications";
       "$clock" = "astal toggle clock";
       "$calendar" = "[float] $terminal cal";
-      #TODO this is unreliable because activewindow could include pid in title
-      "$forcekill" = "hyprctl activewindow | grep pid | tr -d 'pid:' | xargs kill";
       "$controllerbinds" = ""; #TODO ???
 
       bind = [
         #Main binds
         "$moda, space, exec, $runner"
         "$modb, space, exec, $search"
+        "$moda, A, exec, " #leave unbound until better keyboard
+        "$modb, A, exec, " #leave unbound until better keyboard
         "$moda, B, exec, "
         "$modb, B, exec, "
-        "$modb, C, exec, $calculator"
+        "$moda, C, exec, $calculator"
         "$modb, C, exec, $clipboard"
         "$moda, D, exec, "
         "$modb, D, exec, "
@@ -52,6 +52,8 @@
         "$modb, O, exec, "
         "$moda, P, togglespecialworkspace, passwords"
         "$modb, P, exec, "
+        "$moda, Q, exec, " #leave unbound until better keyboard
+        "$modb, Q, exec, " #leave unbound until better keyboard
         "$moda, R, exec, "
         "$modb, R, exec, "
         "$moda, S, togglespecialworkspace, magic"
@@ -63,9 +65,13 @@
         "$moda, V, exec, "
         "$modb, V, exec, "
         "$moda, W, killactive"
-        "$modb, W, exec, $forcekill" 
+        "$modb, W, forcekillactive" 
+        "$moda, X, exec, " #leave unbound until better keyboard
+        "$modb, X, exec, " #leave unbound until better keyboard
         "$moda, Y, exec, $controllerbinds"
         "$modb, Y, exec, "
+        "$moda, Z, exec, " #leave unbound until better keyboard
+        "$modb, Z, exec, " #leave unbound until better keyboard
         "$moda, comma, exec, "
         "$modb, comma, exec, "
         "$moda, period, exec, "
@@ -95,11 +101,6 @@
         "$moda, 0, movetoworkspacesilent, special:hidden"
         "$modb, 0, togglespecialworkspace, hidden"
         "$modb, 0, movetoworkspace, +0"
-        # TODO: fix these
-        #"     , Print, exec, grim - $(hyprctl monitors | awk '/at:/ { split($2, pos, \",\") x = pos[1] y = pos[2] } /size:/ { split($2, size, \",\") w = size[1] h = size[2] } END { print w \",\" h \" \" x \"x\" y }') | wl-copy && wl-paste > ${config.xdg.userDirs.pictures}/$(date +'%Y-%m-%d-%H%M%S.png')"
-        #"$moda, Print, exec, grim -o $(hyprctl monitors | awk '/Monitor /{mon=$2} /focused: yes/{print mon}') | wl-copy && wl-paste > ${config.xdg.userDirs.pictures}/$(date +'%Y-%m-%d-%H%M%S.png')"
-        #"$modb, Print, exec, grim - | wl-copy && wl-paste > ${config.xdg.userDirs.pictures}/$(date +'%Y-%m-%d-%H%M%S.png')"
-        #"     , Print, exec, grim - | wl-copy && wl-paste > ${config.xdg.userDirs.pictures}/$(date +'%Y-%m-%d-%H%M%S.png')"
         "     , Print, exec, screenshot window"
         "$moda, Print, exec, screenshot monitor"
         "$modb, Print, exec, screenshot full"
@@ -130,8 +131,15 @@
 
       bindel = [
         #Control audio volume
-        ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
-        ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+        ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%+"
+        ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%-"
+      ];
+
+      bindl = [
+        #Control other media
+        ", XF86AudioPlay, exec, playerctl play-pause"
+        ", XF86AudioNext, exec, playerctl next"
+        ", XF86AudioPrev, exec, playerctl previous"
       ];
 
       misc = {
@@ -193,17 +201,21 @@
           ];
       };
 
+      monitor = [
+        "HDMI-A-1, preferred, auto, 1"
+        "DP-1, preferred, auto-left, 1, transform, 1"
+      ];
+
       input = {
         follow_mouse = "2"; #0 (do nothing) might be better than 2 (mouse focus independent, key focus on click)
         float_switch_override_focus = "0";
       };
 
-      monitor=",preferred,auto,auto";
-
-      #env = [
+      env = [
+        "HYPRCURSOR_THEME,rose-pine-hyprcursor"
       #  "XCURSOR_SIZE,24"
       #  "QT_QPA_PLATFORMTHEME,qt5ct"
-      #];
+      ];
 
       dwindle = {
         smart_split = "true";
