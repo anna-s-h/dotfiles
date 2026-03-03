@@ -3,7 +3,7 @@
   #TODO: make this module toggleable
 
   programs.beets = {
-    enable = true;
+    enable = false;
     settings = {
       plugins = "fetchart chroma missing edit duplicates fromfilename ftintitle";
       directory = "~/music/maintained";

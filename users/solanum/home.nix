@@ -81,7 +81,7 @@
     keepassxc #TODO replace
     antimicrox #TODO replace
     playerctl
-    inputs.rose-pine-hyprcursor.packages.${pkgs.system}.default # TODO replace
+    #inputs.rose-pine-hyprcursor.packages.${pkgs.system}.default # TODO replace
     (pkgs.writeShellScriptBin "screenshot" ''
       #!/bin/zsh
       set -euo pipefail 
@@ -123,7 +123,7 @@
     devenv
   # project editors; TODO many should be moved to devenvs
     material-maker 
-    libreoffice
+    #libreoffice
     gimp3#-with-plugins #also, can krita replace this?
     aseprite #needs config (link palettes, import history)
     krita
@@ -153,7 +153,7 @@
     dolphin-emu
     #yuzu #must package myself
     #citra-nightly #must package myself
-    cemu #is broken right now
+    #cemu #is broken right now
     # desmume #why do all the emulators break all the time 
     prismlauncher #move instances somewhere sensible
     glfw3-minecraft

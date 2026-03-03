@@ -10,11 +10,11 @@
       inputs.hyprland.follows = "hyprland";
     };
 
-    rose-pine-hyprcursor = { # TODO: use the one I am developing
-      url = "github:ndom91/rose-pine-hyprcursor";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.hyprlang.follows = "hyprland/hyprlang";
-    };
+    #rose-pine-hyprcursor = { # TODO: use the one I am developing
+      #url = "github:ndom91/rose-pine-hyprcursor";
+      #inputs.nixpkgs.follows = "nixpkgs";
+      #inputs.hyprlang.follows = "hyprland/hyprlang";
+    #};
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -35,15 +35,16 @@
     #  url = "github:yazi-rs/plugins";
     #};
 
-    astal = {
-      url = "github:aylur/astal";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    solanoid = {
-      url = "path:pkgs/solanoid";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.astal.follows = "astal";
-    };
+    #astal = {
+      #url = "github:aylur/astal";
+      #inputs.nixpkgs.follows = "nixpkgs";
+    #};
+    #solanoid = {
+      #url = "path:pkgs/solanoid";
+      #inputs.nixpkgs.follows = "nixpkgs";
+      #inputs.astal.follows = "astal";
+    #};
+
   };
 
   outputs = { self, nixpkgs, ... }@inputs:

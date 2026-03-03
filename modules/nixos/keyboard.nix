@@ -17,17 +17,6 @@
     };
     '';
 
-    wayland.windowManager.hyprland.settings = {
-      env = [
-        "XKB_CONFIG_ROOT,/etc/xkb:/usr/share/X11/xkb"
-      ];
-
-      input = {
-        kb_layout = "us,alternate_punct";
-        kb_variant = ",";
-      };
-    };
-
     services.kanata = {
       enable = true;
       keyboards = {

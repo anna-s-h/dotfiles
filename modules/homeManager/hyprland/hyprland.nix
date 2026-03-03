@@ -214,16 +214,16 @@
 
       device = [
         {
-          name = "foostan-corne-v4-keyboard";
-          kb_layout = "alternate_punct";
+          #name = "foostan-corne-v4-keyboard";
+          #kb_layout = "alternate_punct";
         }
       ];
 
       env = [
         "HYPRCURSOR_THEME,rose-pine-hyprcursor"
-    "XKB_CONFIG_ROOT,/etc/xkb-custom:/usr/share/X11/xkb"
-      #  "XCURSOR_SIZE,24"
-      #  "QT_QPA_PLATFORMTHEME,qt5ct"
+        #"XKB_CONFIG_ROOT,/etc/xkb-custom:/usr/share/X11/xkb"
+        #"XCURSOR_SIZE,24"
+        #"QT_QPA_PLATFORMTHEME,qt5ct"
       ];
 
       dwindle = {

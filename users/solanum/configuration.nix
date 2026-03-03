@@ -6,8 +6,6 @@
     user.solanum.enable = lib.mkEnableOption "adds the solanum user and desktop environment with all associated programs";
   };
 
-  modules.keymap.enable = true; 
-
   config = lib.mkIf config.user.solanum.enable {
     users.users.solanum = {
       isNormalUser = true;
@@ -30,6 +28,8 @@
       backupFileExtension = "hm-backup";
       useGlobalPkgs = true;
     };
+
+    #modules.keymap.enable = true; 
 
     programs = {
       wireshark.enable = true;
@@ -73,9 +73,9 @@
 
     fonts = {
       packages = with pkgs; [
-        noto-fonts
-        noto-fonts-cjk-sans
-        noto-fonts-color-emoji
+        #noto-fonts
+        #noto-fonts-cjk-sans
+        #noto-fonts-color-emoji
         font-awesome
         source-han-sans
         open-sans
