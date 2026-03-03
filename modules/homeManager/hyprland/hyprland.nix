@@ -143,6 +143,7 @@
       ];
 
       misc = {
+        enable_anr_dialog="false";
         focus_on_activate="true";
         key_press_enables_dpms="true";
       };
@@ -211,8 +212,16 @@
         float_switch_override_focus = "0";
       };
 
+      device = [
+        {
+          name = "foostan-corne-v4-keyboard";
+          kb_layout = "alternate_punct";
+        }
+      ];
+
       env = [
         "HYPRCURSOR_THEME,rose-pine-hyprcursor"
+    "XKB_CONFIG_ROOT,/etc/xkb-custom:/usr/share/X11/xkb"
       #  "XCURSOR_SIZE,24"
       #  "QT_QPA_PLATFORMTHEME,qt5ct"
       ];

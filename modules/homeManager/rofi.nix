@@ -2,7 +2,6 @@
   config.programs.rofi = {
     enable = true;
     pass.enable = true;
-    package = pkgs.rofi-wayland;
     font = "mesloLGS Nerd Font Mono 14";
     theme = let inherit (config.lib.formats.rasi) mkLiteral; in {
       "*" = {

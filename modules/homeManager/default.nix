@@ -8,5 +8,6 @@
     ./nixvim/nixvim.nix
     ./firefox/firefox.nix
     ./rofi.nix
+    ./music/music.nix
   ];
 }

@@ -1,15 +1,102 @@
-{ lib, config, ... } : {
+{ lib, config, pkgs, ... } : {
   options = {
     modules.keymap.enable = lib.mkEnableOption "adds keyboard remappings designed for solanum";
   };
 
   config = lib.mkIf config.modules.keymap.enable {
-    #TODO make antimicrox replacement; use xmodmap to change character outputs?
+    services.hardware.openrgb.enable = true;
+
+    environment.etc."xkb/symbols/alternate_punct".source = pkgs.writeText "alternate_punct" ''
+    xkb_symbols "basic" {
+      include "us"
+
+      key <AB08> { [ comma, semicolon ] };
+      key <AB09> { [ period, colon ] };
+      key <AB10> { [ question, exclam ] };
+      key <AC10> { [ underscore, minus ] };
+    };
+    '';
+
+    wayland.windowManager.hyprland.settings = {
+      env = [
+        "XKB_CONFIG_ROOT,/etc/xkb:/usr/share/X11/xkb"
+      ];
+
+      input = {
+        kb_layout = "us,alternate_punct";
+        kb_variant = ",";
+      };
+    };
+
     services.kanata = {
       enable = true;
       keyboards = {
-        main = {
-          devices = [];
+        fortysix = {
+          devices = ["/dev/input/by-id/usb-foostan_Corne_v4_vial:f64c2b3c-event-kbd"];
+          extraDefCfg = "process-unmapped-keys yes";
+          config = ''
+          (defsrc
+            grv  q    w    e    r    t    \        del    y    u    i    o    p    bspc
+            esc  a    s    d    f    g    lctl     prnt   h    j    k    l    ;    '
+            tab  z    x    c    v    b                    n    m    ,    .    /    ret
+                                lalt spc  lsft     lmet   rmet rctl
+          )
+
+          (defalias
+            ;; tap: backtick (grave), hold: toggle layer-switching layer while held
+            grl (tap-hold 200 200 grv (layer-toggle layers))
+            cmk (layer-switch colemakdh)
+            ;;qwr (layer-switch qwerty)
+            gam (layer-switch games)
+
+            sym (layer-toggle symbols)
+            nav (layer-toggle nav)
+
+            ;; modkey stickiness
+            sft (one-shot 500 lsft)
+            ctl (one-shot 500 lctl)
+            met (one-shot 500 lmet)
+            alt (one-shot 500 lalt)
+          )
+
+          (deflayer colemakdh
+            @grl q    w    f    p    b    XX        del  j    l    u    y    '    bspc
+            esc  a    r    s    t    g    @alt      prnt m    n    e    i    o    ;   
+            tab  z    x    c    d    v                        k    h    ,    .    /    ret
+                                @sym spc  @nav      @met @sft @ctl
+          )
+
+          (deflayer games
+            @grl q    w    f    p    b    XX        del  j    l    u    y    '    bspc
+            esc  a    r    s    t    g    XX        prnt m    n    e    i    o    ;   
+            tab  z    x    c    d    v                        k    h    ,    .    /    ret
+                                @sym spc  sft       @met XX   ctl
+          )
+
+          (deflayer symbols 
+            @grl XX   XX   XX   XX   XX   XX        del  XX   7    8    9    -    bspc
+            esc  XX   XX   XX   XX   XX   XX        prnt XX   4    5    6    +    XX
+            tab  XX   XX   XX   XX   XX                  XX   1    2    3    .    ret
+                                @alt @sft @sym      @met 0    XX
+          )
+
+          (deflayer nav 
+            @grl XX   XX   up   XX   XX   XX        del  XX   XX   XX   XX   XX   bspc
+            esc  XX   left rght down XX   XX        prnt XX   XX   XX   XX   XX   XX
+            tab  XX   XX   XX   XX   XX                  XX   XX   XX   XX   XX   ret
+                                @alt @sft @sym      @met spc  @ctl
+          )
+
+          (deflayer layers
+            XX   @cmk @gam XX   XX   XX   XX        XX   XX   XX   XX   XX   XX   XX
+            XX   XX   XX   XX   XX   XX   XX        XX   XX   XX   XX   XX   XX   XX
+            XX   XX   XX   XX   XX   XX                  XX   XX   XX   XX   XX   XX
+                                XX   XX   XX        XX   XX   XX
+          )
+          '';
+        };
+        sixty = {
+          devices = ["/dev/input/by-id/usb-DELL_Dell_USB_Wired_Entry_Keyboard-event-kbd"];
           extraDefCfg = "process-unmapped-keys yes";
           config = ''
           (defsrc
@@ -76,3 +163,4 @@
     };
   };
 }
+

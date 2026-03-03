@@ -6,6 +6,8 @@
     user.solanum.enable = lib.mkEnableOption "adds the solanum user and desktop environment with all associated programs";
   };
 
+  modules.keymap.enable = true; 
+
   config = lib.mkIf config.user.solanum.enable {
     users.users.solanum = {
       isNormalUser = true;
@@ -37,7 +39,7 @@
         xwayland.enable = true;
       };
       zsh.enable = true; #TODO modularize
-      kdeconnect.enable = true; #TODO modularize; barely works
+      #kdeconnect.enable = true; #TODO modularize; no longer works?
       steam.enable = true; #TODO can this be moved?
       git = {
         enable = true;
@@ -52,26 +54,32 @@
     #IPFS node; TODO Would be nice to move somewhere else, or make it not run all the time
     services.kubo = {
       enable = true;
+      defaultMode = "offline";
+      startWhenNeeded = true;
     };
 
     virtualisation.waydroid.enable = true;
 
     # Why?
     services.udev.packages = with pkgs; [
+      qmk
+      qmk-udev-rules
+      qmk_hid
+      via
+      vial
       antimicrox
-      plasma5Packages.kdeconnect-kde
+      #plasma5Packages.kdeconnect-kde
     ];
 
     fonts = {
       packages = with pkgs; [
         noto-fonts
         noto-fonts-cjk-sans
-        noto-fonts-emoji
+        noto-fonts-color-emoji
         font-awesome
         source-han-sans
         open-sans
-        source-han-sans-japanese
-        source-han-serif-japanese
+        source-han-serif
         nerd-fonts.meslo-lg
       ];
       fontconfig.defaultFonts = {
