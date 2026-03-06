@@ -1,5 +1,9 @@
 { config, pkgs, inputs, lib, ... } : {
 
+  imports = [
+    ../../modules/nixos/keyboard.nix
+  ]; 
+
   #This file defines nixOS options. For home-manager options, see home.nix
 
   options = {
@@ -29,7 +33,7 @@
       useGlobalPkgs = true;
     };
 
-    #modules.keymap.enable = true; 
+    modules.keymap.enable = true; #TODO can I move this to user?
 
     programs = {
       wireshark.enable = true;
@@ -73,9 +77,9 @@
 
     fonts = {
       packages = with pkgs; [
-        #noto-fonts
-        #noto-fonts-cjk-sans
-        #noto-fonts-color-emoji
+        noto-fonts
+        noto-fonts-cjk-sans
+        noto-fonts-color-emoji
         font-awesome
         source-han-sans
         open-sans

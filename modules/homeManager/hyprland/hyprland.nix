@@ -167,17 +167,17 @@
       #  "f[1], gapsout:0, gapsin:0"
       #];
 
-      windowrulev2 = [
-        "noinitialfocus, workspace special:passwords, class:(keepass)"
+      #windowrulev2 = [
+        #"noinitialfocus, workspace special:passwords, class:(keepass)"
         #"bordersize 0, floating:0, onworkspace:w[tv1]"
         #"rounding 0, floating:0, onworkspace:w[tv1]"
         #"bordersize 0, floating:0, onworkspace:f[1]"
         #"rounding 0, floating:0, onworkspace:f[1]"
-      ];
+      #];
 
-      layerrule = [
-        "blur,rofi"
-      ];
+      #layerrule = [
+      #  "blur on,rofi"
+      #];
 
       animations = {
           enabled = "yes";

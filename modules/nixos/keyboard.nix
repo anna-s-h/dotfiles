@@ -6,16 +6,16 @@
   config = lib.mkIf config.modules.keymap.enable {
     services.hardware.openrgb.enable = true;
 
-    environment.etc."xkb/symbols/alternate_punct".source = pkgs.writeText "alternate_punct" ''
-    xkb_symbols "basic" {
-      include "us"
+    #environment.etc."xkb/symbols/alternate_punct".source = pkgs.writeText "alternate_punct" ''
+    #xkb_symbols "basic" {
+    #  include "us"
 
-      key <AB08> { [ comma, semicolon ] };
-      key <AB09> { [ period, colon ] };
-      key <AB10> { [ question, exclam ] };
-      key <AC10> { [ underscore, minus ] };
-    };
-    '';
+    #  key <AB08> { [ comma, semicolon ] };
+    #  key <AB09> { [ period, colon ] };
+    #  key <AB10> { [ question, exclam ] };
+    #  key <AC10> { [ underscore, minus ] };
+    #};
+    #'';
 
     services.kanata = {
       enable = true;
@@ -28,17 +28,17 @@
             grv  q    w    e    r    t    \        del    y    u    i    o    p    bspc
             esc  a    s    d    f    g    lctl     prnt   h    j    k    l    ;    '
             tab  z    x    c    v    b                    n    m    ,    .    /    ret
-                                lalt spc  lsft     lmet   rmet rctl
+                                lsft spc  lalt     lmet   rsft rctl
           )
 
           (defalias
             ;; tap: backtick (grave), hold: toggle layer-switching layer while held
-            grl (tap-hold 200 200 grv (layer-toggle layers))
+            grl (tap-hold 200 200 grv (layer-toggle modeswitch))
             cmk (layer-switch colemakdh)
             ;;qwr (layer-switch qwerty)
             gam (layer-switch games)
 
-            sym (layer-toggle symbols)
+            ;;sym (layer-toggle symbols)
             nav (layer-toggle nav)
 
             ;; modkey stickiness
@@ -52,31 +52,31 @@
             @grl q    w    f    p    b    XX        del  j    l    u    y    '    bspc
             esc  a    r    s    t    g    @alt      prnt m    n    e    i    o    ;   
             tab  z    x    c    d    v                        k    h    ,    .    /    ret
-                                @sym spc  @nav      @met @sft @ctl
+                                ralt spc  @nav      @met @sft @ctl
           )
 
           (deflayer games
             @grl q    w    f    p    b    XX        del  j    l    u    y    '    bspc
             esc  a    r    s    t    g    XX        prnt m    n    e    i    o    ;   
             tab  z    x    c    d    v                        k    h    ,    .    /    ret
-                                @sym spc  sft       @met XX   ctl
+                                ralt spc  sft       @met XX   ctl
           )
 
-          (deflayer symbols 
-            @grl XX   XX   XX   XX   XX   XX        del  XX   7    8    9    -    bspc
-            esc  XX   XX   XX   XX   XX   XX        prnt XX   4    5    6    +    XX
-            tab  XX   XX   XX   XX   XX                  XX   1    2    3    .    ret
-                                @alt @sft @sym      @met 0    XX
-          )
+          ;;(deflayer symbols 
+          ;;  @grl XX   XX   XX   XX   XX   XX        del  XX   7    8    9    -    bspc
+          ;;  esc  XX   XX   XX   XX   XX   XX        prnt XX   4    5    6    +    XX
+          ;;  tab  XX   XX   XX   XX   XX                  XX   1    2    3    .    ret
+          ;;                      @alt @sft ralt      @met 0    XX
+          ;;)
 
           (deflayer nav 
             @grl XX   XX   up   XX   XX   XX        del  XX   XX   XX   XX   XX   bspc
             esc  XX   left rght down XX   XX        prnt XX   XX   XX   XX   XX   XX
             tab  XX   XX   XX   XX   XX                  XX   XX   XX   XX   XX   ret
-                                @alt @sft @sym      @met spc  @ctl
+                                @alt @sft ralt      @met spc  @ctl
           )
 
-          (deflayer layers
+          (deflayer modeswitch
             XX   @cmk @gam XX   XX   XX   XX        XX   XX   XX   XX   XX   XX   XX
             XX   XX   XX   XX   XX   XX   XX        XX   XX   XX   XX   XX   XX   XX
             XX   XX   XX   XX   XX   XX                  XX   XX   XX   XX   XX   XX

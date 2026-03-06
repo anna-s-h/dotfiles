@@ -1,0 +1,3 @@
+modules/homeManager.terminal/p10k.zsh linguist-generated=true
+flake.lock linguist-generated=true
+hosts/solanum/hardware-configuration.nix linguist-generated=true

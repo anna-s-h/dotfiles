@@ -4,7 +4,6 @@
     ./hardware-configuration.nix
     ./driver-configuration.nix
     ./nas.nix
-    ../../modules/nixos/keyboard.nix #TODO can I move this to user?
     ../../users/default.nix
   ];
 
@@ -23,6 +22,7 @@
   environment.systemPackages = with pkgs; [
     samba #TODO replace with something faster?
   ];
+
 
   fileSystems."/mnt/new_a" = {
     device = "/dev/disk/by-uuid/85cb773b-1d04-459d-b388-79cbde5b1c1e";

@@ -2,7 +2,7 @@
 
   services.displayManager.sddm = {
     enable = true;
-    wayland.enable = false;
+    wayland.enable = false; #TODO why?
   };
 
   hardware.graphics.enable = true;
