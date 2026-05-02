@@ -19,8 +19,7 @@
     # clear search from normal
     {  mode = ["n"];
       key = "<Esc>";
-      action = "vim.cmd.nohlsearch";
-      lua = true;
+      action.__raw = "vim.cmd.nohlsearch";
     }
 
     # use system clipboard
@@ -38,37 +37,31 @@
     # format whole file
     {  mode = "n";
       key = "<leader>=";
-      action = "vim.lsp.buf.format";
-      lua = true;
+      action.__raw = "vim.lsp.buf.format";
     }
 
     #view git (with tpope?)
     {  mode = "n";
       key = "<leader>g";
-      action = "vim.cmd.Git";
-      lua = true;
+      action.__raw = "vim.cmd.Git";
     }
 
     #view undotree
     { mode = "n";
       key = "<leader>u";
-      action = "vim.cmd.UndotreeToggle";
-      lua = true;
+      action.__raw = "vim.cmd.UndotreeToggle";
     }
 
     #finders
     { mode = "n";
       key = "<leader>ff";
-      action = "require('telescope.builtin').find_files";
-      lua = true;
+      action.__raw = "require('telescope.builtin').find_files";
     }{ mode = "n";
       key = "<leader>fg";
-      action = "require('telescope.builtin').git_files";
-      lua = true;
+      action.__raw = "require('telescope.builtin').git_files";
     }{ mode = "n"; # missing ripgrep
       key = "<leader>fs";
-      action = "function() require('telescope.builtin').grep_string({search=vim.fn.input(\"Grep > \")}) end";
-      lua = true;
+      action.__raw = "function() require('telescope.builtin').grep_string({search=vim.fn.input(\"Grep > \")}) end";
     }
 
     # --move selection as lines

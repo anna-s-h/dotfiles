@@ -10,7 +10,7 @@
         main = {
           font = "MesloLGS Nerd Font:size=14";
         };
-        colors = {
+        colors-dark = {
           alpha = 0.90;
           foreground = "${config.colors.common.foreground}";
           background = "${config.colors.common.background}";

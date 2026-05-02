@@ -43,6 +43,7 @@
         tweaks = ["normal"];
       };
     };
+    gtk4.theme = config.gtk.theme;
     iconTheme = {
       name = "Adwaita";
       package = pkgs.adwaita-icon-theme;
@@ -121,6 +122,7 @@
     ripgrep
     cachix
     devenv
+    libei # may fix steaminput?
   # project editors; TODO many should be moved to devenvs
     material-maker 
     #libreoffice

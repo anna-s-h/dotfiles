@@ -44,7 +44,11 @@
       };
       zsh.enable = true; #TODO modularize
       #kdeconnect.enable = true; #TODO modularize; no longer works?
-      steam.enable = true; #TODO can this be moved?
+      steam = { #TODO can this be moved?
+        extest.enable = true;
+        enable = true;
+        #gamescopeSession.enable = true;
+      };
       git = {
         enable = true;
         config = {
@@ -57,7 +61,7 @@
 
     #IPFS node; TODO Would be nice to move somewhere else, or make it not run all the time
     services.kubo = {
-      enable = true;
+      #enable = true;
       defaultMode = "offline";
       startWhenNeeded = true;
     };

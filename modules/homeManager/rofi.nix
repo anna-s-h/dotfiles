@@ -3,6 +3,7 @@
     enable = true;
     pass.enable = true;
     font = "mesloLGS Nerd Font Mono 14";
+    
     theme = let inherit (config.lib.formats.rasi) mkLiteral; in {
       "*" = {
         background-color = mkLiteral "transparent";
@@ -93,16 +94,16 @@
         size = mkLiteral "1em";
         padding = mkLiteral "0 4";
       };
-
     };
-    extraConfig = let inherit (config.lib.formats.rasi) mkLiteral; in {
+
+    #extraConfig = let inherit (config.lib.formats.rasi) mkLiteral; in {
       #drun-show-actions = mkLiteral "true";
-      modi = "drun,run,window";
+    #  modi = "drun,run,window";
       #kb-cancel = "Alt+space"; broken
       #kb-mode-next = "Super+space"; broken
-      scroll-method = mkLiteral "1";
-    };
-    plugins = with pkgs; [
-    ];
+    #  scroll-method = mkLiteral "1";
+    #};
+    #plugins = with pkgs; [
+    #];
   };
 }

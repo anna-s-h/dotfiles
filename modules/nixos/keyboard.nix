@@ -6,17 +6,6 @@
   config = lib.mkIf config.modules.keymap.enable {
     services.hardware.openrgb.enable = true;
 
-    #environment.etc."xkb/symbols/alternate_punct".source = pkgs.writeText "alternate_punct" ''
-    #xkb_symbols "basic" {
-    #  include "us"
-
-    #  key <AB08> { [ comma, semicolon ] };
-    #  key <AB09> { [ period, colon ] };
-    #  key <AB10> { [ question, exclam ] };
-    #  key <AC10> { [ underscore, minus ] };
-    #};
-    #'';
-
     services.kanata = {
       enable = true;
       keyboards = {
@@ -25,10 +14,10 @@
           extraDefCfg = "process-unmapped-keys yes";
           config = ''
           (defsrc
-            grv  q    w    e    r    t    \        del    y    u    i    o    p    bspc
-            esc  a    s    d    f    g    lctl     prnt   h    j    k    l    ;    '
-            tab  z    x    c    v    b                    n    m    ,    .    /    ret
-                                lsft spc  lalt     lmet   rsft rctl
+            grv  q    w    f    p    b    \        del    j    l    u    y    '    bspc
+            esc  a    r    s    t    g    lctl     prnt   m    n    e    i    o    ;
+            tab  z    x    c    d    v                    k    h    ,    .    /    ret
+                                lalt spc  ralt     lmet   rsft rctl
           )
 
           (defalias
@@ -38,7 +27,6 @@
             ;;qwr (layer-switch qwerty)
             gam (layer-switch games)
 
-            ;;sym (layer-toggle symbols)
             nav (layer-toggle nav)
 
             ;; modkey stickiness
@@ -46,32 +34,29 @@
             ctl (one-shot 500 lctl)
             met (one-shot 500 lmet)
             alt (one-shot 500 lalt)
+            sym (one-shot 500 ralt)
+
+            ;; experimental
+            tab (tap-hold 200 200 tab alt)    
           )
 
           (deflayer colemakdh
-            @grl q    w    f    p    b    XX        del  j    l    u    y    '    bspc
-            esc  a    r    s    t    g    @alt      prnt m    n    e    i    o    ;   
-            tab  z    x    c    d    v                        k    h    ,    .    /    ret
-                                ralt spc  @nav      @met @sft @ctl
+            @grl q    w    f    p    b    \         del  j    l    u    y    '    bspc
+            esc  a    r    s    t    g    @alt      prnt m    n    e    i    o    -   
+            @tab z    x    c    d    v                   k    h    ,    .    /    ret
+                                @nav spc  @sym      @met @sft @ctl
           )
 
           (deflayer games
             @grl q    w    f    p    b    XX        del  j    l    u    y    '    bspc
-            esc  a    r    s    t    g    XX        prnt m    n    e    i    o    ;   
-            tab  z    x    c    d    v                        k    h    ,    .    /    ret
-                                ralt spc  sft       @met XX   ctl
+            esc  a    r    s    t    g    XX        prnt m    n    e    i    o    -   
+            @tab z    x    c    d    v                   k    h    ,    .    /    ret
+                                ctl  spc  sft       @met @sym XX
           )
 
-          ;;(deflayer symbols 
-          ;;  @grl XX   XX   XX   XX   XX   XX        del  XX   7    8    9    -    bspc
-          ;;  esc  XX   XX   XX   XX   XX   XX        prnt XX   4    5    6    +    XX
-          ;;  tab  XX   XX   XX   XX   XX                  XX   1    2    3    .    ret
-          ;;                      @alt @sft ralt      @met 0    XX
-          ;;)
-
           (deflayer nav 
-            @grl XX   XX   up   XX   XX   XX        del  XX   XX   XX   XX   XX   bspc
-            esc  XX   left rght down XX   XX        prnt XX   XX   XX   XX   XX   XX
+            @grl XX   XX   XX   XX   XX   XX        ins  XX   XX   XX   XX   XX   bspc
+            esc  XX   XX   XX   XX   XX   XX        XX   left down up   rght XX   XX
             tab  XX   XX   XX   XX   XX                  XX   XX   XX   XX   XX   ret
                                 @alt @sft ralt      @met spc  @ctl
           )

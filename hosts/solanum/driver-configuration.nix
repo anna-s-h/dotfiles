@@ -15,7 +15,7 @@
     modesetting.enable = true; # Required!
     open = false;
     powerManagement.enable = true;
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
   };
 
   boot.kernelParams = [
