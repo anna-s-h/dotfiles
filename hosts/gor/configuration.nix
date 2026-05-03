@@ -2,9 +2,8 @@
   imports = [
     inputs.home-manager.nixosModules.default
     inputs.jovian.nixosModules.default
+    ./driver-configuration.nix
   ] ++ lib.optional (builtins.pathExists ./hardware-configuration.nix) ./hardware-configuration.nix;
-
-  networking.hostName = "gor";
 
   # Keep host setup minimal for now; no desktop/home-manager profile imported.
   users.users.gor = {
