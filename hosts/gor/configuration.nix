@@ -2,7 +2,6 @@
   imports = [
     inputs.home-manager.nixosModules.default
     inputs.jovian.nixosModules.default
-    ../../users/default.nix
   ] ++ lib.optional (builtins.pathExists ./hardware-configuration.nix) ./hardware-configuration.nix;
 
   networking.hostName = "GOR";
@@ -23,7 +22,7 @@
 
   programs.nh = {
     enable = true;
-    flake = "/home/solanum/dotfiles";
+    flake = "/home/gor/dotfiles";
   };
 
   system.stateVersion = "23.11";
