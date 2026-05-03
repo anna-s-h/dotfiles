@@ -33,5 +33,12 @@
     flake = "/home/gor/dotfiles";
   };
 
+  boot = {
+    loader.grub = {
+      enable = true;
+      device = "/dev/sda";
+    };
+  };
+
   system.stateVersion = "23.11";
 }
