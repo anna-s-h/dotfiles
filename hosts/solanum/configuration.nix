@@ -1,11 +1,10 @@
-{ config, pkgs, inputs, ... } : {
+{ config, lib, pkgs, inputs, ... } : {
   imports = [
     inputs.home-manager.nixosModules.default
-    ./hardware-configuration.nix
     ./driver-configuration.nix
     ./nas.nix
     ../../users/default.nix
-  ];
+  ] ++ lib.optional (builtins.pathExists ./hardware-configuration.nix) ./hardware-configuration.nix;
 
   user.solanum.enable = true;
 

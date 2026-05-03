@@ -50,5 +50,11 @@
           inputs.home-manager.nixosModules.default
         ];
       };
+      nixosConfigurations.gor = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs;};
+        modules = [
+          ./hosts/solanum/configuration.nix
+        ];
+      };
     };
 }
