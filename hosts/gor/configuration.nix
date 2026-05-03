@@ -4,10 +4,10 @@
     inputs.jovian.nixosModules.default
   ] ++ lib.optional (builtins.pathExists ./hardware-configuration.nix) ./hardware-configuration.nix;
 
-  networking.hostName = "GOR";
+  networking.hostName = "gor";
 
   # Keep host setup minimal for now; no desktop/home-manager profile imported.
-  users.users.deck = {
+  users.users.gor = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" ];
   };
@@ -16,8 +16,16 @@
   nixpkgs.config.allowUnfree = true;
 
   jovian = {
-    steam.enable = true;
-    devices.steamdeck.enable = true;
+    steam = {
+      enable = true;
+      #autoStart = true;
+      #desktopSession = hyprlandmaybeidkyet;
+    };
+    devices.steamdeck = {
+      enable = true;
+      autoUpdate = true;
+    };
+    decky-loader.enable = true;
   };
 
   programs.nh = {
