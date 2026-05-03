@@ -53,7 +53,7 @@
       nixosConfigurations.gor = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs;};
         modules = [
-          ./hosts/solanum/configuration.nix
+          ./hosts/gor/configuration.nix
         ];
       };
     };
