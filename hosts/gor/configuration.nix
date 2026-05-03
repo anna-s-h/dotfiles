@@ -35,7 +35,7 @@
   boot = {
     loader.grub = {
       enable = true;
-      device = "/dev/sda";
+      device =  "/dev/disk/by-uuid/5080-0D2E";
     };
   };
 
