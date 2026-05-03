@@ -33,10 +33,8 @@
   };
 
   boot = {
-    loader.grub = {
-      enable = true;
-      device =  "/dev/disk/by-uuid/5080-0D2E";
-    };
+    loader.systemd-boot.enable = true;
+    loader.efi.canTouchEfiVariables = true;
   };
 
   system.stateVersion = "23.11";

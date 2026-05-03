@@ -19,7 +19,7 @@
     };
 
   fileSystems."boot" =
-    { device = "/dev/disk/by-uuid/5080-0D2E";
+    { device = "/dev/disk/by-uuid/F58A-579B";
       fsType = "vfat";
       options = [ "fsmask=0077" "dmask=0077" ];
     };
