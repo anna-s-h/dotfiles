@@ -35,7 +35,7 @@
   boot = {
     loader.grub = {
       enable = true;
-      device = "/dev/disk/by-uuid/F58A-579B";
+      device = "/dev/disk/by-uuid/1dd0693a-de30-4076-b425-5dc28c17afd1";
       #theme = "${pkgs.fetchFromGitHub {
       #  owner = "Coopydood";
       #  repo = "HyperFluent-GRUB-Theme";
