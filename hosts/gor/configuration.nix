@@ -22,7 +22,7 @@
     };
     devices.steamdeck = {
       enable = true;
-      autoUpdate = true;
+      autoUpdate = false;
     };
     decky-loader.enable = true;
   };
