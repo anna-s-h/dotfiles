@@ -33,8 +33,17 @@
   };
 
   boot = {
-    loader.systemd-boot.enable = true;
-    loader.efi.canTouchEfiVariables = true;
+    loader.grub = {
+      enable = true;
+      device = "/dev/disk/by-uuid/F58A-579B";
+      #theme = "${pkgs.fetchFromGitHub {
+      #  owner = "Coopydood";
+      #  repo = "HyperFluent-GRUB-Theme";
+      #  rev = "a034f285421bc612b10adcdc8b4c4b804b5f337d";
+      #  hash = "sha256-BGcjH90Ucy6EIHHLKDh9AhrfIQbKOa3b2zkymT5aBB4=";
+      #}}/nixos";
+      #gfxmodeEfi = "1920x1080";
+    };
   };
 
   system.stateVersion = "23.11";
