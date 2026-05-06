@@ -35,7 +35,9 @@
   boot.loader.grub = {
     enable = true;
     device = "nodev";
-    #theme = "${pkgs.fetchFromGitHub {
+    efiSupport = true;
+    efiInstallAsRemovable = true;
+    #teme = "${pkgs.fetchFromGitHub {
     #  owner = "Coopydood";
     #  repo = "HyperFluent-GRUB-Theme";
     #  rev = "a034f285421bc612b10adcdc8b4c4b804b5f337d";
