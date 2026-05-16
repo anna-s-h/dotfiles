@@ -20,7 +20,7 @@
       "$tasks" = "[float] $terminal btop";
       "$notes" = "obsidian";
       "$notifications" = "astal toggle notifications";
-      "$clock" = "astal toggle clock";
+      "$clock" = "qs ipc call clock toggle";
       "$calendar" = "[float] $terminal cal";
       "$controllerbinds" = ""; #TODO ???
 
