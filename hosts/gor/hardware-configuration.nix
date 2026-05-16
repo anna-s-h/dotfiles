@@ -21,7 +21,6 @@
   fileSystems."/boot" =
     { device = "/6351-8343";
       fsType = "vfat";
-      neededForBoot = true;
       options = [ "fmask=0077" "dmask=0077" ];
     };
 
