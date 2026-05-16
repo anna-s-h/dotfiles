@@ -17,6 +17,7 @@
   jovian = {
     steam = {
       enable = true;
+      extraPackages = [ pkgs.hidapi ];
       #autoStart = true;
       #desktopSession = hyprlandmaybeidkyet;
     };

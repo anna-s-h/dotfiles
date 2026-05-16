@@ -151,7 +151,7 @@
     #})
   #games
     protonup-qt
-    lutris #needs config
+    #lutris #needs config
     r2modman
     dolphin-emu
     #yuzu #must package myself

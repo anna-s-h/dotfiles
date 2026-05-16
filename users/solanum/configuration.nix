@@ -35,6 +35,8 @@
 
     modules.keymap.enable = true; #TODO can I move this to user?
 
+    hardware.steam-hardware.enable = true; 
+
     programs = {
       wireshark.enable = true;
       hyprland = { #TODO can the module handle this?
@@ -46,6 +48,7 @@
       #kdeconnect.enable = true; #TODO modularize; no longer works?
       steam = { #TODO can this be moved?
         extest.enable = true;
+        extraPackages = [ pkgs.hidapi ];
         enable = true;
         #gamescopeSession.enable = true;
       };
