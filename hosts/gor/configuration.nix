@@ -32,18 +32,13 @@
     flake = "/home/gor/dotfiles";
   };
 
-  boot.loader.grub = {
-    enable = true;
-    device = "nodev";
-    efiSupport = true;
-    efiInstallAsRemovable = true;
-    #teme = "${pkgs.fetchFromGitHub {
-    #  owner = "Coopydood";
-    #  repo = "HyperFluent-GRUB-Theme";
-    #  rev = "a034f285421bc612b10adcdc8b4c4b804b5f337d";
-    #  hash = "sha256-BGcjH90Ucy6EIHHLKDh9AhrfIQbKOa3b2zkymT5aBB4=";
-    #}}/nixos";
-    #gfxmodeEfi = "1920x1080";
+  boot.loader = {
+    efi.canTouchEfiVariables = false;
+    systemd-boot = {
+      enable = true;
+      configurationLimit = 10;
+      editor = false;
+    };
   };
 
   system.stateVersion = "23.11";
