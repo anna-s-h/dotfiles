@@ -33,6 +33,7 @@
       };
       zsh.enable = true; #TODO modularize
       steam = { #TODO can this be moved?
+        extraPackages = [ pkgs.hidapi ];
         extest.enable = true;
         enable = true;
       };

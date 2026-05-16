@@ -143,7 +143,7 @@
     };
 
     transparent = {
-      enable = true;
+      #  enable = true;
     };
 
     hardtime = {
