@@ -50,34 +50,6 @@ Item { id: root
     }
   }
 
-  function iconSource(icon, fallback) {
-    if (icon && icon.length > 0) {
-      if (icon.startsWith("/") || icon.startsWith("file:")) {
-        return icon.startsWith("file:") ? icon : `file://${icon}`;
-      }
-
-      const themed = Quickshell.iconPath(icon, true);
-      if (themed.length > 0) {
-        return themed;
-      }
-    }
-
-    return fallback && fallback.length > 0 ? Quickshell.iconPath(fallback) : "";
-  }
-
-  function imageSource(image) {
-    if (!image || image.length === 0) {
-      return "";
-    }
-
-    if (image.startsWith("/") || image.startsWith("file:")) {
-      return image.startsWith("file:") ? image : `file://${image}`;
-    }
-
-    const themed = Quickshell.iconPath(image, true);
-    return themed.length > 0 ? themed : image;
-  }
-
   function urgencyColor() {
     switch (notification.urgency) {
     case NotificationUrgency.Critical:
@@ -155,7 +127,7 @@ Item { id: root
     border.color: root.urgencyColor()
 
     Column { id: contentColumn
-      spacing: 10
+      spacing: 8
 
       anchors {
         left: parent.left
@@ -170,27 +142,29 @@ Item { id: root
         width: parent.width
         height: Math.max(notifIcon.visible ? notifIcon.height : 0, headerText.implicitHeight)
         visible: summaryLine.visible || appRow.visible || notifIcon.visible
+        //anchors.verticalCenter: parent.verticalCenter
 
-        IconImage { id: notifIcon
-          width: visible ? 28 : 0
-          height: 28
+        Image { id: notifIcon
+          //width: visible ? 28 : 0
+          height: Math.max(headerText.implicitHeight, 32)
+          width: height
+          //source: Quickshell.iconPath(notification.image, true)
           //source: notificationImage.visible ? "" : root.iconSource(notification.appIcon || notification.desktopEntry, "dialog-information")
-          source: Quickshell.iconPath(notification.appIcon, "image-missing")
-          visible: source.length > 0
+          source: notification.image 
+          //Text {text: parent.source; font.pixelSize:16; color:"#FF00FF"; width: parent.parent.width; visible: true}
+          visible: source != ""
           anchors.verticalCenter: parent.verticalCenter
         }
 
         Column { id: headerText
-          spacing: 1
+          spacing: 0
           width: headerRow.width - notifIcon.width - (notifIcon.visible ? headerRow.spacing : 0)
 
-          height: 10
           anchors.verticalCenter: parent.verticalCenter
           visible: summaryLine.visible || appRow.visible
 
           Text { id: summaryLine
             width: parent.width
-            height: 10
             text: notification.summary
             visible: text.length > 0
             font.pointSize: 12
@@ -203,15 +177,25 @@ Item { id: root
           }
 
           Row { id: appRow
-            spacing: 4
-            width: parent.width
-            visible: notification.appName.length > 0 || appIcon.visible
+
+            anchors.left: parent.left
+            anchors.leftMargin: 10
+            spacing: 2
+            width: parent.width - 2
+            //height: implicitHeight
+            //visible: notification.appName.length > 0 || appIcon.visible
 
             IconImage { id: appIcon
-              width: visible ? 14 : 0
-              height: 14
-              source: root.iconSource(notification.appIcon || notification.desktopEntry, "application-x-executable")
-              visible: source.length > 0
+              //visible: status === Image.Ready
+              width: status === Image.Ready ? 14 : 0
+              //width: visible ? 14 : 0
+              height: width
+              //Rectangle { width: parent.width; height: parent.height; color:"#FF00FF"}
+              //source: Quickshell.iconPath(notification.appIcon || notification.desktopEntry, "image-missing")
+              source: Quickshell.iconPath(notification.appIcon, true)
+              //source: notification.appIcon || notification.desktopEntry
+              //visible: source != ""
+              //Text {text: parent.source; font.pixelSize:16; color:"#FF00FF"; width: parent.parent.width}
               anchors.verticalCenter: parent.verticalCenter
             }
 
@@ -221,11 +205,11 @@ Item { id: root
               font.pixelSize: 10
               color: "#bac2de"
               elide: Text.ElideRight
+              verticalAlignment: Text.AlignVCenter
             }
           }
         }
       }
-
 
       Rectangle {
         anchors.left: parent.left
@@ -248,15 +232,17 @@ Item { id: root
         anchors.right: parent.right
 
         Item { id: imageFrame
+          //width: 64
           width: notificationImage.visible ? 64 : 0
           height: width
           visible: width > 0
-
           Image { id: notificationImage
             anchors.fill: parent
             //source: root.imageSource(notification.image)
-            source: Quickshell.iconPath(notification.image, "image-missing")
-            visible: source.length > 0
+            source: notification.image
+            //visible: status === Image.Ready
+            //visible: source.length > 0
+            visible: source !== ""
             fillMode: Image.PreserveAspectCrop
             asynchronous: true
             mipmap: true
@@ -274,7 +260,7 @@ Item { id: root
           font.pointSize: 11
           color: "#cdd6f4"
           wrapMode: Text.WordWrap
-          textFormat: Text.RichText
+          textFormat: Text.AutoText
           linkColor: "#89b4fa"
         }
 
@@ -299,15 +285,6 @@ Item { id: root
             contentItem: Row {
               spacing: 6
               anchors.centerIn: parent
-
-              IconImage {
-                height:128
-                width: notification.image != "" ? height : 0
-                //source: notification.hasActionIcons ? root.iconSource(modelData.identifier, "") : ""
-                //source: Qt.resolvedUrl(root.notification.image)
-                source: Quickshell.iconPath(notification.appIcon, "image-missing")
-                visible: source.length > 0
-              }
 
               Text {
                 text: modelData.text
