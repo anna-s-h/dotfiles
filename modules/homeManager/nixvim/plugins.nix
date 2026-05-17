@@ -29,19 +29,6 @@
       enable = true;
     };
 
-    treesitter = {
-      enable = true;
-      settings = {
-        highlight = {
-          enable = true;
-        };
-        indent = {
-          enable = true;
-        };
-        #folding = true;
-      };
-    };
-
     fugitive.enable = true;
 
     web-devicons.enable = true;
@@ -53,6 +40,7 @@
         cssls.enable = true;
         ts_ls.enable = true;
         jsonls.enable = true;
+        qmlls.enable = true;
         #gdscript.enable = true;
         #rust_analyzer = {
         #  enable = true;
@@ -112,9 +100,9 @@
         #"<C-f>" = "cmp.mapping.scroll_docs(4)";
         "<C-Space>" = "cmp.mapping.complete()";
         #"<C-e>" = "cmp.mapping.close()";
-        "<C-j>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
-        "<C-k>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
-        "<C-l>" = "cmp.mapping.confirm({ select = true })";
+        "<C-Down>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
+        "<C-Up>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
+        "<C-Right>" = "cmp.mapping.confirm({ select = true })";
       };
       settings.sources = [
         { name = "nvim_lsp"; }
@@ -124,26 +112,8 @@
       ];
     };
 
-    #nvim-tree = {
-    #  enable = true;
-    #  view.side = "right";
-    #  hijackCursor = true;
-    #  actions.openFile.quitOnOpen = true;
-    #  actions.windowPicker.enable = true;
-    #  modified.enable = true;
-    #  tab.sync.close = true;
-    #  tab.sync.open = true;
-    #  renderer = {
-    #    icons.gitPlacement = "after";
-    #  };
-    #};
-
     yazi = {
       enable = true;
-    };
-
-    transparent = {
-      #  enable = true;
     };
 
     hardtime = {
@@ -162,10 +132,16 @@
 
     vim-surround.enable = true;
 
+    colorizer.enable = true;
+
     #quickfix? bqf? trouble?
 
   };
-  extraPlugins = [pkgs.vimPlugins."statuscol-nvim"];
+
+  extraPlugins = with pkgs.vimPlugins; [
+    statuscol-nvim
+    transparent-nvim
+  ];
   extraConfigLua = ''
     local builtin = require("statuscol.builtin")
     require('statuscol').setup({

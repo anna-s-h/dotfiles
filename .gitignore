@@ -1,1 +1,2 @@
-nixos/packages/*/result
+pkgs/*/result
+pkgs/plover

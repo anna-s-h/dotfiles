@@ -53,6 +53,13 @@
     "gtk-4.0/assets".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/assets";
     "gtk-4.0/gtk.css".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/gtk.css";
     "gtk-4.0/gtk-dark.css".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/gtk-dark.css";
+
+    "quickshell/default/shell.qml".source = ../../modules/homeManager/quickshell/shell.qml;
+    "quickshell/default/Clock.qml".source = ../../modules/homeManager/quickshell/Clock.qml;
+    "quickshell/default/Time.qml".source = ../../modules/homeManager/quickshell/Time.qml;
+    "quickshell/default/NotificationArea.qml".source = ../../modules/homeManager/quickshell/NotificationArea.qml;
+    "quickshell/default/NotificationCard.qml".source = ../../modules/homeManager/quickshell/NotificationCard.qml;
+    "quickshell/default/NotificationService.qml".source = ../../modules/homeManager/quickshell/NotificationService.qml;
   };
 
   home.sessionVariables = {

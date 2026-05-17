@@ -1,12 +1,13 @@
 { inputs, ... } : {
   imports = [ inputs.nixvim.homeModules.nixvim ];
-  programs.nixvim = {
+  programs.nixvim = {  
     imports = [
       ./plugins.nix
       ./remap.nix
       ./options.nix
     ];
     config = {
+      nixpkgs.config.allowUnfree = true;
       enable = true;
       defaultEditor = true;
       colorschemes.ayu = {
