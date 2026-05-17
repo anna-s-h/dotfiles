@@ -174,7 +174,8 @@ Item { id: root
         IconImage { id: notifIcon
           width: visible ? 28 : 0
           height: 28
-          source: notificationImage.visible ? "" : root.iconSource(notification.appIcon || notification.desktopEntry, "dialog-information")
+          //source: notificationImage.visible ? "" : root.iconSource(notification.appIcon || notification.desktopEntry, "dialog-information")
+          source: Quickshell.iconPath(notification.appIcon, "image-missing")
           visible: source.length > 0
           anchors.verticalCenter: parent.verticalCenter
         }
@@ -247,13 +248,14 @@ Item { id: root
         anchors.right: parent.right
 
         Item { id: imageFrame
-          width: notificationImage.visible || fallbackImage.visible ? 64 : 0
+          width: notificationImage.visible ? 64 : 0
           height: width
           visible: width > 0
 
           Image { id: notificationImage
             anchors.fill: parent
-            source: root.imageSource(notification.image)
+            //source: root.imageSource(notification.image)
+            source: Quickshell.iconPath(notification.image, "image-missing")
             visible: source.length > 0
             fillMode: Image.PreserveAspectCrop
             asynchronous: true
@@ -299,8 +301,11 @@ Item { id: root
               anchors.centerIn: parent
 
               IconImage {
-                implicitSize: 16
-                source: notification.hasActionIcons ? root.iconSource(modelData.identifier, "") : ""
+                height:128
+                width: notification.image != "" ? height : 0
+                //source: notification.hasActionIcons ? root.iconSource(modelData.identifier, "") : ""
+                //source: Qt.resolvedUrl(root.notification.image)
+                source: Quickshell.iconPath(notification.appIcon, "image-missing")
                 visible: source.length > 0
               }
 

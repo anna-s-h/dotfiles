@@ -53,7 +53,7 @@ Variants {
 
       mask: Region { item: clockBox }
 
-      Rectangle {
+      Rectangle { id: clockBox
         anchors.centerIn: parent
         radius: 12
         color: "#dd1e1e2e"
