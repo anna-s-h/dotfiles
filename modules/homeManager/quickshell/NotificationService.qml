@@ -9,6 +9,13 @@ Singleton {
   property NotificationServer server: NotificationServer {
     id: notiServer
     keepOnReload: true
+    actionsSupported: true
+    actionIconsSupported: true
+    imageSupported: true
+    bodyImagesSupported: true
+    bodyMarkupSupported: true
+    bodyHyperlinksSupported: true
+    persistenceSupported: true
     onNotification: notif => notif.tracked = true
   }
 }

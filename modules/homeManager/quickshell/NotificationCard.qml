@@ -11,8 +11,44 @@ Item { id: root
   property real timeoutProgress: 1
   property int timeoutMs: notification.expireTimeout > 0 ? notification.expireTimeout * 1000 : 10000
   property int elapsedMs: 0
+
+  property bool entering: true
+  property bool exiting: false
+  property string exitAction: ""
   
-  height: card.implicitHeight
+  implicitHeight: card.implicitHeight
+  height: implicitHeight
+  opacity: 0
+  x: 24
+  scale: 1
+  transformOrigin: Item.Center
+
+  Component.onCompleted: enterAnimation.start()
+
+  function beginExit(action) {
+    if (!root.exiting) {
+      root.exitAction = action || "";
+      root.exiting = true;
+      enterAnimation.stop();
+      progressTimer.stop();
+      expiryTimer.stop();
+      exitAnimation.start();
+    }
+  }
+
+  RetainableLock { id: notificationLock
+    object: root.notification
+    locked: true
+
+    onDropped: {
+      if (!root.exiting) {
+        root.exiting = true;
+        progressTimer.stop();
+        expiryTimer.stop();
+        exitAnimation.start();
+      }
+    }
+  }
 
   function iconSource(icon, fallback) {
     if (icon && icon.length > 0) {
@@ -53,6 +89,57 @@ Item { id: root
     }
   }
 
+  ParallelAnimation { id: enterAnimation
+    onStarted: root.entering = true
+    onFinished: root.entering = false
+
+    NumberAnimation {
+      target: root
+      property: "opacity"
+      from: 0
+      to: 1
+      duration: 1
+      easing.type: Easing.OutCubic
+    }
+
+    NumberAnimation {
+      target: root
+      property: "x"
+      from: card.width
+      to: 0
+      duration: 180
+      easing.type: Easing.OutCubic
+    }
+  }
+
+  ParallelAnimation { id: exitAnimation
+
+    NumberAnimation {
+      target: root
+      property: "opacity"
+      to: 0
+      duration: 120
+      easing.type: Easing.InCubic
+    }
+
+    NumberAnimation {
+      target: root
+      property: "scale"
+      to: 0
+      duration: 160
+      easing.type: Easing.InCubic
+    }
+
+    onFinished: {
+      if (root.exitAction === "dismiss") {
+        notification.dismiss();
+      } else if (root.exitAction === "expire") {
+        notification.expire();
+      }
+      notificationLock.locked = false
+    }
+  }
+
   Rectangle { id: card
     anchors {
       left: parent.left
@@ -77,45 +164,67 @@ Item { id: root
         margins: 9
       }
 
-      Row { id: summaryRow
+      Row { id: headerRow
         spacing: 8
 
-          IconImage { id: notifIcon
-            anchors.fill: parent
-            source: notificationImage.visible ? "" : root.iconSource(notification.appIcon || notification.desktopEntry, "dialog-information")
-            visible: source.length > 0
-          }
+        width: parent.width
+        height: Math.max(notifIcon.visible ? notifIcon.height : 0, headerText.implicitHeight)
+        visible: summaryLine.visible || appRow.visible || notifIcon.visible
 
-          Text {
-            text: notification.summary
-            font.pointSize: 12
-            font.bold: true
-            color: "#f5e0dc"
-            elide: Text.ElideRight
-            anchors.left: parent.left
-            anchors.right: parent.right
-          }
-      }
-
-      Row { id: appRow
-        spacing: 8
-
-        IconImage {
-          id: appIcon
-          implicitSize: 8
-          source: root.iconSource(notification.appIcon || notification.desktopEntry, "dialog-information")
+        IconImage { id: notifIcon
+          width: visible ? 28 : 0
+          height: 28
+          source: notificationImage.visible ? "" : root.iconSource(notification.appIcon || notification.desktopEntry, "dialog-information")
           visible: source.length > 0
           anchors.verticalCenter: parent.verticalCenter
         }
 
-        Text {
-          text: notification.appName || "Unknown app"
-          font.pixelSize: 8
-          font.bold: true
-          color: "#cdd6f4"
-          elide: Text.ElideRight
+        Column { id: headerText
+          spacing: 1
+          width: headerRow.width - notifIcon.width - (notifIcon.visible ? headerRow.spacing : 0)
+
+          height: 10
+          anchors.verticalCenter: parent.verticalCenter
+          visible: summaryLine.visible || appRow.visible
+
+          Text { id: summaryLine
+            width: parent.width
+            height: 10
+            text: notification.summary
+            visible: text.length > 0
+            font.pointSize: 12
+            font.bold: true
+            color: "#89b4fa"
+            elide: Text.ElideRight
+            maximumLineCount: 2
+            wrapMode: Text.WordWrap
+            verticalAlignment: Text.AlignVCenter
+          }
+
+          Row { id: appRow
+            spacing: 4
+            width: parent.width
+            visible: notification.appName.length > 0 || appIcon.visible
+
+            IconImage { id: appIcon
+              width: visible ? 14 : 0
+              height: 14
+              source: root.iconSource(notification.appIcon || notification.desktopEntry, "application-x-executable")
+              visible: source.length > 0
+              anchors.verticalCenter: parent.verticalCenter
+            }
+
+            Text {
+              width: appRow.width - appIcon.width - (appIcon.visible ? appRow.spacing : 0)
+              text: notification.appName || "Unknown app"
+              font.pixelSize: 10
+              color: "#bac2de"
+              elide: Text.ElideRight
+            }
+          }
         }
       }
+
 
       Rectangle {
         anchors.left: parent.left
@@ -155,29 +264,24 @@ Item { id: root
 
         }
 
-        Column { id: bodyColumn
-          spacing: 4
-          width: contentRow.width - imageFrame.width - (imageFrame.visible ? contentRow.spacing : 0)
 
-          Text {
-            text: notification.body
-            visible: text.length > 0
-            font.pointSize: 11
-            color: "#cdd6f4"
-            wrapMode: Text.WordWrap
-            textFormat: Text.RichText
-            anchors.left: parent.left
-            anchors.right: parent.right
-          }
+        Text { id: bodyText
+          width: contentRow.width - imageFrame.width - (imageFrame.visible ? contentRow.spacing : 0)
+          text: notification.body
+          visible: text.length > 0
+          font.pointSize: 11
+          color: "#cdd6f4"
+          wrapMode: Text.WordWrap
+          textFormat: Text.RichText
+          linkColor: "#89b4fa"
         }
+
       }
 
-      Row {
-        id: actionRow
+      Row { id: actionRow
         spacing: 6
         visible: notification.actions.length > 0
-        anchors.left: parent.left
-        anchors.right: parent.right
+        width: parent.width
 
         Repeater {
           model: notification.actions
@@ -223,7 +327,7 @@ Item { id: root
         anchors.right: parent.right
         height: 30
         text: "Dismiss"
-        onClicked: root.close("dismissed")
+        onClicked: root.beginExit("dismiss")
 
         contentItem: Text {
           text: parent.text
@@ -240,30 +344,23 @@ Item { id: root
         }
       }
     }
+  }
 
-    Timer {
-      id: progressTimer
-      interval: 1000 / 60
-      running: true
-      repeat: true
-      onTriggered: {
-        root.elapsedMs = Math.min(root.elapsedMs + interval, root.timeoutMs);
-        root.timeoutProgress = Math.max(0, 1 - root.elapsedMs / root.timeoutMs);
-      }
+  Timer { id: progressTimer
+    interval: 1000 / 60
+    running: true
+    repeat: true
+    onTriggered: {
+      root.elapsedMs = Math.min(root.elapsedMs + interval, root.timeoutMs);
+      root.timeoutProgress = Math.max(0, 1 - root.elapsedMs / root.timeoutMs);
     }
+  }
 
-    Timer {
-      // interval: (notification.expireTimeout > 0 ? notification.expireTimeout*1000 : 5000)
-      interval: root.timeoutMs
-      running: true
-      repeat: false
-      onTriggered:  notification.expire();
-    }
-
-    MouseArea {
-      anchors.fill: parent
-      onClicked: card.state = "closing"
-    }
-
+  Timer { id: expiryTimer
+    // interval: (notification.expireTimeout > 0 ? notification.expireTimeout*1000 : 5000)
+    interval: root.timeoutMs
+    running: true
+    repeat: false
+    onTriggered: root.beginExit("expire")
   }
 }

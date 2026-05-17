@@ -20,6 +20,10 @@ PanelWindow {
     spacing: 10
     anchors.fill: parent
 
+    displaced: Transition {
+      NumberAnimation { properties: "x,y"; duration: 100; easing.type: Easing.outQuart}
+    }
+
     delegate: NotificationCard {
       required property var modelData
       notification: modelData
