@@ -3,6 +3,7 @@
     inputs.home-manager.nixosModules.default
     inputs.jovian.nixosModules.default
     ./driver-configuration.nix
+    ../../users/default.nix
   ] ++ lib.optional (builtins.pathExists ./hardware-configuration.nix) ./hardware-configuration.nix;
 
   user.gor.enable = true;
