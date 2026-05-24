@@ -17,8 +17,8 @@
   jovian = {
     steam = {
       enable = true;
-      #autoStart = true;
-      #desktopSession = hyprlandmaybeidkyet;
+      autoStart = true;
+      desktopSession = "hyprland";
     };
     devices.steamdeck = {
       enable = true;

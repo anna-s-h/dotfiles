@@ -12,14 +12,14 @@
 
       "$terminal" = "foot";
       "$runner" = "rofi -show drun -show-icons";
-      "$search" = "astal menu";
+      "$search" = "qs ipc call maenu search";
       "$calculator" = "[float] qalculate-qt || hyprctl dispatch focuswindow title:Qalculate"; #TODO doesn't work to focus window
-      "$clipboard" = "astal toggle clipboard";
+      "$clipboard" = "qs ipc call clipboard toggle";
       "$fileManager" = "$terminal yazi";
-      "$menu" = "astal menu main";
+      "$menu" = "qs ipc call menu main";
       "$tasks" = "[float] $terminal btop";
       "$notes" = "obsidian";
-      "$notifications" = "astal toggle notifications";
+      "$notifications" = "qs ipc call notifications toggle";
       "$clock" = "qs ipc call clock toggle";
       "$calendar" = "[float] $terminal cal";
       "$controllerbinds" = ""; #TODO ???
@@ -89,16 +89,14 @@
         "$modb, K, movetoworkspace, 6"
         "$moda, H, workspace, 7"
         "$modb, H, movetoworkspace, 7"
-        "$moda, comma, exec, "
-        "$modb, comma, exec, "
-        "$moda, period, exec, "
-        "$modb, period, exec, "
-        "$moda, slash, exec, " #not sure if these will work
-        "$modb, slash, exec, "
-        "$moda, 8, workspace, 8"
-        "$modb, 8, movetoworkspace, 8"
-        "$moda, 9, workspace, 9"
-        "$modb, 9, movetoworkspace, 9"
+        "$moda, comma, workspace, 8"
+        "$modb, comma, movetoworkspace, 8"
+        "$moda, period, workspace, 9"
+        "$modb, period, movetoworkspace, 9"
+        "$moda, question, workspace, 10"
+        "$modb, question, movetoworkspace, 10"
+
+        #Deprecated
         "$moda, 0, movetoworkspacesilent, special:hidden"
         "$modb, 0, togglespecialworkspace, hidden"
         "$modb, 0, movetoworkspace, +0"
@@ -164,8 +162,18 @@
       workspace = [
         #"w[tv1], gapsout:0, gapsin:0"
         #"f[1], gapsout:0, gapsin:0"
-        "r[1-4], monitor: DP-1"
-        "r[6-9], monitor: HDMI-A-1"
+        #"r[1-4], monitor: DP-1"
+        #"r[6-9], monitor: HDMI-A-1"
+        " 1, persistent:true, monitor:DP-1"
+        " 2, persistent:true, monitor:DP-1"
+        " 3, persistent:true, monitor:DP-1"
+        " 4, persistent:true, monitor:DP-1"
+        " 5, persistent:true, monitor:DP-1"
+        " 6, persistent:true, monitor:HDMI-A-1"
+        " 7, persistent:true, monitor:HDMI-A-1"
+        " 8, persistent:true, monitor:HDMI-A-1"
+        " 9, persistent:true, monitor:HDMI-A-1"
+        "10, persistent:true, monitor:HDMI-A-1"
       ];
 
       #windowrulev2 = [

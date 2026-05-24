@@ -118,10 +118,8 @@
         highlight = {
           enable = true;
         };
-        #indent = {
-        #  enable = true;
-        #};
-        #folding = true;
+        indent.enable = false;
+        folding.enable = false;
       };
     };
 

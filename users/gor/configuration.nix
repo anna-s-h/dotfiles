@@ -32,8 +32,7 @@
         xwayland.enable = true;
       };
       zsh.enable = true; #TODO modularize
-      steam = { #TODO can this be moved?
-        extraPackages = [ pkgs.hidapi ];
+      steam = {
         extest.enable = true;
         enable = true;
       };

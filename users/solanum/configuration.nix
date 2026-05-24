@@ -48,7 +48,6 @@
       #kdeconnect.enable = true; #TODO modularize; no longer works?
       steam = { #TODO can this be moved?
         extest.enable = true;
-        extraPackages = [ pkgs.hidapi ];
         enable = true;
         #gamescopeSession.enable = true;
       };
