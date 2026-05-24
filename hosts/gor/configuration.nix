@@ -5,6 +5,8 @@
     ./driver-configuration.nix
   ] ++ lib.optional (builtins.pathExists ./hardware-configuration.nix) ./hardware-configuration.nix;
 
+  user.gor.enable = true;
+
   # Keep host setup minimal for now; no desktop/home-manager profile imported.
   users.users.gor = {
     isNormalUser = true;
