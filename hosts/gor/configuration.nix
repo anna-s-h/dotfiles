@@ -19,6 +19,7 @@
       enable = true;
       autoStart = true;
       desktopSession = "hyprland";
+      user = "gor";
     };
     devices.steamdeck = {
       enable = true;
