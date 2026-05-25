@@ -18,6 +18,15 @@
     flake = "/home/solanum/dotfiles";
   };
 
+  home-manager.sharedModules = [
+    {
+      modules.hyprland.monitorRules = [
+        "HDMI-A-1, preferred, auto, 1"
+        "DP-1, preferred, auto-left, 1, transform, 1"
+      ];
+    }
+  ];
+
   environment.systemPackages = with pkgs; [
     samba #TODO replace with something faster?
   ];

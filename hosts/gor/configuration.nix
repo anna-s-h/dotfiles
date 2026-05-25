@@ -36,6 +36,14 @@
     flake = "/home/gor/dotfiles";
   };
 
+  home-manager.sharedModules = [
+    {
+      modules.hyprland.monitorRules = [
+        "eDP-1, preferred, auto, 1"
+      ];
+    }
+  ];
+
   boot.loader = {
     efi = {
       canTouchEfiVariables = false;

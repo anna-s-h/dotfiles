@@ -1,6 +1,7 @@
 { config, pkgs, inputs, ... } : {
   imports = [
     #../../modules/homeManager/default.nix
+    ../../modules/homeManager/hyprland/hyprland.nix
     ../../modules/homeManager/firefox/firefox.nix
     ../../modules/homeManager/systemcolor/colors.nix
     ../../modules/homeManager/terminal/terminal.nix

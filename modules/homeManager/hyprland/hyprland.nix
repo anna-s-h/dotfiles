@@ -1,194 +1,122 @@
-{ inputs, config, pkgs, lib, osConfig, ... } : {
+{ inputs, config, pkgs, lib, osConfig, ... } :
+let
+  cfg = config.modules.hyprland;
+in {
+  options.modules.hyprland = {
+    enable = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Enable the shared Hyprland home-manager module.";
+    };
+    monitorRules = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [ ];
+      description = "Host-specific monitor layout rules.";
+    };
+    binds = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [ ];
+      description = "User-specific keybinds.";
+    };
+  };
 
-  wayland.windowManager.hyprland = {
-    enable = true;
-    plugins = [ ];
-    systemd.variables = ["--all"];
+  config = lib.mkIf cfg.enable {
 
-    settings = {
-      # See https://wiki.hyprland.org/Configuring/Keywords/ for more
-      "$moda" = "SUPER";
-      "$modb" = "SUPER_MOD5";
+    wayland.windowManager.hyprland = {
+      enable = true;
+      plugins = [ ];
+      systemd.variables = ["--all"];
 
-      "$terminal" = "foot";
-      "$runner" = "rofi -show drun -show-icons";
-      "$search" = "qs ipc call maenu search";
-      "$calculator" = "[float] qalculate-qt || hyprctl dispatch focuswindow title:Qalculate"; #TODO doesn't work to focus window
-      "$clipboard" = "qs ipc call clipboard toggle";
-      "$fileManager" = "$terminal yazi";
-      "$menu" = "qs ipc call menu main";
-      "$tasks" = "[float] $terminal btop";
-      "$notes" = "obsidian";
-      "$notifications" = "qs ipc call notifications toggle";
-      "$clock" = "qs ipc call clock toggle";
-      "$calendar" = "[float] $terminal cal";
-      "$controllerbinds" = ""; #TODO ???
+      settings = {
+        # See https://wiki.hyprland.org/Configuring/Keywords/ for more
+        "$moda" = "SUPER";
+        "$modb" = "SUPER_MOD5";
 
-      bind = [
-        #Main binds
-        "$moda, space, exec, $runner"
-        "$modb, space, exec, $search" #doesnt really work when both of these are the same thumb
-        "$moda, A, exec, " 
-        "$modb, A, exec, " 
-        "$moda, R, exec, "
-        "$modb, R, exec, $calculator"
-        "$moda, S, togglespecialworkspace, magic"
-        "$modb, S, movetoworkspace, special:magic"
-        "$moda, T, exec, $clock"
-        "$modb, T, exec, $calendar"
-        "$moda, G, togglefloating"
-        "$modb, G, pin"
+        "$terminal" = "foot";
+        "$runner" = "rofi -show drun -show-icons";
+        "$search" = "qs ipc call maenu search";
+        "$calculator" = "[float] qalculate-qt || hyprctl dispatch focuswindow title:Qalculate"; #TODO doesn't work to focus window
+        "$clipboard" = "qs ipc call clipboard toggle";
+        "$fileManager" = "$terminal yazi";
+        "$menu" = "qs ipc call menu main";
+        "$tasks" = "[float] $terminal btop";
+        "$notes" = "obsidian";
+        "$notifications" = "qs ipc call notifications toggle";
+        "$clock" = "qs ipc call clock toggle";
+        "$calendar" = "[float] $terminal cal";
+        "$controllerbinds" = ""; #TODO ???
+ 
+        bind = cfg.binds;
 
-        "$moda, M, exec, $menu"
-        "$modb, M, exec, $tasks"
-        "$moda, N, exec, $notes"
-        "$modb, N, exec, $notifications"
-        "$moda, E, exec, $fileManager"
-        "$modb, E, exec, "
-        "$moda, I, exec, "
-        "$modb, I, exec, "
-        "$moda, O, exec, "
-        "$modb, O, exec, "
-        "$moda, minus, togglespecialworkspace, term"
-        "$modb, minus, exec, $terminal"
+        bindm = [
+          #Move/resize windows
+          "$moda, mouse:272, movewindow"
+          "$moda, mouse:273, resizewindow"
+        ];
 
-        "$moda, Q, exec, "
-        "$modb, Q, exec, " 
-        "$moda, W, killactive"
-        "$modb, W, forcekillactive" 
-        "$moda, F, fullscreen, 1"
-        "$modb, F, fullscreen, 0"
-        "$moda, P, togglespecialworkspace, passwords"
-        "$modb, P, exec, $clipboard"
-        "$moda, B, exec, "
-        "$modb, B, exec, "
+        bindel = [
+          #Control audio volume
+          ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%+"
+          ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%-"
+        ];
 
-        "$moda, J, exec, "
-        "$moda, J, exec, "
-        "$modb, L, exec, " 
-        "$modb, L, exec, " 
-        "$moda, U, exec, "
-        "$modb, U, exec, "
-        "$moda, Y, exec, $controllerbinds"
-        "$modb, Y, exec, "
-        "$modb, apostrophe, exec, " 
-        "$modb, apostrophe, exec, " 
+        bindl = [
+          #Control other media
+          ", XF86AudioPlay, exec, playerctl play-pause"
+          ", XF86AudioNext, exec, playerctl next"
+          ", XF86AudioPrev, exec, playerctl previous"
+        ];
 
-        "$moda, Z, workspace, 1" 
-        "$modb, Z, movetoworkspace, 1" 
-        "$moda, X, workspace, 2" 
-        "$modb, X, movetoworkspace, 2" 
-        "$moda, C, workspace, 3"
-        "$modb, C, movetoworkspace, 3"
-        "$moda, D, workspace, 4"
-        "$modb, D, movetoworkspace, 4"
-        "$moda, V, workspace, 5"
-        "$modb, V, movetoworkspace, 5"
-        
-        "$moda, K, workspace, 6"
-        "$modb, K, movetoworkspace, 6"
-        "$moda, H, workspace, 7"
-        "$modb, H, movetoworkspace, 7"
-        "$moda, comma, workspace, 8"
-        "$modb, comma, movetoworkspace, 8"
-        "$moda, period, workspace, 9"
-        "$modb, period, movetoworkspace, 9"
-        "$moda, question, workspace, 10"
-        "$modb, question, movetoworkspace, 10"
+        misc = {
+          enable_anr_dialog="false";
+          focus_on_activate="true";
+          key_press_enables_dpms="true";
+        };
 
-        #Deprecated
-        "$moda, 0, movetoworkspacesilent, special:hidden"
-        "$modb, 0, togglespecialworkspace, hidden"
-        "$modb, 0, movetoworkspace, +0"
+        exec-once = [
+          "bash ~/dotfiles/startup.sh" #TODO remove entirely
+          "[workspace special:term silent] $terminal" #TODO make unkillable?
+          "[workspace special:hidden silent] kdeconnect-app"
+          "[workspace special:hidden silent] antimicrox"
+          #"swww init && swww img ~/dotfiles/wallpapers/quantum-moon.png"
+          "hypridle"
+          "solanoid"
+        ];
 
-        #Screenshots
-        "     , Print, exec, screenshot window"
-        "$moda, Print, exec, screenshot monitor"
-        "$modb, Print, exec, screenshot full"
+        #windowrule = [
+        #  "opacity 0.99, obsidian" #doesn't help. obsidian transparency is just broken.
+        #];
 
-        #Move focus
-        "$moda, left,  movefocus, l"
-        "$moda, right, movefocus, r"
-        "$moda, up,    movefocus, u"
-        "$moda, down,  movefocus, d"
+        workspace = [
+          #"w[tv1], gapsout:0, gapsin:0"
+          #"f[1], gapsout:0, gapsin:0"
+          #"r[1-4], monitor: DP-1"
+          #"r[6-9], monitor: HDMI-A-1"
+          " 1, persistent:true, monitor:DP-1"
+          " 2, persistent:true, monitor:DP-1"
+          " 3, persistent:true, monitor:DP-1"
+          " 4, persistent:true, monitor:DP-1"
+          " 5, persistent:true, monitor:DP-1"
+          " 6, persistent:true, monitor:HDMI-A-1"
+          " 7, persistent:true, monitor:HDMI-A-1"
+          " 8, persistent:true, monitor:HDMI-A-1"
+          " 9, persistent:true, monitor:HDMI-A-1"
+          "10, persistent:true, monitor:HDMI-A-1"
+        ];
 
-        #History focus
-        #TODO
+#windowrulev2 = [
+#"noinitialfocus, workspace special:passwords, class:(keepass)"
+#"bordersize 0, floating:0, onworkspace:w[tv1]"
+#"rounding 0, floating:0, onworkspace:w[tv1]"
+#"bordersize 0, floating:0, onworkspace:f[1]"
+#"rounding 0, floating:0, onworkspace:f[1]"
+#];
 
-        #Move window with mainmod + shift + arrows
-        #TODO
+#layerrule = [
+#  "blur on,rofi"
+#];
 
-      ];
-
-      bindm = [
-        #Move/resize windows
-        "$moda, mouse:272, movewindow"
-        "$moda, mouse:273, resizewindow"
-      ];
-
-      bindel = [
-        #Control audio volume
-        ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%+"
-        ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%-"
-      ];
-
-      bindl = [
-        #Control other media
-        ", XF86AudioPlay, exec, playerctl play-pause"
-        ", XF86AudioNext, exec, playerctl next"
-        ", XF86AudioPrev, exec, playerctl previous"
-      ];
-
-      misc = {
-        enable_anr_dialog="false";
-        focus_on_activate="true";
-        key_press_enables_dpms="true";
-      };
-
-      exec-once = [
-        "bash ~/dotfiles/startup.sh" #TODO remove entirely
-        "[workspace special:term silent] $terminal" #TODO make unkillable?
-        "[workspace special:hidden silent] kdeconnect-app"
-        "[workspace special:hidden silent] antimicrox"
-        #"swww init && swww img ~/dotfiles/wallpapers/quantum-moon.png"
-        "hypridle"
-        "solanoid"
-      ];
-
-      #windowrule = [
-      #  "opacity 0.99, obsidian" #doesn't help. obsidian transparency is just broken.
-      #];
-
-      workspace = [
-        #"w[tv1], gapsout:0, gapsin:0"
-        #"f[1], gapsout:0, gapsin:0"
-        #"r[1-4], monitor: DP-1"
-        #"r[6-9], monitor: HDMI-A-1"
-        " 1, persistent:true, monitor:DP-1"
-        " 2, persistent:true, monitor:DP-1"
-        " 3, persistent:true, monitor:DP-1"
-        " 4, persistent:true, monitor:DP-1"
-        " 5, persistent:true, monitor:DP-1"
-        " 6, persistent:true, monitor:HDMI-A-1"
-        " 7, persistent:true, monitor:HDMI-A-1"
-        " 8, persistent:true, monitor:HDMI-A-1"
-        " 9, persistent:true, monitor:HDMI-A-1"
-        "10, persistent:true, monitor:HDMI-A-1"
-      ];
-
-      #windowrulev2 = [
-        #"noinitialfocus, workspace special:passwords, class:(keepass)"
-        #"bordersize 0, floating:0, onworkspace:w[tv1]"
-        #"rounding 0, floating:0, onworkspace:w[tv1]"
-        #"bordersize 0, floating:0, onworkspace:f[1]"
-        #"rounding 0, floating:0, onworkspace:f[1]"
-      #];
-
-      #layerrule = [
-      #  "blur on,rofi"
-      #];
-
-      animations = {
+        animations = {
           enabled = "yes";
 
           # https://wiki.hyprland.org/Configuring/Animations/
@@ -204,79 +132,70 @@
             "layers, 1, 7, overshot, slide"
             "layersOut, 1, 7, default, popin 80%"
             "border, 1, 10, default"
-           #"borderangle, 1, 8, default"
+            #"borderangle, 1, 8, default"
             "borderangle, 1, 100, linear, loop"
             "fade, 1, 7, default"
             "workspaces, 1, 6, default"
           ];
-      };
-
-      monitor = [
-        "HDMI-A-1, preferred, auto, 1"
-        "DP-1, preferred, auto-left, 1, transform, 1"
-      ];
-
-      input = {
-        follow_mouse = "2"; #0 (do nothing) might be better than 2 (mouse focus independent, key focus on click)
-        float_switch_override_focus = "0";
-      } // lib.optionalAttrs osConfig.modules.keymap.enable {
-        kb_file = "/home/solanum/dotfiles/modules/nixos/keymap.xkb";
-      };
-
-      device = [
-        {
-          #name = "foostan-corne-v4-keyboard";
-          #kb_layout = "alternate_punct";
-        }
-      ];
-
-      env = [
-        "HYPRCURSOR_THEME,rose-pine-hyprcursor"
-        #"XKB_CONFIG_ROOT,/etc/xkb-custom:/usr/share/X11/xkb"
-        #"XCURSOR_SIZE,24"
-        #"QT_QPA_PLATFORMTHEME,qt5ct"
-      ];
-
-      dwindle = {
-        smart_split = "true";
-      };
-
-      general = { #defaults
-        # See https://wiki.hyprland.org/Configuring/Variables/ for more
-
-        gaps_in = "4";
-        gaps_out = "8";
-        border_size = "2";
-        "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
-        "col.inactive_border" = "rgba(595959aa)";
-        #"col.active_border" = "rgba(${config.colorScheme.colors.base0C}ee) rgba(${config.colorScheme.colors.base0D}ee) 45deg";
-        #"col.inactive_border" = "rgba(${config.colorScheme.colors.base03}aa)";
-
-        layout = "dwindle";
-
-        # Please see https://wiki.hyprland.org/Configuring/Tearing/ before you turn this on
-        allow_tearing = "false";
-      };
-
-      decoration = { # defaults
-        # See https://wiki.hyprland.org/Configuring/Variables/ for more
-
-        rounding = "4";
-
-        blur = {
-          enabled = "true";
-          size = "3";
-          passes = "1";
-          special = true; #might be doubling up?
+        };
+  
+        monitor = cfg.monitorRules;
+        
+        input = {
+          follow_mouse = "2"; # 0 (do nothing) might be better than 2 (mouse focus independent, key focus on click)
+          float_switch_override_focus = "0";
+        } // lib.optionalAttrs osConfig.modules.keymap.enable {
+          kb_file = "/home/solanum/dotfiles/modules/nixos/keymap.xkb";
         };
 
-        shadow = {
-          enabled = "true";
-          range = "12";
-          render_power = "2";
-          ignore_window = "true";
-          color = "0xee001a1a";
-          color_inactive = "0x00000000";
+        env = [
+          "HYPRCURSOR_THEME,rose-pine-hyprcursor"
+          #"XKB_CONFIG_ROOT,/etc/xkb-custom:/usr/share/X11/xkb"
+          #"XCURSOR_SIZE,24"
+          #"QT_QPA_PLATFORMTHEME,qt5ct"
+        ];
+
+        dwindle = {
+          smart_split = "true";
+        };
+
+        general = { #defaults
+          # See https://wiki.hyprland.org/Configuring/Variables/ for more
+
+          gaps_in = "4";
+          gaps_out = "8";
+          border_size = "2";
+          "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
+          "col.inactive_border" = "rgba(595959aa)";
+          #"col.active_border" = "rgba(${config.colorScheme.colors.base0C}ee) rgba(${config.colorScheme.colors.base0D}ee) 45deg";
+          #"col.inactive_border" = "rgba(${config.colorScheme.colors.base03}aa)";
+
+          layout = "dwindle";
+
+          # Please see https://wiki.hyprland.org/Configuring/Tearing/ before you turn this on
+          allow_tearing = "false";
+        };
+
+        decoration = { # defaults
+          # See https://wiki.hyprland.org/Configuring/Variables/ for more
+
+          rounding = "4";
+
+          blur = {
+            enabled = "true";
+            size = "3";
+            passes = "1";
+            special = true; #might be doubling up?
+          };
+
+          shadow = {
+            enabled = "true";
+            range = "12";
+            render_power = "2";
+            ignore_window = "true";
+            color = "0xee001a1a";
+            color_inactive = "0x00000000";
+          };
         };
       };
     };
