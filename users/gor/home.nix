@@ -10,6 +10,105 @@
 
   modules.terminal.enable = true;
   colors = import ../../modules/homeManager/systemcolor/custom-mirage.nix {inherit config;};
+  modules.hyprland = {
+    enable = true;
+    binds = [
+          #Main binds
+          "$moda, space, exec, $runner"
+          "$modb, space, exec, $search" #doesnt really work when both of these are the same thumb
+          "$moda, A, exec, " 
+          "$modb, A, exec, " 
+          "$moda, R, exec, "
+          "$modb, R, exec, $calculator"
+          "$moda, S, togglespecialworkspace, magic"
+          "$modb, S, movetoworkspace, special:magic"
+          "$moda, T, exec, $clock"
+          "$modb, T, exec, $calendar"
+          "$moda, G, togglefloating"
+          "$modb, G, pin"
+
+          "$moda, M, exec, $menu"
+          "$modb, M, exec, $tasks"
+          "$moda, N, exec, $notes"
+          "$modb, N, exec, $notifications"
+          "$moda, E, exec, $fileManager"
+          "$modb, E, exec, "
+          "$moda, I, exec, "
+          "$modb, I, exec, "
+          "$moda, O, exec, "
+          "$modb, O, exec, "
+          "$moda, minus, togglespecialworkspace, term"
+          "$modb, minus, exec, $terminal"
+
+          "$moda, Q, exec, "
+          "$modb, Q, exec, " 
+          "$moda, W, killactive"
+          "$modb, W, forcekillactive" 
+          "$moda, F, fullscreen, 1"
+          "$modb, F, fullscreen, 0"
+          "$moda, P, togglespecialworkspace, passwords"
+          "$modb, P, exec, $clipboard"
+          "$moda, B, exec, "
+          "$modb, B, exec, "
+
+          "$moda, J, exec, "
+          "$moda, J, exec, "
+          "$modb, L, exec, " 
+          "$modb, L, exec, " 
+          "$moda, U, exec, "
+          "$modb, U, exec, "
+          "$moda, Y, exec, $controllerbinds"
+          "$modb, Y, exec, "
+          "$modb, apostrophe, exec, " 
+          "$modb, apostrophe, exec, " 
+
+          "$moda, Z, workspace, 1" 
+          "$modb, Z, movetoworkspace, 1" 
+          "$moda, X, workspace, 2" 
+          "$modb, X, movetoworkspace, 2" 
+          "$moda, C, workspace, 3"
+          "$modb, C, movetoworkspace, 3"
+          "$moda, D, workspace, 4"
+          "$modb, D, movetoworkspace, 4"
+          "$moda, V, workspace, 5"
+          "$modb, V, movetoworkspace, 5"
+
+          "$moda, K, workspace, 6"
+          "$modb, K, movetoworkspace, 6"
+          "$moda, H, workspace, 7"
+          "$modb, H, movetoworkspace, 7"
+          "$moda, comma, workspace, 8"
+          "$modb, comma, movetoworkspace, 8"
+          "$moda, period, workspace, 9"
+          "$modb, period, movetoworkspace, 9"
+          "$moda, question, workspace, 10"
+          "$modb, question, movetoworkspace, 10"
+
+          #Deprecated
+          "$moda, 0, movetoworkspacesilent, special:hidden"
+          "$modb, 0, togglespecialworkspace, hidden"
+          "$modb, 0, movetoworkspace, +0"
+
+          #Screenshots
+          "     , Print, exec, screenshot window"
+          "$moda, Print, exec, screenshot monitor"
+          "$modb, Print, exec, screenshot full"
+
+          #Move focus
+          "$moda, left,  movefocus, l"
+          "$moda, right, movefocus, r"
+          "$moda, up,    movefocus, u"
+          "$moda, down,  movefocus, d"
+
+          #History focus
+          #TODO
+            
+          #Move window with mainmod + shift + arrows
+          #TODO
+
+        ];
+  };
+
 
   home.username = "gor";
   home.homeDirectory = "/home/gor";
