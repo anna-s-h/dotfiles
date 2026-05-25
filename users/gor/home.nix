@@ -68,43 +68,15 @@
           "$modb, X, movetoworkspace, 2" 
           "$moda, C, workspace, 3"
           "$modb, C, movetoworkspace, 3"
-          "$moda, D, workspace, 4"
-          "$modb, D, movetoworkspace, 4"
-          "$moda, V, workspace, 5"
-          "$modb, V, movetoworkspace, 5"
-
-          "$moda, K, workspace, 6"
-          "$modb, K, movetoworkspace, 6"
-          "$moda, H, workspace, 7"
-          "$modb, H, movetoworkspace, 7"
-          "$moda, comma, workspace, 8"
-          "$modb, comma, movetoworkspace, 8"
-          "$moda, period, workspace, 9"
-          "$modb, period, movetoworkspace, 9"
-          "$moda, question, workspace, 10"
-          "$modb, question, movetoworkspace, 10"
-
-          #Deprecated
-          "$moda, 0, movetoworkspacesilent, special:hidden"
-          "$modb, 0, togglespecialworkspace, hidden"
-          "$modb, 0, movetoworkspace, +0"
+          "$moda, V, workspace, 4"
+          "$modb, V, movetoworkspace, 4"
+          "$moda, B, workspace, 5"
+          "$modb, B, movetoworkspace, 5"
 
           #Screenshots
           "     , Print, exec, screenshot window"
           "$moda, Print, exec, screenshot monitor"
           "$modb, Print, exec, screenshot full"
-
-          #Move focus
-          "$moda, left,  movefocus, l"
-          "$moda, right, movefocus, r"
-          "$moda, up,    movefocus, u"
-          "$moda, down,  movefocus, d"
-
-          #History focus
-          #TODO
-            
-          #Move window with mainmod + shift + arrows
-          #TODO
 
         ];
   };

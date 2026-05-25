@@ -192,7 +192,6 @@ in {
             enabled = "true";
             range = "12";
             render_power = "2";
-            ignore_window = "true";
             color = "0xee001a1a";
             color_inactive = "0x00000000";
           };
