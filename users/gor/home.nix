@@ -15,26 +15,17 @@
     binds = [
           #Main binds
           "$moda, space, exec, $runner"
-          "$moda, R, exec, steamosctl switch-to-game-mode"
-          "$modb, R, exec, $calculator"
-          "$moda, S, togglespecialworkspace, magic"
-          "$modb, S, movetoworkspace, special:magic"
-          "$moda, T, exec, $clock"
-          "$modb, T, exec, $calendar"
+          "$moda, R, exit"
           "$moda, G, togglefloating"
-          "$modb, G, pin"
+          "$modb, H, pin"
 
           "$moda, N, exec, $notifications"
           "$moda, E, exec, $fileManager"
           "$moda, L, togglespecialworkspace, term"
-          "$modb, L, exec, $terminal"
+          "$moda, semicolon, exec, $terminal"
 
           "$moda, W, killactive"
-          "$modb, W, forcekillactive" 
           "$moda, F, fullscreen, 1"
-          "$modb, F, fullscreen, 0"
-          "$moda, P, togglespecialworkspace, passwords"
-          "$modb, P, exec, $clipboard"
 
           "$moda, Y, exec, $controllerbinds"
 
