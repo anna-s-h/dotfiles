@@ -6,6 +6,8 @@
     ../../modules/homeManager/systemcolor/colors.nix
     ../../modules/homeManager/terminal/terminal.nix
     ../../modules/homeManager/nixvim/nixvim.nix
+    ../../modules/homeManager/yazi.nix
+    ../../modules/homeManager/rofi.nix
   ];
 
   modules.terminal.enable = true;
