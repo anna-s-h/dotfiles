@@ -39,7 +39,7 @@
   home-manager.sharedModules = [
     {
       modules.hyprland.monitorRules = [
-        "eDP-1, preferred, auto, transform, 1, 1"
+        "eDP-1, preferred, auto, 1, transform, 1"
       ];
     }
   ];
