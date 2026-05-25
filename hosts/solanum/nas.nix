@@ -27,10 +27,10 @@ in{
     options = ["${automount_opts},${nas_credentials}"];
   };
 
-  #fileSystems."/mnt/NAS/sync" = { #TODO get synology sync working instead
-  #  device = "//192.168.8.183/Sync";
-  #  fsType = "cifs";
-  #  options = ["${automount_opts},${nas_credentials}"];
-  #};
+  fileSystems."/mnt/NAS/sync" = { #TODO get synology sync working instead
+    device = "//10.0.0.68/Sync";
+    fsType = "cifs";
+    options = ["${automount_opts},${nas_credentials}"];
+  };
 
 }

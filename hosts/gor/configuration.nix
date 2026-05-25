@@ -4,6 +4,7 @@
     inputs.jovian.nixosModules.default
     ./driver-configuration.nix
     ../../users/default.nix
+    ../solanum/nas.nix
   ] ++ lib.optional (builtins.pathExists ./hardware-configuration.nix) ./hardware-configuration.nix;
 
   user.gor.enable = true;
@@ -56,6 +57,18 @@
       efiInstallAsRemovable = true;
     };
   };
+
+  nix.distributedBuilds = true;
+
+  nix.buildMachines = [{
+    hostName = "192.168.1.50"; # IP or hostname of your remote builder
+    system = "x86_64-linux";   # Architecture of the remote machine
+    sshUser = "root";          # Or your dedicated builder user
+    sshKey = "";
+    maxJobs = 4;               # Max concurrent jobs to send to this builder
+    speedFactor = 2;           # Higher number = faster machine
+    supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
+  }];
 
   system.stateVersion = "23.11";
 }
