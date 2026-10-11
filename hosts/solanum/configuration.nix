@@ -2,7 +2,7 @@
   imports = [
     inputs.home-manager.nixosModules.default
     ./driver-configuration.nix
-    ./nas.nix
+    ../nas.nix
     ../../users/default.nix
   ] ++ lib.optional (builtins.pathExists ./hardware-configuration.nix) ./hardware-configuration.nix;
 
@@ -23,6 +23,7 @@
       modules.hyprland.monitorRules = [
         "HDMI-A-1, preferred, auto, 1"
         "DP-1, preferred, auto-left, 1, transform, 1"
+        "DP-2, 1920x1080@119.88Hz, auto-up, 1"
       ];
     }
   ];

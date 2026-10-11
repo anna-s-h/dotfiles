@@ -5,7 +5,22 @@
 
   config = lib.mkIf config.modules.keymap.enable {
     services.hardware.openrgb.enable = true;
-
+    
+    services.keyd = {
+      enable = true;
+      keyboards = {
+        mouse = {
+          ids = ["1532:00b2:19ad785e"];
+          settings = {
+            main = {
+              mouse2 = "rightshift";
+              mouse1 = "rightcontrol";
+            };
+          };
+        };
+      };
+    };
+    
     services.kanata = {
       enable = true;
       keyboards = {
@@ -30,7 +45,7 @@
             nav (layer-toggle nav)
 
             ;; modkey stickiness
-            sft (one-shot 500 lsft)
+            sft (fork (one-shot 500 lsft) 0 (ralt))
             ctl (one-shot 500 lctl)
             met (one-shot 500 lmet)
             alt (one-shot 500 lalt)
@@ -51,14 +66,14 @@
             @grl q    w    f    p    b    XX        del  j    l    u    y    '    bspc
             esc  a    r    s    t    g    XX        prnt m    n    e    i    o    -   
             @tab z    x    c    d    v                   k    h    ,    .    /    ret
-                                ctl  spc  sft       @met @sym XX
+                                ctl  spc  lalt      @met @sft @sym
           )
 
           (deflayer nav 
-            @grl XX   XX   XX   XX   XX   XX        ins  XX   XX   XX   XX   XX   bspc
-            esc  XX   XX   XX   XX   XX   XX        XX   left down up   rght XX   XX
-            tab  XX   XX   XX   XX   XX                  XX   XX   XX   XX   XX   ret
-                                @alt @sft ralt      @met spc  @ctl
+            @grl f1   f2   f3   f4   f5   f6        ins  XX   XX   XX   XX   XX   bspc
+            esc  f7   f8   f9   f10  f11  f12       XX   left down up   rght XX   XX
+            tab  f13  f14  XX   XX   XX                  XX   XX   XX   XX   XX   ret
+                                @alt @sft lalt      @met spc  @ctl
           )
 
           (deflayer modeswitch

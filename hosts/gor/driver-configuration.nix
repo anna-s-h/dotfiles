@@ -22,6 +22,15 @@
     LC_TIME = "en_US.UTF-8";
   };
 
+  boot.kernel.sysfs = {
+    kernel.mm.transparent_hugepage = {
+      enabled = "madvise";
+      defrag = "defer";
+      shmem_enabled = "advise";
+      khugepaged.defrag=1;
+    };
+  };
+
   hardware.bluetooth.enable = true;
 
   services.pulseaudio.enable = false;

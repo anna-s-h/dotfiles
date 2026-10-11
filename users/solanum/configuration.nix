@@ -21,6 +21,7 @@
         config.services.kubo.group
         "input"
         "uinput"
+        "tty"
       ];
       shell = pkgs.zsh;
     };
@@ -67,6 +68,9 @@
       defaultMode = "offline";
       startWhenNeeded = true;
     };
+
+    services.gvfs.enable = true;
+    services.udisks2.enable = true;
 
     virtualisation.waydroid.enable = true;
 

@@ -24,6 +24,15 @@
     "nvidia_drm.fbdev=1" 
   ];
 
+  boot.kernel.sysfs = {
+    kernel.mm.transparent_hugepage = {
+      enabled = "madvise";
+      defrag = "defer";
+      shmem_enabled = "advise";
+      khugepaged.defrag=1;
+    };
+  };
+
   time.timeZone = "America/New_York";
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.extraLocaleSettings = {
@@ -53,11 +62,29 @@
     #media-session.enable = true;
   };
 
+  services.resolved = {
+    enable = true;
+    #extraConfig = ''
+    #  DNSStubListener=yes
+    #  Cache=yes
+    #  DNSOverTLS=yes
+    #'';
+  };
+
   networking.hostName = "solanum";
-  networking.networkmanager.enable = true;
+  networking.networkmanager = {
+    enable = true;
+    dns = "systemd-resolved";
+  };
+  networking.nameservers = [
+    "8.8.8.8#dns.google"
+    "8.8.4.4#dns.google"
+    "2001:4860:4860::8888#dns.google"
+    "2001:4860:4860::8844#dns.google"
+  ];
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
+  # networking.firewall.allowedTCPPorts = [ 25565 ];
+  # networking.firewall.allowedUDPPorts = [ 24454 5353 ];
   # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  networking.firewall.enable = false;
 }

@@ -228,6 +228,9 @@
     cachix
     devenv
     libei # may fix steaminput?
+    udiskie
+    udisks
+    usbutils
   # project editors; TODO many should be moved to devenvs
     material-maker 
     #libreoffice
@@ -254,6 +257,7 @@
     #    --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [libpulseaudio libGL glfw openal stdenv.cc.cc.lib]}"
     #  '';
     #})
+    #graphite
   #games
     protonup-qt
     #lutris #needs config

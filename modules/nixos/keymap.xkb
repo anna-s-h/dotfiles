@@ -1493,21 +1493,21 @@ xkb_symbols "pc_us_inet(evdev)" {
 	key <LCTL>               {	[ Control_L           ] };
 
   //main left
-	key <AD01>               {	[ q,          Q, numbersign   ] };
+	key <AD01>               {	[ q,          Q, dollar       ] };
 	key <AD02>               {	[ w,          W, at           ] };
-	key <AC04>               {	[ f,          F, less         ] };
-	key <AD10>               {	[ p,          P, greater      ] };
-	key <AB05>               {	[ b,          B, bar          ] };
+	key <AC04>               {	[ f,          F, numbersign   ] };
+	key <AD10>               {	[ p,          P, percent      ] };
+	key <AB05>               {	[ b,          B, ampersand    ] };
 	key <AC01>               {	[ a,          A, bracketleft  ] };
-	key <AD04>               {	[ r,          R, bracketright ] };
+	key <AD04>               {	[ r,          R, braceleft    ] };
 	key <AC02>               {	[ s,          S, parenleft    ] };
-	key <AD05>               {	[ t,          T, parenright   ] };
+	key <AD05>               {	[ t,          T, less         ] };
 	key <AC05>               {	[ g,          G, equal        ] };
-	key <AB01>               {	[ z,          Z, dollar       ] };
-	key <AB02>               {	[ x,          X, percent      ] };
-	key <AB03>               {	[ c,          C, braceleft    ] };
-	key <AC03>               {	[ d,          D, braceright   ] };
-	key <AB04>               {	[ v,          V, ampersand    ] };
+	key <AB01>               {	[ z,          Z, bracketright ] };
+	key <AB02>               {	[ x,          X, braceright   ] };
+	key <AB03>               {	[ c,          C, parenright   ] };
+	key <AC03>               {	[ d,          D, greater      ] };
+	key <AB04>               {	[ v,          V, bar          ] };
 
   //main right
 	key <AC07>               {	[ j,          J,         slash ] };

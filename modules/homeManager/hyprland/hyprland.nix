@@ -77,7 +77,6 @@ in {
           "bash ~/dotfiles/startup.sh" #TODO remove entirely
           "[workspace special:term silent] $terminal" #TODO make unkillable?
           "[workspace special:hidden silent] kdeconnect-app"
-          "[workspace special:hidden silent] antimicrox"
           #"swww init && swww img ~/dotfiles/wallpapers/quantum-moon.png"
           "hypridle"
           "solanoid"
@@ -146,6 +145,11 @@ in {
           float_switch_override_focus = "0";
         } // lib.optionalAttrs osConfig.modules.keymap.enable {
           kb_file = "/home/solanum/dotfiles/modules/nixos/keymap.xkb";
+        };
+
+        device = {
+          name = "valve-software-steam-controller-puck-mouse-3";
+          scroll_factor = 0.5;
         };
 
         env = [

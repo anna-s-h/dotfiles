@@ -4,7 +4,7 @@
     inputs.jovian.nixosModules.default
     ./driver-configuration.nix
     ../../users/default.nix
-    ../solanum/nas.nix
+    ../nas.nix
   ] ++ lib.optional (builtins.pathExists ./hardware-configuration.nix) ./hardware-configuration.nix;
 
   user.gor.enable = true;
@@ -69,6 +69,10 @@
     speedFactor = 2;           # Higher number = faster machine
     supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
   }];
+
+  services.upower = {
+    enable = true;
+  };
 
   system.stateVersion = "23.11";
 }
